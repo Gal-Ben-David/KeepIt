@@ -1,5 +1,6 @@
-import { loadFromStorage, makeId, saveToStorage } from '../../../services/util.service.js'
+import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
+import { localStorageService } from '../../../services/storage.service.js'
 
 const MAIL_KEY = 'mailDB'
 _createMails()
@@ -38,12 +39,12 @@ function query(filterBy = {}) {
             }
             if (filterBy.isStared) {
                 mails = mails.filter(mail => {
-                    if(mail.stared) mail.isStared === filterBy.isStared
+                    if (mail.stared) mail.isStared === filterBy.isStared
                 })
             }
             if (filterBy.labels) {
                 mails = mails.filter(mail => {
-                    if(mail.labels) {
+                    if (mail.labels) {
                         mail.labels.every(label => filterBy.labels.includes(label))
                     }
                 })
@@ -89,7 +90,7 @@ function getDefaultFilter() {
 }
 
 function _createMails() {
-    let mails = loadFromStorage(MAIL_KEY)
+    let mails = localStorageService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = [
             _createMail('Google', 'Add your email to your account'),
@@ -97,13 +98,13 @@ function _createMails() {
             _createMail('Bank Leumi', 'New Leumi advice for your bank account'),
             _createMail('Spotify', 'Add family members to your spotify account')
         ]
-        saveToStorage(MAIL_KEY, mails)
+        localStorageService.saveToStorage(MAIL_KEY, mails)
     }
 }
 
 function _createMail(subject, body, setAt = 1551133930594, createdAt = 1551112410594, from = 'momo@momo.com', to = 'user@appsus.com') {
     const mail = getEmptyMail(subject, body, setAt, createdAt, from, to)
-    mail.id = makeId()
+    mail.id = utilService.makeId()
     mail.isRead = false
     mail.removedAt = null
     return mail
