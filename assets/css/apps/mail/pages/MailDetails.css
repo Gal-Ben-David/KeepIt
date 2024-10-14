@@ -1,0 +1,5 @@
+.mail-details{
+    padding-inline-start: calc(var( --width-side-filter-mail));
+    margin-inline-start: 1em;
+    margin-block-start: 1em;
+}

@@ -2,13 +2,18 @@
     display: grid;
     grid-template-columns: 14em 1fr;
     justify-items: center;
+    align-items: center;
 
     background-color: var(--crl-mail-bg);
-    height: 2em;
+    height: 3.2em;
 }
 
 .search-bar-container {
     grid-column: 2;
+}
+
+.top-filter button{
+    cursor: pointer;
 }
 
 .search-bar {
@@ -16,7 +21,6 @@
     width: clamp(20em, 50vw, 800em);
     display: flex;
     align-items: center;
-
 }
 
 .search-bar-container button {
@@ -41,6 +45,7 @@
     background-color: var(--crl-mail-search-bar);
     height: 2.875em;
     width: 100%;
+    padding-inline-start: 4em;
 }
 
 .side-filter {
@@ -48,12 +53,12 @@
     display: flex;
     flex-direction: column;
 
-    width: 14em;
+    width: var(--width-side-filter-mail);
 
     background-color: var(--crl-mail-bg);
 
     inset-inline-start: 0;
-    top: 7em;
+    top: 6.6em;
     bottom: 0;
 
 }
@@ -71,6 +76,8 @@
     background-color: inherit;
     color: #202124;
     margin-inline-end: 1em;
+
+    cursor: pointer;
 }
 
 .side-filter button:hover {
