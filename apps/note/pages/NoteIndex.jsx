@@ -11,7 +11,7 @@ export function NoteIndex() {
 
     useEffect(() => {
         loadNotes()
-    }, [notes])
+    }, [])
 
     function loadNotes() {
         noteService.query()
@@ -58,12 +58,21 @@ export function NoteIndex() {
                 console.log(note)
                 console.log('Note added')
                 showSuccessMsg('Note has been saved successfully')
+                loadNotes()
+                setNoteToAdd(noteService.getEmptyNote())
             })
             .catch(err => {
                 console.log('err:', err)
                 showErrorMsg(`Problems saving note`)
             })
+    }
 
+    function onRemoveNote(noteId) {
+        noteService.remove(noteId)
+            .then(() => {
+                setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
+            })
+            .catch(err => console.error('Error removing book:', err))
     }
 
     if (!notes) return <div>Loading...</div>
@@ -90,7 +99,7 @@ export function NoteIndex() {
                 <button>Save</button>
             </form>
 
-            <NotePreview notes={notes} />
+            <NotePreview notes={notes} onRemoveNote={onRemoveNote} />
 
         </section>
 

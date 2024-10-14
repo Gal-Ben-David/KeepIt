@@ -1,4 +1,4 @@
-export function NotePreview({ notes }) {
+export function NotePreview({ notes, onRemoveNote }) {
 
     return (
         <ul className="notes">
@@ -6,6 +6,7 @@ export function NotePreview({ notes }) {
                 <li key={note.id}>
                     <h2>{note.noteTitle}</h2>
                     <p>{note.info.txt}</p>
+                    <button onClick={() => onRemoveNote(note.id)}>Delete</button>
                 </li>
             )}
 
