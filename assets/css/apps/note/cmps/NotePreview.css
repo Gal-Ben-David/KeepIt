@@ -20,4 +20,9 @@ ul.notes {
     border-radius: 0.6em;
     border: 1px solid #bdc1c6;
     width: 300px;
+    height: max-content;
+}
+
+.notes img {
+    border-radius: 0.7em;
 }

@@ -26,6 +26,7 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote }) {
                     <li key={note.id} style={{ backgroundColor: note.style.backgroundColor }}>
                         <h2>{note.noteTitle}</h2>
                         <p>{note.info.txt}</p>
+                        {note.info.imgUrl && <img src={note.info.imgUrl} />}
                         <button onClick={() => onRemoveNote(note.id)}><i className="fa-solid fa-trash"></i></button>
                         <button onClick={() => handleEditClick(note)}>Edit</button>
                         <button onClick={() => onPinNote(note)}>{note.isPinned ? 'Pinned' : 'Pin'}</button>

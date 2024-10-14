@@ -3,13 +3,14 @@ import { NotePreview } from '../cmps/NotePreview.jsx'
 import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-const { useState, useEffect } = React
+const { useState, useEffect, Fragment } = React
 
 export function NoteIndex() {
 
     const [notes, setNotes] = useState(null)
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+    const [cmpType, setCmpType] = useState('NoteTxt')
 
     useEffect(() => {
         loadNotes()
@@ -107,7 +108,6 @@ export function NoteIndex() {
 
             <section className="new-note">
                 <form className="add-note-form" onSubmit={onSubmit}>
-                    {/* <label htmlFor="txt">Vendor</label> */}
                     <input
                         type="text"
                         name="noteTitle"
@@ -121,6 +121,8 @@ export function NoteIndex() {
                         placeholder="New note..."
                         onChange={handleInfoChange} />
 
+                    <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} />
+
                     <input
                         type="color"
                         className="control-color"
@@ -128,6 +130,10 @@ export function NoteIndex() {
                         name="style"
                         onChange={handleChange} />
 
+                    <button
+                        type='button'
+                        title="Add image"
+                        onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
                     <button>Save</button>
                 </form>
 
@@ -135,5 +141,37 @@ export function NoteIndex() {
 
             </section>
         </section>
+    )
+}
+
+function DynamicCmp(props) {
+    switch (props.cmpType) {
+        case 'NoteTxt':
+            return <CreateNoteByTextbox {...props} />
+        case 'NoteImg':
+            return <CreateNoteByImg {...props} />
+        case 'NoteTodos':
+            return <CreateNoteByTodos {...props} />
+        default:
+            return null
+    }
+}
+
+function CreateNoteByTextbox({ handleChange, handleInfoChange }) {
+    return (
+        <Fragment>
+
+        </Fragment>
+    )
+}
+
+function CreateNoteByImg({ handleInfoChange }) {
+    return (
+        <input
+            type="text"
+            name="imgUrl"
+            id="imgUrl"
+            placeholder="Enter an image url"
+            onChange={handleInfoChange} />
     )
 }
