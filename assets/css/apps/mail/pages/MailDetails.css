@@ -1,5 +1,65 @@
-.mail-details{
-    padding-inline-start: calc(var( --width-side-filter-mail));
-    margin-inline-start: 1em;
+.mail-details {
+    /* padding-inline-start: calc(var( --width-side-filter-mail)); */
+    margin-inline-start: 16em;
+    margin-inline-end: 1em;
     margin-block-start: 1em;
+    border-radius: 1em;
+    background-color: white;
+}
+
+body {
+    /* background-color: var(--clr-mail-bg); */
+    background-color: #F6F8FC;
+}
+
+.mail-details h1 {
+    font-size: 1.375em;
+    margin-bottom: 1em;
+}
+
+.paging-btn-container {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 1em;
+    padding: 1em;
+}
+
+/* .paging-btn-container>* {} */
+
+.tools-bar img {
+    width: 1.7em;
+}
+
+.tools-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tools-bar button {
+    background-color: inherit;
+    border: 0px;
+}
+
+.mail-main{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-inline-start: 2em;
+    padding: 1em;
+}
+
+.mail-main h1{
+    font-weight: 100;
+}
+
+.from-info{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.from-info img{
+    border-radius: 50%;
+    width: 3em;
 }
