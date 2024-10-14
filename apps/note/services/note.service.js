@@ -50,7 +50,7 @@ function save(note) {
     }
 }
 
-function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', isPinned = false, style = { backgroundColor: '#444444' }, info = { txt: '' }) {
+function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', isPinned = false, style = { backgroundColor: '#f5f5f5' }, info = { txt: '' }) {
     return { createdAt, type, noteTitle, isPinned, style, info }
 }
 
@@ -69,14 +69,14 @@ function _createNotes() {
                 'NoteTxt',
                 'Hi new Note',
                 false,
-                { backgroundColor: '#444444' },
+                { backgroundColor: '#eaece5' },
                 { txt: 'Fullstack Me Baby!' }),
 
             _createNote(1112223,
                 'NoteImg',
                 'Hi new Note',
                 false,
-                { backgroundColor: '#444444' },
+                { backgroundColor: '#eaece5' },
                 {
                     url: 'https://media.4-paws.org/5/4/4/c/544c2b2fd37541596134734c42bf77186f0df0ae/VIER%20PFOTEN_2017-10-20_164-3854x2667-1920x1329.jpg',
                     title: 'Tiger',

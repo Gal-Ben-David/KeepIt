@@ -32,6 +32,11 @@ export function NoteIndex() {
             case 'checkbox':
                 value = target.checked
                 break
+
+            case 'color':
+                value = { backgroundColor: value }
+                break
+
         }
         setNoteToAdd((prevNote) => ({ ...prevNote, [field]: value }))
     }
@@ -100,7 +105,8 @@ export function NoteIndex() {
                     type="color"
                     className="control-color"
                     id="color-input"
-                    value="#eaece5" />
+                    name="style"
+                    onChange={handleChange} />
 
                 <button>Save</button>
             </form>

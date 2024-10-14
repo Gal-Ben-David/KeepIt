@@ -23,10 +23,10 @@ export function NotePreview({ notes, onRemoveNote, loadNotes }) {
         <Fragment>
             <ul className="notes">
                 {notes.map(note =>
-                    <li key={note.id}>
+                    <li key={note.id} style={{ backgroundColor: note.style.backgroundColor }}>
                         <h2>{note.noteTitle}</h2>
                         <p>{note.info.txt}</p>
-                        <button onClick={() => onRemoveNote(note.id)}>Delete</button>
+                        <button onClick={() => onRemoveNote(note.id)}><i className="fa-solid fa-trash"></i></button>
                         <button onClick={() => handleEditClick(note)}>Edit</button>
                     </li>
                 )}

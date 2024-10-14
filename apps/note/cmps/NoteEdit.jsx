@@ -19,6 +19,10 @@ export function NoteEdit({ note, onCloseModal, loadNotes }) {
             case 'checkbox':
                 value = target.checked
                 break
+
+            case 'color':
+                value = { backgroundColor: value }
+                break
         }
         setNoteToEdit((prevNote) => ({ ...prevNote, [field]: value }))
     }
@@ -76,6 +80,14 @@ export function NoteEdit({ note, onCloseModal, loadNotes }) {
                     placeholder="New note..."
                     value={noteToEdit.info.txt}
                     onChange={handleInfoChange} />
+
+                <input
+                    type="color"
+                    className="control-color"
+                    id="color-input"
+                    name="style"
+                    value={noteToEdit.style.backgroundColor}
+                    onChange={handleChange} />
 
                 <button>Save</button>
             </form>

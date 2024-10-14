@@ -30,11 +30,10 @@
  }
 
  input.control-color {
-     grid-row: 2;
-     justify-self: center;
 
      width: 30px;
      height: 30px;
+     padding: 0.1em;
 
      border: 1px solid rgb(220, 220, 220);
      border-radius: 5px;
