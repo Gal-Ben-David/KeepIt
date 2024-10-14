@@ -100,6 +100,21 @@ export function NoteIndex() {
             .catch(err => console.error('Error pin a book:', err))
     }
 
+    function onDuplicateNote(note) {
+        const noteToDuplicate = { ...note, id: '' }
+        noteService.save(noteToDuplicate)
+            .then(() => {
+                console.log('note duplicated')
+                showSuccessMsg('Note has been duplicated successfully')
+                loadNotes()
+            })
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg(`Problems duplicating note`)
+            })
+
+    }
+
     if (!notes) return <div>Loading...</div>
 
     return (
@@ -137,7 +152,12 @@ export function NoteIndex() {
                     <button>Save</button>
                 </form>
 
-                <NotePreview notes={notes} onRemoveNote={onRemoveNote} loadNotes={loadNotes} onPinNote={onPinNote} />
+                <NotePreview
+                    notes={notes}
+                    onRemoveNote={onRemoveNote}
+                    loadNotes={loadNotes}
+                    onPinNote={onPinNote}
+                    onDuplicateNote={onDuplicateNote} />
 
             </section>
         </section>
