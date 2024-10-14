@@ -3,16 +3,21 @@
 }
 
 ul.notes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 18em);
+    display: flex;
+    flex-wrap: wrap;
+    /* grid-template-columns: repeat(auto-fit, 18em); */
     gap: 20px;
 
-    width: 300px;
+    width: 80vw;
+    max-width: 1300px;
+    padding: 0;
 }
 
 .notes li {
     list-style-type: none;
     background-color: whitesmoke;
     padding: 1em;
-    border-radius: 1em;
+    border-radius: 0.6em;
+    border: 1px solid #bdc1c6;
+    width: 300px;
 }

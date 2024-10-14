@@ -58,18 +58,21 @@ export function NoteIndex() {
 
     function onSubmit(ev) {
         ev.preventDefault()
-        noteService.save(noteToAdd)
-            .then(note => {
-                console.log(note)
-                console.log('Note added')
-                showSuccessMsg('Note has been saved successfully')
-                loadNotes()
-                setNoteToAdd(noteService.getEmptyNote())
-            })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg(`Problems saving note`)
-            })
+        if (noteToAdd.noteTitle === '' && noteToAdd.info.txt === '') return console.log('empty note')
+        else {
+            noteService.save(noteToAdd)
+                .then(note => {
+                    console.log(note)
+                    console.log('Note added')
+                    showSuccessMsg('Note has been saved successfully')
+                    loadNotes()
+                    setNoteToAdd(noteService.getEmptyNote())
+                })
+                .catch(err => {
+                    console.log('err:', err)
+                    showErrorMsg(`Problems saving note`)
+                })
+        }
     }
 
     function onRemoveNote(noteId) {

@@ -50,7 +50,7 @@ function save(note) {
     }
 }
 
-function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', isPinned = false, style = { backgroundColor: '#f5f5f5' }, info = { txt: '' }) {
+function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', isPinned = false, style = { backgroundColor: '#ffffff' }, info = { txt: '' }) {
     return { createdAt, type, noteTitle, isPinned, style, info }
 }
 
@@ -67,14 +67,14 @@ function _createNotes() {
         notes = [
             _createNote(1112222,
                 'NoteTxt',
-                'Hi new Note',
+                'New Note',
                 false,
                 { backgroundColor: '#eaece5' },
                 { txt: 'Fullstack Me Baby!' }),
 
             _createNote(1112223,
                 'NoteImg',
-                'Hi new Note',
+                'New Note',
                 false,
                 { backgroundColor: '#eaece5' },
                 {
