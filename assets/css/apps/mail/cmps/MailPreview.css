@@ -1,0 +1,7 @@
+.mail-preview{
+    display: grid;
+    grid-template-columns: 2fr 7fr 1fr ;
+    justify-content: space-between;
+    padding: 0.625em;
+    
+}

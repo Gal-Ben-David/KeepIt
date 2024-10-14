@@ -1,9 +1,7 @@
 .top-filter{
     display: flex;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
+    background-color: var(--crl-mail-bg);
+    height: 2em;
         
 }
 
@@ -16,7 +14,7 @@
     display: flex;
     flex-direction: column;
     background-color: var(--crl-mail-bg);
-    right: 0;
-    top: 4em;
+    inset-inline-start: 0;
+    top: 7em;
     bottom: 0;
 }
