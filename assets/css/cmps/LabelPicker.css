@@ -1,0 +1,10 @@
+.labels {
+    display: flex;
+    gap: 1em;
+}
+
+.labels li {
+    padding: 0.5em;
+    background-color: var(--crl-label);
+    border-radius: 0.5em;
+}
