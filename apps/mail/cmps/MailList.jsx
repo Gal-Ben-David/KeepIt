@@ -13,6 +13,4 @@ export function MailList({ mails }) {
             )}
         </ul>
     )
-
-
 }

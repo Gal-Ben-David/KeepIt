@@ -10,8 +10,7 @@
 
  ul.mail-list {
      list-style-type: none;
-     padding-inline-start: 0.5em;
-     margin-inline-start: 3em;
+     padding-inline-start: 14em;
  }
 
  .mail-list li {

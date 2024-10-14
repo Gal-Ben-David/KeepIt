@@ -3,3 +3,7 @@
  .mail-index{
     background-color: var(--crl-mail-bg);
  }
+
+ .mail-index button{
+    cursor: pointer;
+ }

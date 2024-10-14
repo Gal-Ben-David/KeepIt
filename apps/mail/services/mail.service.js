@@ -78,8 +78,8 @@ function save(mail) {
     }
 }
 
-function getEmptyMail(subject = '', body = '', sentAt = '', createdAt = '', from = '', to = '') {
-    return { subject, body, sentAt, createdAt, from, to }
+function getEmptyMail(subject = '', body = '', isRead = false, sentAt = '', createdAt = '', from = '', to = '') {
+    return { subject, body, isRead, sentAt, createdAt, from, to }
 }
 
 function getDefaultFilter() {
@@ -93,19 +93,18 @@ function _createMails() {
     let mails = localStorageService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = [
-            _createMail('Google', 'Add your email to your account'),
+            _createMail('Google', 'Add your email to your account', true, 1551136510594, 1521111410594),
             _createMail('Youtube', 'Connect to out new service Youtube Music!'),
-            _createMail('Bank Leumi', 'New Leumi advice for your bank account'),
+            _createMail('Bank Leumi', 'New Leumi advice for your bank account', true),
             _createMail('Spotify', 'Add family members to your spotify account')
         ]
         localStorageService.saveToStorage(MAIL_KEY, mails)
     }
 }
 
-function _createMail(subject, body, setAt = 1551133930594, createdAt = 1551112410594, from = 'momo@momo.com', to = 'user@appsus.com') {
-    const mail = getEmptyMail(subject, body, setAt, createdAt, from, to)
+function _createMail(subject, body, isRead = false, setAt = 1551133930594, createdAt = 1551112410594, from = 'momo@momo.com', to = 'user@appsus.com') {
+    const mail = getEmptyMail(subject, body, isRead, setAt, createdAt, from, to)
     mail.id = utilService.makeId()
-    mail.isRead = false
     mail.removedAt = null
     return mail
 }

@@ -1,0 +1,10 @@
+.long-txt{
+    display: flex;
+    align-items: center;
+}
+
+.show-txt-btn{
+    background-color: white;
+    border: 0px;
+    color: gray;
+}
