@@ -19,21 +19,27 @@ function get(entityType, entityId) {
     })
 }
 
-function post(entityType, newEntity) {
-    newEntity = {...newEntity}
+function post(entityType, newEntity, isPinned = false) {
+    newEntity = { ...newEntity }
     newEntity.id = _makeId()
     return query(entityType).then(entities => {
-        entities.push(newEntity)
+        if (isPinned) entities.unshift(newEntity)
+        else entities.push(newEntity)
         _save(entityType, entities)
         return newEntity
     })
 }
 
-function put(entityType, updatedEntity) {
+function put(entityType, updatedEntity, isPinned = false) {
     return query(entityType).then(entities => {
-        const idx = entities.findIndex(entity => entity.id === updatedEntity.id)
-        if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${entityId} in: ${entityType}`)
-        entities.splice(idx, 1, updatedEntity)
+        if (isPinned) {
+            entities.unshift(updatedEntity)
+        }
+        else {
+            const idx = entities.findIndex(entity => entity.id === updatedEntity.id)
+            if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${entityId} in: ${entityType}`)
+            entities.splice(idx, 1, updatedEntity)
+        }
         _save(entityType, entities)
         return updatedEntity
     })

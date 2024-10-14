@@ -1,24 +1,31 @@
 import { noteService } from '../services/note.service.js'
 import { NotePreview } from '../cmps/NotePreview.jsx'
+import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-const { useState, useEffect } = React
+const { useState, useEffect, Fragment } = React
 
 export function NoteIndex() {
 
     const [notes, setNotes] = useState(null)
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
+    const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+    const [cmpType, setCmpType] = useState('NoteTxt')
 
     useEffect(() => {
         loadNotes()
-    }, [])
+    }, [filterBy])
 
     function loadNotes() {
-        noteService.query()
+        noteService.query(filterBy)
             .then(setNotes)
             .catch(err => {
                 console.log('Problems getting notes:', err)
             })
+    }
+
+    function onSetFilter(filterByToEdit) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
 
     function handleChange({ target }) {
@@ -32,6 +39,11 @@ export function NoteIndex() {
             case 'checkbox':
                 value = target.checked
                 break
+
+            case 'color':
+                value = { backgroundColor: value }
+                break
+
         }
         setNoteToAdd((prevNote) => ({ ...prevNote, [field]: value }))
     }
@@ -53,18 +65,21 @@ export function NoteIndex() {
 
     function onSubmit(ev) {
         ev.preventDefault()
-        noteService.save(noteToAdd)
-            .then(note => {
-                console.log(note)
-                console.log('Note added')
-                showSuccessMsg('Note has been saved successfully')
-                loadNotes()
-                setNoteToAdd(noteService.getEmptyNote())
-            })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg(`Problems saving note`)
-            })
+        if (noteToAdd.noteTitle === '' && noteToAdd.info.txt === '') return console.log('empty note')
+        else {
+            noteService.save(noteToAdd)
+                .then(note => {
+                    console.log(note)
+                    console.log('Note added')
+                    showSuccessMsg('Note has been saved successfully')
+                    loadNotes()
+                    setNoteToAdd(noteService.getEmptyNote())
+                })
+                .catch(err => {
+                    console.log('err:', err)
+                    showErrorMsg(`Problems saving note`)
+                })
+        }
     }
 
     function onRemoveNote(noteId) {
@@ -75,39 +90,108 @@ export function NoteIndex() {
             .catch(err => console.error('Error removing book:', err))
     }
 
+    function onPinNote(note) {
+        const noteToPin = { ...note, isPinned: true }
+        noteService.remove(note.id)
+            .then(() => {
+                noteService.save(noteToPin, true)
+                    .then(() => loadNotes())
+            })
+            .catch(err => console.error('Error pin a book:', err))
+    }
+
+    function onDuplicateNote(note) {
+        const noteToDuplicate = { ...note, id: '' }
+        noteService.save(noteToDuplicate)
+            .then(() => {
+                console.log('note duplicated')
+                showSuccessMsg('Note has been duplicated successfully')
+                loadNotes()
+            })
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg(`Problems duplicating note`)
+            })
+
+    }
+
     if (!notes) return <div>Loading...</div>
 
     return (
+        <section className="main-note">
+            <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} />
 
-        <section className="new-note">
+            <section className="new-note">
+                <form className="add-note-form" onSubmit={onSubmit}>
+                    <input
+                        type="text"
+                        name="noteTitle"
+                        id="title"
+                        placeholder="Title"
+                        onChange={handleChange} />
+                    <input
+                        type="text"
+                        name="txt"
+                        id="txt"
+                        placeholder="New note..."
+                        onChange={handleInfoChange} />
 
-            <form className="add-note-form" onSubmit={onSubmit}>
-                {/* <label htmlFor="txt">Vendor</label> */}
-                <input
-                    type="text"
-                    name="noteTitle"
-                    id="title"
-                    placeholder="Title"
-                    onChange={handleChange} />
-                <input
-                    type="text"
-                    name="txt"
-                    id="txt"
-                    placeholder="New note..."
-                    onChange={handleInfoChange} />
+                    <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} />
 
-                <input
-                    type="color"
-                    className="control-color"
-                    id="color-input"
-                    value="#eaece5" />
+                    <input
+                        type="color"
+                        className="control-color"
+                        id="color-input"
+                        name="style"
+                        onChange={handleChange} />
 
-                <button>Save</button>
-            </form>
+                    <button
+                        type='button'
+                        title="Add image"
+                        onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
+                    <button>Save</button>
+                </form>
 
-            <NotePreview notes={notes} onRemoveNote={onRemoveNote} loadNotes={loadNotes} />
+                <NotePreview
+                    notes={notes}
+                    onRemoveNote={onRemoveNote}
+                    loadNotes={loadNotes}
+                    onPinNote={onPinNote}
+                    onDuplicateNote={onDuplicateNote} />
 
+            </section>
         </section>
+    )
+}
 
+function DynamicCmp(props) {
+    switch (props.cmpType) {
+        case 'NoteTxt':
+            return <CreateNoteByTextbox {...props} />
+        case 'NoteImg':
+            return <CreateNoteByImg {...props} />
+        case 'NoteTodos':
+            return <CreateNoteByTodos {...props} />
+        default:
+            return null
+    }
+}
+
+function CreateNoteByTextbox({ handleChange, handleInfoChange }) {
+    return (
+        <Fragment>
+
+        </Fragment>
+    )
+}
+
+function CreateNoteByImg({ handleInfoChange }) {
+    return (
+        <input
+            type="text"
+            name="imgUrl"
+            id="imgUrl"
+            placeholder="Enter an image url"
+            onChange={handleInfoChange} />
     )
 }

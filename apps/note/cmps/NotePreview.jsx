@@ -3,7 +3,7 @@ import { Modal } from '../cmps/Modal.jsx'
 
 const { Fragment, useState } = React
 
-export function NotePreview({ notes, onRemoveNote, loadNotes }) {
+export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDuplicateNote }) {
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(null)
@@ -23,11 +23,14 @@ export function NotePreview({ notes, onRemoveNote, loadNotes }) {
         <Fragment>
             <ul className="notes">
                 {notes.map(note =>
-                    <li key={note.id}>
+                    <li key={note.id} style={{ backgroundColor: note.style.backgroundColor }}>
                         <h2>{note.noteTitle}</h2>
                         <p>{note.info.txt}</p>
-                        <button onClick={() => onRemoveNote(note.id)}>Delete</button>
+                        {note.info.imgUrl && <img src={note.info.imgUrl} />}
+                        <button onClick={() => onRemoveNote(note.id)}><i className="fa-solid fa-trash"></i></button>
                         <button onClick={() => handleEditClick(note)}>Edit</button>
+                        <button onClick={() => onPinNote(note)}>{note.isPinned ? 'Pinned' : 'Pin'}</button>
+                        <button onClick={() => onDuplicateNote(note)}><i className="fa-regular fa-clone"></i></button>
                     </li>
                 )}
             </ul>

@@ -22,13 +22,13 @@ export const noteService = {
 function query(filterBy = {}) {
     return storageService.query(NOTE_KEY)
         .then(notes => {
-            // if (filterBy.txt) {
-            //     const regExp = new RegExp(filterBy.txt, 'i')
-            //     notes = notes.filter(note => regExp.test(note.title))
-            // }
-            if (filterBy.type) {
-                notes = notes.filter(note => note.type >= filterBy.type)
+            if (filterBy.noteTitle) {
+                const regExp = new RegExp(filterBy.noteTitle, 'i')
+                notes = notes.filter(note => regExp.test(note.noteTitle))
             }
+            // if (filterBy.type) {
+            //     notes = notes.filter(note => note.type >= filterBy.type)
+            // }
             return notes
         })
 }
@@ -42,21 +42,22 @@ function remove(noteId) {
     return storageService.remove(NOTE_KEY, noteId)
 }
 
-function save(note) {
+function save(note, isPinned = false) {
     if (note.id) {
-        return storageService.put(NOTE_KEY, note)
+        console.log(isPinned)
+        return storageService.put(NOTE_KEY, note, isPinned)
     } else {
         return storageService.post(NOTE_KEY, note)
     }
 }
 
-function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', isPinned = false, style = { backgroundColor: '#444444' }, info = { txt: '' }) {
+function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', isPinned = false, style = { backgroundColor: '#ffffff' }, info = { txt: '' }) {
     return { createdAt, type, noteTitle, isPinned, style, info }
 }
 
 function getDefaultFilter() {
     return {
-        // txt: '',
+        noteTitle: '',
         type: '',
     }
 }
@@ -67,18 +68,18 @@ function _createNotes() {
         notes = [
             _createNote(1112222,
                 'NoteTxt',
-                'Hi new Note',
+                'New Note',
                 false,
-                { backgroundColor: '#444444' },
+                { backgroundColor: '#eaece5' },
                 { txt: 'Fullstack Me Baby!' }),
 
             _createNote(1112223,
                 'NoteImg',
-                'Hi new Note',
+                'New Note',
                 false,
-                { backgroundColor: '#444444' },
+                { backgroundColor: '#eaece5' },
                 {
-                    url: 'https://media.4-paws.org/5/4/4/c/544c2b2fd37541596134734c42bf77186f0df0ae/VIER%20PFOTEN_2017-10-20_164-3854x2667-1920x1329.jpg',
+                    imgUrl: 'https://media.4-paws.org/5/4/4/c/544c2b2fd37541596134734c42bf77186f0df0ae/VIER%20PFOTEN_2017-10-20_164-3854x2667-1920x1329.jpg',
                     title: 'Tiger',
                     txt: 'Here is my tiger'
                 }),
