@@ -1,5 +1,16 @@
+import { MailFilter } from "../cmps/MailFilter.jsx";
 
 export function MailIndex() {
-    return <div>mail app</div>
+
+
+
+    return (
+        <section className="mail-index">
+            <MailFilter />
+            <section>
+                
+            </section>
+        </section>
+    )
 }
 
