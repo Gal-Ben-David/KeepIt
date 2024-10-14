@@ -149,6 +149,11 @@ export function NoteIndex() {
                         type='button'
                         title="Add image"
                         onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
+
+                    <button
+                        type='button'
+                        onClick={() => setCmpType('NoteVideo')}><i className="fa-solid fa-video"></i></button>
+
                     <button>Save</button>
                 </form>
 
@@ -170,6 +175,8 @@ function DynamicCmp(props) {
             return <CreateNoteByTextbox {...props} />
         case 'NoteImg':
             return <CreateNoteByImg {...props} />
+        case 'NoteVideo':
+            return <CreateNoteByVideo {...props} />
         case 'NoteTodos':
             return <CreateNoteByTodos {...props} />
         default:
@@ -191,6 +198,17 @@ function CreateNoteByImg({ handleInfoChange }) {
             type="text"
             name="imgUrl"
             id="imgUrl"
+            placeholder="Enter an image url"
+            onChange={handleInfoChange} />
+    )
+}
+
+function CreateNoteByVideo({ handleInfoChange }) {
+    return (
+        <input
+            type="text"
+            name="videoUrl"
+            id="videoUrl"
             placeholder="Enter an image url"
             onChange={handleInfoChange} />
     )

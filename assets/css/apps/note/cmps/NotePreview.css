@@ -23,8 +23,11 @@ ul.notes {
     padding: 1em;
     border-radius: 0.6em;
     border: 1px solid #bdc1c6;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     break-inside: avoid;
+}
+
+.notes li:hover {
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
 }
 
 .notes img {
