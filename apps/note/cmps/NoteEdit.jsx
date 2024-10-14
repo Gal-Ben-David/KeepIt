@@ -59,18 +59,20 @@ export function NoteEdit({ note, onCloseModal, loadNotes }) {
             <h1>Edit Note</h1>
 
             <form className="edit-note-form" onSubmit={onSubmit}>
-                {/* <label htmlFor="txt">Vendor</label> */}
+                <label htmlFor="title-update">Title</label>
                 <input
                     type="text"
                     name="noteTitle"
-                    id="title"
+                    id="title-update"
                     placeholder="Title"
                     value={noteToEdit.noteTitle}
                     onChange={handleChange} />
+
+                <label htmlFor="note-content">Note content</label>
                 <input
                     type="text"
                     name="txt"
-                    id="txt"
+                    id="note-content"
                     placeholder="New note..."
                     value={noteToEdit.info.txt}
                     onChange={handleInfoChange} />

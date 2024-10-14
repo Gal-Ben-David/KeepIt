@@ -96,6 +96,12 @@ export function NoteIndex() {
                     placeholder="New note..."
                     onChange={handleInfoChange} />
 
+                <input
+                    type="color"
+                    className="control-color"
+                    id="color-input"
+                    value="#eaece5" />
+
                 <button>Save</button>
             </form>
 
