@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
+ul.notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 18em);
+    gap: 20px;
+
+    width: 300px;
+}
+
+.notes li {
+    list-style-type: none;
+    background-color: whitesmoke;
+    padding: 1em;
+    border-radius: 1em;
+}

@@ -1,0 +1,9 @@
+* {
+    box-sizing: border-box;
+}
+
+.edit-note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
