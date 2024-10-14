@@ -22,14 +22,16 @@ export const noteService = {
 function query(filterBy = {}) {
     return storageService.query(NOTE_KEY)
         .then(notes => {
-            if (filterBy.noteTitle) {
-                const regExp = new RegExp(filterBy.noteTitle, 'i')
-                notes = notes.filter(note => regExp.test(note.noteTitle))
-            }
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                notes = notes.filter(note => regExp.test(note.info.txt))
+                notes = notes.filter(note => {
+                    const matchesTitle = regExp.test(note.noteTitle)
+                    const matchesTxt = regExp.test(note.info.txt)
+
+                    return matchesTitle || matchesTxt
+                })
             }
+
             // if (filterBy.type) {
             //     notes = notes.filter(note => note.type >= filterBy.type)
             // }
@@ -61,7 +63,7 @@ function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', 
 
 function getDefaultFilter() {
     return {
-        noteTitle: '',
+        txt: '',
         type: '',
     }
 }

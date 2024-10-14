@@ -36,9 +36,9 @@ export function NoteFilter({ filterBy, onSetFilter }) {
                     onChange={handleChange}
                     value={noteTitle}
                     type="text"
-                    name="noteTitle"
+                    name="txt"
                     id="note-title"
-                    placeholder="Search by title" />
+                    placeholder="Search" />
 
                 {/* <label htmlFor="book-price">Price</label>
                 <input
