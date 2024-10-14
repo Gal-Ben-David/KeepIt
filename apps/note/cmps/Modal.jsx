@@ -1,14 +1,13 @@
 const { Fragment } = React
 
 
-export function Modal({ children, isOpen = false, onCloseModal = () => { } }) {
+export function Modal({ children, isOpen = false, onCloseModal = () => { }, bgColor }) {
 
     if (!isOpen) return null
     return (
         <Fragment>
             <section onClick={onCloseModal} className='modal-backdrop'></section>
-            <section className='modal-content'>
-                <h1>Hi Modal</h1>
+            <section className='modal-content' style={{ backgroundColor: bgColor }}>
                 {children}
                 <button className='close-btn' onClick={onCloseModal}>X</button>
             </section>

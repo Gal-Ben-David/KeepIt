@@ -137,24 +137,25 @@ export function NoteIndex() {
                         onChange={handleInfoChange} />
 
                     <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} />
+                    <div className="actions">
+                        <input
+                            type="color"
+                            className="control-color"
+                            id="color-input"
+                            name="style"
+                            onChange={handleChange} />
 
-                    <input
-                        type="color"
-                        className="control-color"
-                        id="color-input"
-                        name="style"
-                        onChange={handleChange} />
+                        <button
+                            type='button'
+                            title="Add image"
+                            onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
 
-                    <button
-                        type='button'
-                        title="Add image"
-                        onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
+                        <button
+                            type='button'
+                            onClick={() => setCmpType('NoteVideo')}><i className="fa-solid fa-video"></i></button>
+                    </div>
 
-                    <button
-                        type='button'
-                        onClick={() => setCmpType('NoteVideo')}><i className="fa-solid fa-video"></i></button>
-
-                    <button>Save</button>
+                    <button className="save-new-note-btn">Save</button>
                 </form>
 
                 <NotePreview
@@ -209,7 +210,7 @@ function CreateNoteByVideo({ handleInfoChange }) {
             type="text"
             name="videoUrl"
             id="videoUrl"
-            placeholder="Enter an image url"
+            placeholder="Enter a video url"
             onChange={handleInfoChange} />
     )
 }

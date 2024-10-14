@@ -4,9 +4,10 @@
 
 ul.notes {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, 300px);
     gap: 20px;
     grid-auto-flow: dense;
+    justify-content: center;
 
     width: 80vw;
     max-width: 1300px;
@@ -14,7 +15,6 @@ ul.notes {
 }
 
 .notes li {
-    display: inline-block;
     width: 100%;
     height: max-content;
 
@@ -22,14 +22,28 @@ ul.notes {
     background-color: whitesmoke;
     padding: 1em;
     border-radius: 0.6em;
-    border: 1px solid #bdc1c6;
     break-inside: avoid;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .notes li:hover {
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.notes li h3 {
+    font-weight: 550;
+}
+
+.notes li p {
+    font-size: 0.9rem;
 }
 
 .notes img {
     border-radius: 0.7em;
+    margin-block-end: 2em;
+}
+
+.notes iframe {
+    border-radius: 0.7em;
+    margin-block-end: 2em;
 }

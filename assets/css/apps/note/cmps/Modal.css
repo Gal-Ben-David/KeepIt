@@ -1,6 +1,6 @@
 .modal-backdrop {
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.209);
     backdrop-filter: blur(2px);
     inset: 0;
     height: 100vh;
@@ -16,7 +16,6 @@
     max-width: 600px;
     height: fit-content;
     padding: 33px;
-    background-color: black;
     color: white;
 
     display: flex;
