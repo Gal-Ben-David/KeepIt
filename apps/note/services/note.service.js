@@ -77,7 +77,7 @@ function _createNotes() {
                 'NoteImg',
                 'Tiger',
                 false,
-                { backgroundColor: '#eaece5' },
+                { backgroundColor: '#FFDFD3' },
                 {
                     imgUrl: 'https://media.4-paws.org/5/4/4/c/544c2b2fd37541596134734c42bf77186f0df0ae/VIER%20PFOTEN_2017-10-20_164-3854x2667-1920x1329.jpg',
                     txt: 'Here is my tiger'
@@ -86,7 +86,7 @@ function _createNotes() {
                 'NoteVideo',
                 'Cool Motivating Background Music',
                 false,
-                { backgroundColor: '#eaece5' },
+                { backgroundColor: '#fcf4dd' },
                 {
                     videoUrl: 'https://www.youtube.com/embed/wt8nzHv9Gn8?si=xYcgEo-Cbw0mNReD',
                     txt: '🎵 Remember to explore MorningLightMusic for background music. '

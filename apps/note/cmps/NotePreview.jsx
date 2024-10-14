@@ -24,7 +24,7 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
             <ul className="notes">
                 {notes.map(note =>
                     <li key={note.id} style={{ backgroundColor: note.style.backgroundColor }}>
-                        <h2>{note.noteTitle}</h2>
+                        <h3>{note.noteTitle}</h3>
                         <p>{note.info.txt}</p>
                         {note.info.imgUrl && <img src={note.info.imgUrl} />}
                         {note.info.videoUrl &&

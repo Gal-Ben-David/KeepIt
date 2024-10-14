@@ -1,6 +1,7 @@
 header {
-    background: lightcyan;
+    background: rgb(246, 247, 247);
     /* border-bottom: 2px solid white; */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
 .app-header {
@@ -9,8 +10,18 @@ header {
     padding: 20px 0;
 }
 
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-inline-end: 2em;
+}
+
 nav a {
+    font-size: 1.1em;
     margin: .5em;
+    transition: 0.2s ease-in-out;
 }
 
 nav a:active {
@@ -18,7 +29,30 @@ nav a:active {
 }
 
 nav a.active {
-    color: darkblue;
-    font-weight: bold;
-    text-decoration: overline;
+    font-weight: 600;
+    background-color: #d0edfa;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+
+    border-radius: 0.5em;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    margin-inline-start: 2em;
+}
+
+.logo img {
+    width: 4em;
+}
+
+.logo h2 {
+    color: #444;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
