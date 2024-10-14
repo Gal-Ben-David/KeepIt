@@ -89,6 +89,16 @@ export function NoteIndex() {
             .catch(err => console.error('Error removing book:', err))
     }
 
+    function onPinNote(note) {
+        const noteToPin = { ...note, isPinned: true }
+        noteService.remove(note.id)
+            .then(() => {
+                noteService.save(noteToPin, true)
+                    .then(() => loadNotes())
+            })
+            .catch(err => console.error('Error pin a book:', err))
+    }
+
     if (!notes) return <div>Loading...</div>
 
     return (
@@ -121,7 +131,7 @@ export function NoteIndex() {
                     <button>Save</button>
                 </form>
 
-                <NotePreview notes={notes} onRemoveNote={onRemoveNote} loadNotes={loadNotes} />
+                <NotePreview notes={notes} onRemoveNote={onRemoveNote} loadNotes={loadNotes} onPinNote={onPinNote} />
 
             </section>
         </section>

@@ -42,9 +42,10 @@ function remove(noteId) {
     return storageService.remove(NOTE_KEY, noteId)
 }
 
-function save(note) {
+function save(note, isPinned = false) {
     if (note.id) {
-        return storageService.put(NOTE_KEY, note)
+        console.log(isPinned)
+        return storageService.put(NOTE_KEY, note, isPinned)
     } else {
         return storageService.post(NOTE_KEY, note)
     }

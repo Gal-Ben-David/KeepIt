@@ -3,7 +3,7 @@ import { Modal } from '../cmps/Modal.jsx'
 
 const { Fragment, useState } = React
 
-export function NotePreview({ notes, onRemoveNote, loadNotes }) {
+export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote }) {
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(null)
@@ -28,6 +28,7 @@ export function NotePreview({ notes, onRemoveNote, loadNotes }) {
                         <p>{note.info.txt}</p>
                         <button onClick={() => onRemoveNote(note.id)}><i className="fa-solid fa-trash"></i></button>
                         <button onClick={() => handleEditClick(note)}>Edit</button>
+                        <button onClick={() => onPinNote(note)}>{note.isPinned ? 'Pinned' : 'Pin'}</button>
                     </li>
                 )}
             </ul>
