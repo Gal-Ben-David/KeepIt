@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+.note-filter input {
+    width: 40em;
+    height: 3em;
+    padding: 1em;
+
+    border: none;
+    border-radius: 0.3em;
+
+    background-color: whitesmoke;
+}

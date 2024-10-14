@@ -1,5 +1,6 @@
 import { noteService } from '../services/note.service.js'
 import { NotePreview } from '../cmps/NotePreview.jsx'
+import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
@@ -8,17 +9,22 @@ export function NoteIndex() {
 
     const [notes, setNotes] = useState(null)
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
+    const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
 
     useEffect(() => {
         loadNotes()
-    }, [])
+    }, [filterBy])
 
     function loadNotes() {
-        noteService.query()
+        noteService.query(filterBy)
             .then(setNotes)
             .catch(err => {
                 console.log('Problems getting notes:', err)
             })
+    }
+
+    function onSetFilter(filterByToEdit) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
 
     function handleChange({ target }) {
@@ -86,37 +92,38 @@ export function NoteIndex() {
     if (!notes) return <div>Loading...</div>
 
     return (
+        <section className="main-note">
+            <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} />
 
-        <section className="new-note">
+            <section className="new-note">
+                <form className="add-note-form" onSubmit={onSubmit}>
+                    {/* <label htmlFor="txt">Vendor</label> */}
+                    <input
+                        type="text"
+                        name="noteTitle"
+                        id="title"
+                        placeholder="Title"
+                        onChange={handleChange} />
+                    <input
+                        type="text"
+                        name="txt"
+                        id="txt"
+                        placeholder="New note..."
+                        onChange={handleInfoChange} />
 
-            <form className="add-note-form" onSubmit={onSubmit}>
-                {/* <label htmlFor="txt">Vendor</label> */}
-                <input
-                    type="text"
-                    name="noteTitle"
-                    id="title"
-                    placeholder="Title"
-                    onChange={handleChange} />
-                <input
-                    type="text"
-                    name="txt"
-                    id="txt"
-                    placeholder="New note..."
-                    onChange={handleInfoChange} />
+                    <input
+                        type="color"
+                        className="control-color"
+                        id="color-input"
+                        name="style"
+                        onChange={handleChange} />
 
-                <input
-                    type="color"
-                    className="control-color"
-                    id="color-input"
-                    name="style"
-                    onChange={handleChange} />
+                    <button>Save</button>
+                </form>
 
-                <button>Save</button>
-            </form>
+                <NotePreview notes={notes} onRemoveNote={onRemoveNote} loadNotes={loadNotes} />
 
-            <NotePreview notes={notes} onRemoveNote={onRemoveNote} loadNotes={loadNotes} />
-
+            </section>
         </section>
-
     )
 }

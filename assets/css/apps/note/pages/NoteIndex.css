@@ -4,6 +4,15 @@
      box-sizing: border-box;
  }
 
+ .main-note {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 30px;
+
+     margin-block-start: 30px;
+ }
+
  .new-note {
      display: flex;
      flex-direction: column;
