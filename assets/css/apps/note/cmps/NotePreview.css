@@ -4,8 +4,10 @@
 
 ul.notes {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 200px);
+    grid-template-columns: repeat(auto-fit, 18em);
     gap: 20px;
+
+    width: 300px;
 }
 
 .notes li {

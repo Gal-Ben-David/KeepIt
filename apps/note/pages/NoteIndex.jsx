@@ -79,9 +79,9 @@ export function NoteIndex() {
 
     return (
 
-        <section className="add-note">
+        <section className="new-note">
 
-            <form onSubmit={onSubmit}>
+            <form className="add-note-form" onSubmit={onSubmit}>
                 {/* <label htmlFor="txt">Vendor</label> */}
                 <input
                     type="text"
@@ -99,7 +99,7 @@ export function NoteIndex() {
                 <button>Save</button>
             </form>
 
-            <NotePreview notes={notes} onRemoveNote={onRemoveNote} />
+            <NotePreview notes={notes} onRemoveNote={onRemoveNote} loadNotes={loadNotes} />
 
         </section>
 
