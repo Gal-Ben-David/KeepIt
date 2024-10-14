@@ -3,10 +3,10 @@
 }
 
 ul.notes {
-    display: flex;
-    flex-wrap: wrap;
-    /* grid-template-columns: repeat(auto-fit, 18em); */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    grid-auto-flow: dense;
 
     width: 80vw;
     max-width: 1300px;
@@ -14,13 +14,17 @@ ul.notes {
 }
 
 .notes li {
+    display: inline-block;
+    width: 100%;
+    height: max-content;
+
     list-style-type: none;
     background-color: whitesmoke;
     padding: 1em;
     border-radius: 0.6em;
     border: 1px solid #bdc1c6;
-    width: 300px;
-    height: max-content;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    break-inside: avoid;
 }
 
 .notes img {
