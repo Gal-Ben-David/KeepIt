@@ -51,6 +51,12 @@
     padding-inline-start: 4em;
 }
 
+.top-filter input:focus{
+    outline: none !important;
+    background-color: white;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 3px 0px, rgba(60, 64, 67, 0.15) 0px 4px 8px 3px;
+}
+
 .side-filter {
     position: absolute;
     display: flex;
@@ -116,6 +122,8 @@ button.mail-compose-btn {
     background-color: var(--crl-mail-compose-btn);
 
     font-weight: 500;
+
+    transition: 200ms;
 }
 
 button.mail-compose-btn img {
