@@ -39,6 +39,10 @@ export function NoteIndex() {
         setShowFilterOption(true)
     }
 
+    function onSetNoteType(type) {
+        noteToAdd.type = type
+    }
+
     function handleChange({ target }) {
         let { value, name: field, type } = target
         switch (type) {
@@ -177,15 +181,21 @@ export function NoteIndex() {
                             <button
                                 type='button'
                                 title="Add image"
-                                onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
+                                onClick={() => { setCmpType('NoteImg'); onSetNoteType('NoteImg') }}>
+                                <i className="fa-solid fa-image"></i>
+                            </button>
 
                             <button
                                 type='button'
-                                onClick={() => setCmpType('NoteVideo')}><i className="fa-solid fa-video"></i></button>
+                                onClick={() => { setCmpType('NoteVideo'); onSetNoteType('NoteVideo') }}>
+                                <i className="fa-solid fa-video">
+                                </i></button>
 
                             <button
                                 type='button'
-                                onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}><i className="fa-regular fa-square-check"></i></button>
+                                onClick={() => { setCmpType('NoteTodos'); onSetNoteType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
+                                <i className="fa-regular fa-square-check"></i>
+                            </button>
                         </div>
                         <button className="save-new-note-btn">Save</button>
                     </div>
