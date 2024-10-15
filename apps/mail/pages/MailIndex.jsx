@@ -1,5 +1,6 @@
 const { useEffect, useState } = React
 
+// import { showErrorMsg } from 'services/event-bus.service.js'
 import { mailService } from '../services/mail.service.js';
 import { MailFilter } from "../cmps/MailFilter.jsx";
 import { MailList } from "../cmps/MailList.jsx";
@@ -10,7 +11,7 @@ export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [isMailCompose, setIsMailCompose] = useState(false)
     const [dateCompose, setDateCompose] = useState()
-    const [changeReadStatus, setChangeReadStatus ] = useState(false)
+    const [changeReadStatus, setChangeReadStatus] = useState(false)
 
     useEffect(() => {
         loadMails()
@@ -40,6 +41,18 @@ export function MailIndex() {
         setChangeReadStatus(!changeReadStatus)
     }
 
+    function onRemoveMail(mailId) {
+        mailService.remove(mailId)
+            .then(() => {
+                setMails(mails => mails.filter(mail => mail.id !== mailId))
+                showSuccessMsg(`Mail removed successfully!`)
+            })
+            .catch(err => {
+                console.log('Problems removing mail:', err)
+                // showErrorMsg(`Problems removing mail (${mailId})`)
+            })
+    }
+
 
     const toggleMailCompose = isMailCompose ? '' : 'hide'
     if (!mails) return <h1>Loading...</h1>
@@ -49,7 +62,7 @@ export function MailIndex() {
         <section className="mail-index">
             <MailFilter openMailCompose={openMailCompose} mails={mails} />
             <section>
-                <MailList onReadMail={onReadMail} mails={mails} />
+                <MailList onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
             </section>
             <section className={`mail-compose-container ${toggleMailCompose}`}>
                 <MailCompose dateCompose={dateCompose} isMailCompose={isMailCompose} setIsMailCompose={setIsMailCompose} mails={mails} />
