@@ -71,6 +71,7 @@ export function NoteIndex() {
                 value = target.checked
                 break
         }
+        console.log(noteToAdd)
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
     }
 
@@ -249,7 +250,7 @@ function CreateNoteByVideo({ handleInfoChange }) {
     )
 }
 
-function CreateNoteByTodos({ handleChange, todosCounter }) {
+function CreateNoteByTodos({ handleInfoChange, todosCounter }) {
     return (
         <div>
             {console.log([...Array(todosCounter)])}
@@ -261,7 +262,7 @@ function CreateNoteByTodos({ handleChange, todosCounter }) {
                         name="dotos"
                         id="todos"
                         placeholder="List item"
-                        onChange={handleChange} />
+                        onChange={handleInfoChange} />
                 </div>
             )}
         </div>
