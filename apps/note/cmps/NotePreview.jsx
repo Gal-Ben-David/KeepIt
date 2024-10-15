@@ -33,10 +33,10 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                         <p>{note.info.txt}</p>
 
                         <div className="toolbar">
-                            <button onClick={() => onRemoveNote(note.id)}><i className="fa-solid fa-trash"></i></button>
-                            <button onClick={() => handleEditClick(note)}><i className="fa-regular fa-pen-to-square"></i></button>
-                            <button onClick={() => onPinNote(note)}>{note.isPinned ? 'Pinned' : 'Pin'}</button>
-                            <button onClick={() => onDuplicateNote(note)}><i className="fa-regular fa-clone"></i></button>
+                            <button onClick={(ev) => { ev.stopPropagation(); onRemoveNote(note.id) }}><i className="fa-solid fa-trash"></i></button>
+                            <button onClick={(ev) => { ev.stopPropagation(); handleEditClick(note) }}><i className="fa-regular fa-pen-to-square"></i></button>
+                            <button onClick={(ev) => { ev.stopPropagation(); onPinNote(note) }}>{note.isPinned ? 'Pinned' : 'Pin'}</button>
+                            <button onClick={(ev) => { ev.stopPropagation(); onDuplicateNote(note) }}><i className="fa-regular fa-clone"></i></button>
                         </div>
                     </li>
                 )}

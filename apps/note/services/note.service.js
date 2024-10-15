@@ -32,9 +32,9 @@ function query(filterBy = {}) {
                 })
             }
 
-            // if (filterBy.type) {
-            //     notes = notes.filter(note => note.type >= filterBy.type)
-            // }
+            if (filterBy.type) {
+                notes = notes.filter(note => note.type === filterBy.type)
+            }
             return notes
         })
 }

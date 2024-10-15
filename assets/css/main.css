@@ -19,6 +19,7 @@
 @import './apps/note/cmps/Modal.css';
 @import './apps/note/cmps/NoteEdit.css';
 @import './apps/note/cmps/NoteFilter.css';
+@import './apps/note/cmps/FilterOptions.css';
 
 /* Mail */
 

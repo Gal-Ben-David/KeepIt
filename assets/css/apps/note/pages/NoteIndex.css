@@ -50,6 +50,7 @@
 
  .new-note input:focus {
      outline: none;
+     background-color: white;
  }
 
  .new-note label {

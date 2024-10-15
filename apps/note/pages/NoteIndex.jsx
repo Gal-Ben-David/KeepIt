@@ -1,15 +1,17 @@
 import { noteService } from '../services/note.service.js'
 import { NotePreview } from '../cmps/NotePreview.jsx'
 import { NoteFilter } from '../cmps/NoteFilter.jsx'
+import { FilterOptions } from '../cmps/FilterOptions.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-const { useState, useEffect, Fragment } = React
+const { useState, useEffect, Fragment, Link } = React
 
 export function NoteIndex() {
 
     const [notes, setNotes] = useState(null)
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+    const [showFilterOption, setShowFilterOption] = useState(false)
     const [cmpType, setCmpType] = useState('NoteTxt')
     const [todosCounter, setTodosCounter] = useState(0)
 
@@ -31,6 +33,10 @@ export function NoteIndex() {
 
     function onSetFilter(filterByToEdit) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
+    }
+
+    function handleFromClick() {
+        setShowFilterOption(true)
     }
 
     function handleChange({ target }) {
@@ -65,6 +71,7 @@ export function NoteIndex() {
                 value = target.checked
                 break
         }
+        console.log(noteToAdd)
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
     }
 
@@ -106,7 +113,7 @@ export function NoteIndex() {
     }
 
     function onDuplicateNote(note) {
-        const noteToDuplicate = { ...note, id: '' }
+        const noteToDuplicate = { ...note, id: '', isPinned: false }
         noteService.save(noteToDuplicate)
             .then(() => {
                 console.log('note duplicated')
@@ -120,18 +127,24 @@ export function NoteIndex() {
 
     }
 
-    if (!notes) return <div>Loading...</div>
+    if (!notes) return <div>Loading....</div>
 
     return (
         <section className="main-note">
             <section className="keep-header">
-                <button className="note-bars-btn"><img src="../../../assets/img/menu.png" /></button>
+                <button className="note-bars-btn"><img src="/assets/img/menu.png" /></button>
                 <div className="keep-logo">
-                    <img src="../../../assets/img/keeps.png" />
+                    <img src="/assets/img/keeps.png" />
                     <span>Keep</span>
                 </div>
 
-                <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} />
+                <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} handleFromClick={handleFromClick} />
+            </section>
+
+            <section className="search">
+                {showFilterOption && (
+                    <FilterOptions setFilterBy={setFilterBy} filterBy={filterBy} />
+                )}
             </section>
 
             <section className="new-note">
@@ -237,7 +250,7 @@ function CreateNoteByVideo({ handleInfoChange }) {
     )
 }
 
-function CreateNoteByTodos({ handleChange, todosCounter }) {
+function CreateNoteByTodos({ handleInfoChange, todosCounter }) {
     return (
         <div>
             {console.log([...Array(todosCounter)])}
@@ -249,7 +262,7 @@ function CreateNoteByTodos({ handleChange, todosCounter }) {
                         name="dotos"
                         id="todos"
                         placeholder="List item"
-                        onChange={handleChange} />
+                        onChange={handleInfoChange} />
                 </div>
             )}
         </div>
