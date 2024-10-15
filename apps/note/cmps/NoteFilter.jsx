@@ -1,8 +1,11 @@
-const { useState, useEffect } = React
+import { FilterOptions } from './FilterOptions.jsx'
 
-export function NoteFilter({ filterBy, onSetFilter }) {
+const { useState, useEffect, Link } = React
+
+export function NoteFilter({ filterBy, onSetFilter, handleFromClick }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+
     //console.log('filterByToEdit:', filterByToEdit)
 
     useEffect(() => {
@@ -31,7 +34,7 @@ export function NoteFilter({ filterBy, onSetFilter }) {
 
     return (
         <section className="note-filter">
-            <form className="form-filter">
+            <form className="form-filter" onClick={handleFromClick}>
                 <button className="search-btn"><i className="fa-solid fa-magnifying-glass"></i></button>
                 <input
                     onChange={handleChange}

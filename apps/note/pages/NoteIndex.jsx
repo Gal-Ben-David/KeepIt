@@ -1,15 +1,17 @@
 import { noteService } from '../services/note.service.js'
 import { NotePreview } from '../cmps/NotePreview.jsx'
 import { NoteFilter } from '../cmps/NoteFilter.jsx'
+import { FilterOptions } from '../cmps/FilterOptions.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-const { useState, useEffect, Fragment } = React
+const { useState, useEffect, Fragment, Link } = React
 
 export function NoteIndex() {
 
     const [notes, setNotes] = useState(null)
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+    const [showFilterOption, setShowFilterOption] = useState(false)
     const [cmpType, setCmpType] = useState('NoteTxt')
     const [todosCounter, setTodosCounter] = useState(0)
 
@@ -31,6 +33,10 @@ export function NoteIndex() {
 
     function onSetFilter(filterByToEdit) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
+    }
+
+    function handleFromClick() {
+        setShowFilterOption(true)
     }
 
     function handleChange({ target }) {
@@ -131,7 +137,13 @@ export function NoteIndex() {
                     <span>Keep</span>
                 </div>
 
-                <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} />
+                <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} handleFromClick={handleFromClick} />
+            </section>
+
+            <section className="search">
+                {showFilterOption && (
+                    <FilterOptions setFilterBy={setFilterBy} filterBy={filterBy} />
+                )}
             </section>
 
             <section className="new-note">
