@@ -31,11 +31,12 @@ export function NoteFilter({ filterBy, onSetFilter }) {
 
     return (
         <section className="note-filter">
-            <form>
+            <form className="form-filter">
+                <button className="search-btn"><i className="fa-solid fa-magnifying-glass"></i></button>
                 <input
                     onChange={handleChange}
                     value={noteTitle}
-                    type="text"
+                    type="search"
                     name="txt"
                     id="note-title"
                     placeholder="Search" />

@@ -16,7 +16,7 @@
     max-width: 600px;
     height: fit-content;
     padding: 33px;
-    color: white;
+    color: var(--crl-font);
 
     display: flex;
     flex-direction: column;
@@ -26,17 +26,12 @@
     justify-content: space-evenly;
     margin: auto;
     z-index: 3;
+}
 
-    .close-btn {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background-color: transparent;
-        color: white;
-    }
-
-    p {
-        text-align: center;
-        margin: 15px;
-    }
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    color: var(--crl-font);
 }

@@ -1,0 +1,30 @@
+@media (max-width: 600px) {
+    ul.notes {
+        columns: 1;
+        column-gap: 20px;
+    }
+}
+
+@media (min-width: 601px) {
+    ul.notes {
+        columns: 2;
+    }
+}
+
+@media (min-width: 900px) {
+    ul.notes {
+        columns: 3;
+    }
+}
+
+@media (min-width: 1150px) {
+    ul.notes {
+        columns: 4;
+    }
+}
+
+@media (min-width: 1500px) {
+    ul.notes {
+        columns: 5;
+    }
+}
