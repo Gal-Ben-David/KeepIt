@@ -11,6 +11,7 @@ export function NoteIndex() {
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
     const [cmpType, setCmpType] = useState('NoteTxt')
+    const [todosCounter, setTodosCounter] = useState(0)
 
     useEffect(() => {
         loadNotes()
@@ -136,7 +137,7 @@ export function NoteIndex() {
                         placeholder="New note..."
                         onChange={handleInfoChange} />
 
-                    <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} />
+                    <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} todosCounter={todosCounter} />
                     <div className="actions">
                         <input
                             type="color"
@@ -153,6 +154,10 @@ export function NoteIndex() {
                         <button
                             type='button'
                             onClick={() => setCmpType('NoteVideo')}><i className="fa-solid fa-video"></i></button>
+
+                        <button
+                            type='button'
+                            onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}><i className="fa-regular fa-square-check"></i></button>
                     </div>
 
                     <button className="save-new-note-btn">Save</button>
@@ -212,5 +217,24 @@ function CreateNoteByVideo({ handleInfoChange }) {
             id="videoUrl"
             placeholder="Enter a video url"
             onChange={handleInfoChange} />
+    )
+}
+
+function CreateNoteByTodos({ handleChange, todosCounter }) {
+    return (
+        <div>
+            {console.log([...Array(todosCounter)])}
+            {[...Array(todosCounter)].map((_, i) =>
+                <div key={i}>
+                    <button type='button' onClick={() => setTodosCounter(prevCount => prevCount++)}>+</button>
+                    <input
+                        type="text"
+                        name="dotos"
+                        id="todos"
+                        placeholder="List item"
+                        onChange={handleChange} />
+                </div>
+            )}
+        </div>
     )
 }
