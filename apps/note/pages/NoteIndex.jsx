@@ -61,7 +61,7 @@ export function NoteIndex() {
                 value = target.checked
                 break
         }
-        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.book, [field]: value } }))
+        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
     }
 
     function onSubmit(ev) {
