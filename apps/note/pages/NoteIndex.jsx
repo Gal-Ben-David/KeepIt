@@ -113,7 +113,7 @@ export function NoteIndex() {
     }
 
     function onDuplicateNote(note) {
-        const noteToDuplicate = { ...note, id: '' }
+        const noteToDuplicate = { ...note, id: '', isPinned: false }
         noteService.save(noteToDuplicate)
             .then(() => {
                 console.log('note duplicated')
