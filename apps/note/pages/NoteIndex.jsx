@@ -127,7 +127,7 @@ export function NoteIndex() {
 
     }
 
-    if (!notes) return <div>Loading...</div>
+    if (!notes) return <div>Loading....</div>
 
     return (
         <section className="main-note">
