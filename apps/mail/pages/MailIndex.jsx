@@ -14,6 +14,10 @@ export function MailIndex() {
         loadMails()
     }, [])
 
+    useEffect(() => {
+        document.body.style.backgroundColor = '#F6F8FC';
+    }, [])
+
     function loadMails() {
         mailService.query()
             .then(setMails)

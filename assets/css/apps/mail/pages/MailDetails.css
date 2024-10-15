@@ -7,11 +7,6 @@
     background-color: white;
 }
 
-body {
-    /* background-color: var(--clr-mail-bg); */
-    background-color: #F6F8FC;
-}
-
 .mail-details h1 {
     font-size: 1.375em;
     margin-bottom: 1em;

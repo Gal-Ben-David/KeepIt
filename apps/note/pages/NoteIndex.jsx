@@ -17,6 +17,10 @@ export function NoteIndex() {
         loadNotes()
     }, [filterBy])
 
+    useEffect(() => {
+        document.body.style.backgroundColor = '#FFFFFF';
+    }, [])
+
     function loadNotes() {
         noteService.query(filterBy)
             .then(setNotes)

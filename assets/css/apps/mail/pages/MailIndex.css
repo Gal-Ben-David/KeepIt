@@ -2,6 +2,7 @@
 
  .mail-index{
     background-color: var(--crl-mail-bg);
+    height: 100vh;
  }
 
  .mail-index button{
