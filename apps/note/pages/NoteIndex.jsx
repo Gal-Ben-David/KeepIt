@@ -132,9 +132,9 @@ export function NoteIndex() {
     return (
         <section className="main-note">
             <section className="keep-header">
-                <button className="note-bars-btn"><img src="/assets/img/menu.png" /></button>
+                <button className="note-bars-btn"><img src="assets\img\menu.png" /></button>
                 <div className="keep-logo">
-                    <img src="/assets/img/keeps.png" />
+                    <img src="assets\img\keeps.png" />
                     <span>Keep</span>
                 </div>
 
