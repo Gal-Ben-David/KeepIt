@@ -55,7 +55,7 @@ export function MailIndex() {
 
 
     const toggleMailCompose = isMailCompose ? '' : 'hide'
-    if (!mails) return <h1>Loading...</h1>
+    if (!mails) return <div class="loader"></div>
 
     console.log('hi', isMailCompose, toggleMailCompose);
     return (
@@ -70,4 +70,3 @@ export function MailIndex() {
         </section>
     )
 }
-

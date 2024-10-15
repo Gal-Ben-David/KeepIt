@@ -3,7 +3,7 @@
  .mail-index{
     background-color: var(--crl-mail-bg);
     /* font-weight: 500; */
-
+    font-weight: 400;
  }
 
  .mail-index button{

@@ -31,7 +31,7 @@ export function MailDetails() {
             })
     }
 
-    if (!mail) return <div>Loading...</div>
+    if (!mail) return <div class="loader"></div>
 
     return (
         <section className="mail-details-container">

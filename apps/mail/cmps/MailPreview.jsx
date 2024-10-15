@@ -9,7 +9,7 @@ export function MailPreview({ mail }) {
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const currMonth = months[date.getMonth()]
         const currDate = date.getDate()
-        return `${currDate} ${currMonth}`
+        return `${currMonth} ${currDate}`
     }
 
     const read = mail.isRead ? 'read' : ''
@@ -30,3 +30,4 @@ export function MailPreview({ mail }) {
         </div>
     )
 }
+

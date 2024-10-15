@@ -42,10 +42,11 @@
     gap: 1em;
     margin-inline-start: 2em;
     padding: 1em;
+    height: 65vh;
 }
 
 .mail-main h1{
-    font-weight: 100;
+    font-weight: 400;
 }
 
 .from-info{

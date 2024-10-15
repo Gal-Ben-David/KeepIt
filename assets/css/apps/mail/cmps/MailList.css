@@ -30,6 +30,7 @@
  .mail-list li {
     background-color: #ffff;
     box-shadow: rgba(100, 121, 143, 0.12) 0px -1px 0px 0px inset;
+    
     background-color: inherit;
  }
 
@@ -56,11 +57,12 @@
     justify-content: center;
     position: absolute;
     right: 0;
-    top: 7px;
+    top: 2px;
     background-color: inherit;
     height: 2lh;
     /* width: 6em; */
-    margin-right: 0.2em;
+    margin-right:0;
+    padding: 0 4vw;
  }
 
  li.mail-li:hover .mail-icons{
