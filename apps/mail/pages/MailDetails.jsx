@@ -1,6 +1,7 @@
 
 const { useEffect, useState } = React
-const { useParams, useNavigate, Link } = ReactRouterDOM
+const { useParams, useNavigate, Link, useSearchParams } = ReactRouterDOM
+
 
 import { mailService } from "../services/mail.service.js"
 import { showErrorMsg } from "../../../services/event-bus.service.js"
@@ -11,6 +12,12 @@ export function MailDetails() {
 
     const [mail, setMail] = useState(null)
     const params = useParams()
+    const navigate = useNavigate()
+
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+    const [isIndex, setIsIndex] = useState(false)
+
 
     useEffect(() => {
         loadMail()
@@ -31,11 +38,21 @@ export function MailDetails() {
             })
     }
 
+    function backToIndex() {
+        // navigate('/mail', {state:{id:1}})
+        navigate(`/mail`);
+        setIsIndex(true)
+    }
+
+    function onSetFilterBy(filterBy) {
+        setFilterBy(preFilter => ({ ...preFilter, ...filterBy }))
+    }
+
     if (!mail) return <div className="loader"></div>
 
     return (
         <section className="mail-details-container">
-            <MailFilter />
+            <MailFilter isIndex={isIndex} backToIndex={backToIndex} filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
             <section className="mail-details">
                 <section className="tools-bar">
                     <button><Link to={`/mail`}><img src="assets\img\mail-icons\arrow_back_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="arrow-back" /></Link></button>

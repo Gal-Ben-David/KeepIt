@@ -1,13 +1,13 @@
 const { useEffect, useState } = React
 
-const { Link, useSearchParams } = ReactRouterDOM
+const { Link, useSearchParams, useLocation } = ReactRouterDOM
 
 // import { showErrorMsg } from 'services/event-bus.service.js'
 import { mailService } from '../services/mail.service.js';
 import { MailFilter } from "../cmps/MailFilter.jsx";
 import { MailList } from "../cmps/MailList.jsx";
 import { MailCompose } from '../cmps/MailCompose.jsx';
-import {getTruthyValues} from '../../../services/util.service.js'
+import { getTruthyValues } from '../../../services/util.service.js'
 
 export function MailIndex() {
 
@@ -18,7 +18,6 @@ export function MailIndex() {
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
-
 
     useEffect(() => {
         setSearchParams(getTruthyValues(filterBy))
@@ -35,6 +34,7 @@ export function MailIndex() {
             .catch(err => {
                 console.log('Problems getting mails:', err)
             })
+
     }
 
     function onSetFilterBy(filterBy) {

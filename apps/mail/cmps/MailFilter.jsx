@@ -1,7 +1,7 @@
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
-export function MailFilter({ mails, openMailCompose, filterBy, onSetFilterBy }) {
+export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filterBy, onSetFilterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
@@ -36,7 +36,7 @@ export function MailFilter({ mails, openMailCompose, filterBy, onSetFilterBy }) 
         console.log(unreadMails);
         return unreadMails.length
     }
-    
+
     const {
         status,
         isRead,
@@ -46,7 +46,12 @@ export function MailFilter({ mails, openMailCompose, filterBy, onSetFilterBy }) 
         date } = filterByToEdit
 
     const isValid = !!status || !!isRead || !!isStared || !!labels || !!txt || !!date
+    
+    // console.log(isIndex);
 
+    // const input = isIndex ?
+    //     <input onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" /> :
+    //     <input autoFocus onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" />
 
     return (
         <React.Fragment>
@@ -54,13 +59,14 @@ export function MailFilter({ mails, openMailCompose, filterBy, onSetFilterBy }) 
                 <form onSubmit={onSubmit} className="search-bar-container">
                     <div className="search-bar">
                         <button disabled={!isValid} className="search-btn"><img src="assets\img\mail-icons\search_24dp_202124_FILL1_wght400_GRAD0_opsz24.png" alt="search" /></button>
-                        <input value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" />
+                        {/* {input} */}
+                        <input onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" />
                     </div>
                 </form>
             </section>
             <section className="side-filter">
-                <button onClick={openMailCompose} className="mail-compose-btn">
-                    <section className="mail-compose-btn-container">
+            <button onClick={backToIndex ? () => backToIndex() : openMailCompose} className="mail-compose-btn">
+            <section className="mail-compose-btn-container">
                         <img src="assets\img\mail-icons\edit_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="pencil" />
                         <span>Compose</span>
                     </section>
