@@ -29,8 +29,8 @@
 .search-bar-container button {
     position: absolute;
     left: -30px;
-    top: -45%;
-    transform: translateY(-45%);
+    top: -50%;
+    transform: translateY(-60%);
     background-color: inherit;
     z-index: 2;
 
