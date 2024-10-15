@@ -1,41 +1,82 @@
-.hide{
+.hide {
     display: none;
 }
 
-.mail-compose-container{
+.mail-compose-container {
     position: fixed;
     bottom: 0;
     right: 2vw;
     width: 33.375em;
     height: 30.875em;
     background-color: white;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 3px 0px, rgba(60, 64, 67, 0.15) 0px 4px 8px 3px;
+    border-radius: 0.5em 0.5em 0 0;
+
+
 }
 
-.compose-header{
+.compose-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1em;
     padding: 0.8em;
     border-radius: 0.5em 0.5em 0 0;
 
+    font-weight: 500;
+    font-size: 0.9em;
     background-color: var(--crl-mail-search-bar);
 }
 
-.top-buttons img{
+.mail-compose-container img {
     width: 1.2em;
 }
 
-.top-buttons button{
+.mail-compose-container button {
+    transition: 200ms;
     background-color: inherit;
     border: 0px;
+    border-radius: 7px;
 }
 
-.top-buttons button:hover{
+.mail-compose-container button:hover {
     background-color: var(--crl-mail-search-icon);
 }
 
-.compose-main{
+.compose-main {
     display: flex;
     flex-direction: column;
+    padding: 1em;
+}
+
+.compose-main>*{
+    margin-bottom: 1em;
+    padding: 0.7em;
+    border: 0px;
+    border-bottom: 1px var(--crl-mail-search-bar) solid;
+}
+
+.compose-main>*:focus{
+    outline: none !important;
+}
+
+.bottom-buttons{
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.bottom-buttons img{
+    width: 2em;
+    scale: 0.7;
+}
+
+.bottom-buttons .send-btn{
+    background-color: #0b57d0;
+    color: white;
+    font-weight: 500;
+    border-radius: 2em;
+    padding: 0.5em 1em;
+}
+.bottom-buttons .send-btn:hover{
+    background-color: #1b61d1;
 }

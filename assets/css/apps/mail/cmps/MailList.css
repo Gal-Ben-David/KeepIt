@@ -17,3 +17,47 @@
     background-color: #ffff;
     box-shadow: rgba(100, 121, 143, 0.12) 0px -1px 0px 0px inset;
  }
+
+ .mail-list{
+    max-height: 70vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+ }
+
+ li.mail-li{
+    position: relative;
+ }
+
+ .mail-icons{
+     display: none;
+     /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    background-color: inherit;
+    height: 2lh;
+    /* width: 6em; */
+    margin-right: 0.2em;
+ }
+
+ li.mail-li:hover .mail-icons{
+     display: flex;
+
+ }
+
+ .mail-icons img{
+    width: 1.2em;
+ }
+
+ .mail-icons button{
+    border: 0px;
+    border-radius: 2em;
+
+    background-color: inherit;
+ }
+
+ .mail-icons button:hover{
+    background-color: rgba(32, 33, 36, 0.06);
+
+ }
