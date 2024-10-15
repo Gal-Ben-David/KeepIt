@@ -37,10 +37,7 @@ export function MailIndex() {
     console.log('hi', isMailCompose, toggleMailCompose);
     return (
         <section className="mail-index">
-            <section className="mail-compose-btn-container">
-                <button onClick={openMailCompose} className="mail-compose-btn">Compose</button>
-            </section>
-            <MailFilter mails={mails} />
+            <MailFilter openMailCompose={openMailCompose} mails={mails} />
             <section>
                 <MailList mails={mails} />
             </section>

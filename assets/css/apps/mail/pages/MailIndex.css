@@ -2,9 +2,15 @@
 
  .mail-index{
     background-color: var(--crl-mail-bg);
-    height: 100vh;
+    /* font-weight: 500; */
+
  }
 
  .mail-index button{
     cursor: pointer;
+ }
+
+ .mail-index button{
+    font-family: inherit;
+    /* font-weight: 500; */
  }
