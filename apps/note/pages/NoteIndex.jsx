@@ -39,6 +39,10 @@ export function NoteIndex() {
         setShowFilterOption(true)
     }
 
+    function onClearForm() {
+        setNoteToAdd(noteService.getEmptyNote())
+    }
+
     function onSetNoteType(type) {
         noteToAdd.type = type
     }
@@ -88,6 +92,7 @@ export function NoteIndex() {
                     console.log(note)
                     console.log('Note added')
                     showSuccessMsg('Note has been saved successfully')
+                    onClearForm()
                     loadNotes()
                     setNoteToAdd(noteService.getEmptyNote())
                 })
@@ -158,15 +163,17 @@ export function NoteIndex() {
                         name="noteTitle"
                         id="title"
                         placeholder="Title"
+                        value={noteToAdd.noteTitle}
                         onChange={handleChange} />
                     <input
                         type="text"
                         name="txt"
                         id="txt"
                         placeholder="New note..."
+                        value={noteToAdd.info.txt || ''}
                         onChange={handleInfoChange} />
 
-                    <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} todosCounter={todosCounter} />
+                    <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} todosCounter={todosCounter} noteToAdd={noteToAdd} />
 
                     <div className="actions">
                         <div className="actions-toolbar">
@@ -238,29 +245,31 @@ function CreateNoteByTextbox({ handleChange, handleInfoChange }) {
     )
 }
 
-function CreateNoteByImg({ handleInfoChange }) {
+function CreateNoteByImg({ handleInfoChange, noteToAdd }) {
     return (
         <input
             type="text"
             name="imgUrl"
             id="imgUrl"
             placeholder="Enter an image url"
+            value={noteToAdd.info.imgUrl || ''}
             onChange={handleInfoChange} />
     )
 }
 
-function CreateNoteByVideo({ handleInfoChange }) {
+function CreateNoteByVideo({ handleInfoChange, noteToAdd }) {
     return (
         <input
             type="text"
             name="videoUrl"
             id="videoUrl"
             placeholder="Enter a video url"
+            value={noteToAdd.info.videoUrl || ''}
             onChange={handleInfoChange} />
     )
 }
 
-function CreateNoteByTodos({ handleInfoChange, todosCounter }) {
+function CreateNoteByTodos({ handleInfoChange, todosCounter, noteToAdd }) {
     return (
         <div>
             {console.log([...Array(todosCounter)])}
