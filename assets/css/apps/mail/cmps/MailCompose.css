@@ -1,0 +1,41 @@
+.hide{
+    display: none;
+}
+
+.mail-compose-container{
+    position: fixed;
+    bottom: 0;
+    right: 2vw;
+    width: 33.375em;
+    height: 30.875em;
+    background-color: white;
+}
+
+.compose-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+    padding: 0.8em;
+    border-radius: 0.5em 0.5em 0 0;
+
+    background-color: var(--crl-mail-search-bar);
+}
+
+.top-buttons img{
+    width: 1.2em;
+}
+
+.top-buttons button{
+    background-color: inherit;
+    border: 0px;
+}
+
+.top-buttons button:hover{
+    background-color: var(--crl-mail-search-icon);
+}
+
+.compose-main{
+    display: flex;
+    flex-direction: column;
+}

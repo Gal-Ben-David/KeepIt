@@ -8,6 +8,7 @@ import { MailCompose } from '../cmps/MailCompose.jsx';
 export function MailIndex() {
 
     const [mails, setMails] = useState(null)
+    const [isMailCompose, setIsMailCompose] = useState(false)
 
     useEffect(() => {
         loadMails()
@@ -21,15 +22,26 @@ export function MailIndex() {
             })
     }
 
+    function openMailCompose() {
+        setIsMailCompose(true)
 
+    }
+
+    const toggleMailCompose = isMailCompose ? '' : 'hide'
     if (!mails) return <h1>Loading...</h1>
 
+    console.log('hi', isMailCompose, toggleMailCompose);
     return (
         <section className="mail-index">
-            <MailCompose mails={mails} />
+            <section className="mail-compose-btn-container">
+                <button onClick={openMailCompose} className="mail-compose-btn">Compose</button>
+            </section>
             <MailFilter mails={mails} />
             <section>
                 <MailList mails={mails} />
+            </section>
+            <section className={`mail-compose-container ${toggleMailCompose}`}>
+                <MailCompose setIsMailCompose={setIsMailCompose} mails={mails} />
             </section>
         </section>
     )
