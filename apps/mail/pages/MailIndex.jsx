@@ -10,6 +10,7 @@ export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [isMailCompose, setIsMailCompose] = useState(false)
     const [dateCompose, setDateCompose] = useState()
+    const [changeReadStatus, setChangeReadStatus ] = useState(false)
 
     useEffect(() => {
         loadMails()
@@ -32,6 +33,14 @@ export function MailIndex() {
         setDateCompose(new Date())
     }
 
+    function onReadMail(mail) {
+        mail.isRead = !mail.isRead
+        mailService.save(mail)
+        console.log(mail);
+        setChangeReadStatus(!changeReadStatus)
+    }
+
+
     const toggleMailCompose = isMailCompose ? '' : 'hide'
     if (!mails) return <h1>Loading...</h1>
 
@@ -40,7 +49,7 @@ export function MailIndex() {
         <section className="mail-index">
             <MailFilter openMailCompose={openMailCompose} mails={mails} />
             <section>
-                <MailList mails={mails} />
+                <MailList onReadMail={onReadMail} mails={mails} />
             </section>
             <section className={`mail-compose-container ${toggleMailCompose}`}>
                 <MailCompose dateCompose={dateCompose} isMailCompose={isMailCompose} setIsMailCompose={setIsMailCompose} mails={mails} />

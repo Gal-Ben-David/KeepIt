@@ -11,11 +11,26 @@
  ul.mail-list {
      list-style-type: none;
      padding-inline-start: var( --width-side-filter-mail);
+     background-color: white;
  }
+
+ /* .mail-preview.read:hover ul.mail-list{
+    background-color: var(--crl-mail-read);
+
+ } */
+/* ul.mail-list .read {
+    background-color: var(--crl-mail-read);
+}
+  */
+
+  .mail-li.read{
+    background-color: var(--crl-mail-read);
+  }
 
  .mail-list li {
     background-color: #ffff;
     box-shadow: rgba(100, 121, 143, 0.12) 0px -1px 0px 0px inset;
+    background-color: inherit;
  }
 
  .mail-list{
@@ -25,16 +40,23 @@
  }
 
  li.mail-li{
+    display: grid;
+    align-items: center;
+    align-content: center;
+
     position: relative;
+
  }
 
  .mail-icons{
      display: none;
      /* display: flex; */
+     align-self: center;
     align-items: center;
     justify-content: center;
     position: absolute;
     right: 0;
+    top: 7px;
     background-color: inherit;
     height: 2lh;
     /* width: 6em; */
@@ -42,6 +64,7 @@
  }
 
  li.mail-li:hover .mail-icons{
+    z-index: 2;
      display: flex;
 
  }

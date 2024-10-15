@@ -14,11 +14,16 @@ export function MailDetails() {
 
     useEffect(() => {
         loadMail()
+
     }, [params.mailId])
 
     function loadMail() {
         mailService.get(params.mailId)
-            .then(setMail)
+            .then(mail => {
+                mail.isRead = true
+                setMail(mail)
+                mailService.save(mail)
+            })
             .catch(err => {
                 console.log('Problem getting mail', err)
                 showErrorMsg('Problem getting car')
