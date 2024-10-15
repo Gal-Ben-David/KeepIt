@@ -12,6 +12,10 @@
     cursor: pointer;
 }
 
+.mail-preview{
+    background-color: white;
+}
+
 .mail-preview.read {
     background-color: var(--crl-mail-read);
 }
