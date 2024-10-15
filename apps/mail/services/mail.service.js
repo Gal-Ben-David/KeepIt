@@ -51,7 +51,7 @@ function query(filterBy = {}) {
             }
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail => regExp.test(mail.subject || mail.body))
+                mails = mails.filter(mail => regExp.test(mail.body) || regExp.test(mail.subject))
             }
             if (filterBy.date) {
                 mails = mails.filter(mail => mail.sentAt === filterBy.date)

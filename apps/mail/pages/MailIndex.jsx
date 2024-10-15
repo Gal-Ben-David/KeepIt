@@ -1,10 +1,13 @@
 const { useEffect, useState } = React
 
+const { Link, useSearchParams } = ReactRouterDOM
+
 // import { showErrorMsg } from 'services/event-bus.service.js'
 import { mailService } from '../services/mail.service.js';
 import { MailFilter } from "../cmps/MailFilter.jsx";
 import { MailList } from "../cmps/MailList.jsx";
 import { MailCompose } from '../cmps/MailCompose.jsx';
+import {getTruthyValues} from '../../../services/util.service.js'
 
 export function MailIndex() {
 
@@ -13,20 +16,29 @@ export function MailIndex() {
     const [dateCompose, setDateCompose] = useState()
     const [changeReadStatus, setChangeReadStatus] = useState(false)
 
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+
+
     useEffect(() => {
+        setSearchParams(getTruthyValues(filterBy))
         loadMails()
-    }, [isMailCompose])
+    }, [isMailCompose, filterBy])
 
     useEffect(() => {
         document.body.style.backgroundColor = '#F6F8FC';
     }, [])
 
     function loadMails() {
-        mailService.query()
+        mailService.query(filterBy)
             .then(setMails)
             .catch(err => {
                 console.log('Problems getting mails:', err)
             })
+    }
+
+    function onSetFilterBy(filterBy) {
+        setFilterBy(preFilter => ({ ...preFilter, ...filterBy }))
     }
 
     function openMailCompose() {
@@ -55,12 +67,12 @@ export function MailIndex() {
 
 
     const toggleMailCompose = isMailCompose ? '' : 'hide'
-    if (!mails) return <div class="loader"></div>
+    if (!mails) return <div className="loader"></div>
 
     console.log('hi', isMailCompose, toggleMailCompose);
     return (
         <section className="mail-index">
-            <MailFilter openMailCompose={openMailCompose} mails={mails} />
+            <MailFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} openMailCompose={openMailCompose} mails={mails} />
             <section>
                 <MailList onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
             </section>
