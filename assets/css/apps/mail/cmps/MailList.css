@@ -38,6 +38,7 @@
     background-color: inherit;
     height: 2lh;
     /* width: 6em; */
+    margin-right: 0.2em;
  }
 
  li.mail-li:hover .mail-icons{
