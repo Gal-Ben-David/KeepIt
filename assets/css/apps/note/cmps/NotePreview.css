@@ -36,10 +36,6 @@ ul.notes {
     opacity: 1;
 }
 
-.notes li:hover .pin-btn.absolute.pinned {
-    opacity: 0.7;
-}
-
 .notes li h3 {
     font-weight: 550;
 }
