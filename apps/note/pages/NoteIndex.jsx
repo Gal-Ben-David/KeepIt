@@ -124,7 +124,15 @@ export function NoteIndex() {
 
     return (
         <section className="main-note">
-            <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} />
+            <section className="keep-header">
+                <button className="note-bars-btn"><img src="../../../assets/img/menu.png" /></button>
+                <div className="keep-logo">
+                    <img src="../../../assets/img/keeps.png" />
+                    <span>Keep</span>
+                </div>
+
+                <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} />
+            </section>
 
             <section className="new-note">
                 <form className="add-note-form" onSubmit={onSubmit}>
@@ -142,29 +150,34 @@ export function NoteIndex() {
                         onChange={handleInfoChange} />
 
                     <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} todosCounter={todosCounter} />
+
                     <div className="actions">
-                        <input
-                            type="color"
-                            className="control-color"
-                            id="color-input"
-                            name="style"
-                            onChange={handleChange} />
+                        <div className="actions-toolbar">
+                            <label htmlFor="color-input"><i className="fa-solid fa-palette"></i></label>
+                            <input
+                                type="color"
+                                className="control-color"
+                                id="color-input"
+                                name="style"
+                                onChange={handleChange} />
 
-                        <button
-                            type='button'
-                            title="Add image"
-                            onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
+                            <button
+                                type='button'
+                                title="Add image"
+                                onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
 
-                        <button
-                            type='button'
-                            onClick={() => setCmpType('NoteVideo')}><i className="fa-solid fa-video"></i></button>
+                            <button
+                                type='button'
+                                onClick={() => setCmpType('NoteVideo')}><i className="fa-solid fa-video"></i></button>
 
-                        <button
-                            type='button'
-                            onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}><i className="fa-regular fa-square-check"></i></button>
+                            <button
+                                type='button'
+                                onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}><i className="fa-regular fa-square-check"></i></button>
+                        </div>
+                        <button className="save-new-note-btn">Save</button>
                     </div>
 
-                    <button className="save-new-note-btn">Save</button>
+
                 </form>
 
                 <NotePreview

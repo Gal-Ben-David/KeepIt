@@ -3,12 +3,13 @@
 
     --crl-label: #DDDDDD;
     --crl-font: #666666;
+    --crl-font-2: #555555;
 
     --crl-mail-bg: #f6f8fc;
     --crl-mail-read: #f2f6fc;
     --crl-mail-search-bar: #eaf1fb;
     --crl-mail-search-icon: rgba(60, 64, 68, 0.1);
-    
+
     --clr-mail-font-black: #202124;
     --clr-mail-font-gray: #5f6368;
 
