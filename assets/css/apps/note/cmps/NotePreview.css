@@ -11,6 +11,7 @@ ul.notes {
 }
 
 .notes li {
+    position: relative;
     break-inside: avoid;
     display: inline-block;
     margin-block-end: 20px;
@@ -30,8 +31,13 @@ ul.notes {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.notes li:hover .toolbar {
+.notes li:hover .toolbar,
+.notes li:hover .pin-btn {
     opacity: 1;
+}
+
+.notes li:hover .pin-btn.absolute.pinned {
+    opacity: 0.7;
 }
 
 .notes li h3 {
@@ -60,4 +66,51 @@ ul.notes {
 
     opacity: 0;
     transition: 0.3s ease;
+}
+
+.pin-btn {
+    background-color: transparent;
+    border: none;
+
+    padding: 0.3em;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.pin-btn img {
+    width: 22px;
+    margin: 0;
+}
+
+.title-and-info-content .pin-btn.absolute {
+    width: 25px;
+    position: absolute;
+    top: 5px;
+    left: 15px;
+}
+
+.title-and-info-content.absolute {
+    display: grid;
+
+}
+
+.title-and-info-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+        "pin-btn title";
+    gap: 0.5em;
+    align-items: center;
+}
+
+.pin-btn {
+    grid-area: pin-btn;
+}
+
+.title-and-info-content h3 {
+    grid-area: title;
+}
+
+p {
+    grid-column: 1 / -1;
 }
