@@ -17,3 +17,8 @@
     background-color: #ffff;
     box-shadow: rgba(100, 121, 143, 0.12) 0px -1px 0px 0px inset;
  }
+
+ .mail-list{
+    max-height: 70vh;
+    overflow-y: scroll;
+ }

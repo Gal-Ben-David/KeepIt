@@ -9,10 +9,11 @@ export function MailIndex() {
 
     const [mails, setMails] = useState(null)
     const [isMailCompose, setIsMailCompose] = useState(false)
+    const [dateCompose, setDateCompose] = useState()
 
     useEffect(() => {
         loadMails()
-    }, [])
+    }, [isMailCompose])
 
     useEffect(() => {
         document.body.style.backgroundColor = '#F6F8FC';
@@ -28,7 +29,7 @@ export function MailIndex() {
 
     function openMailCompose() {
         setIsMailCompose(true)
-
+        setDateCompose(new Date())
     }
 
     const toggleMailCompose = isMailCompose ? '' : 'hide'
@@ -42,7 +43,7 @@ export function MailIndex() {
                 <MailList mails={mails} />
             </section>
             <section className={`mail-compose-container ${toggleMailCompose}`}>
-                <MailCompose setIsMailCompose={setIsMailCompose} mails={mails} />
+                <MailCompose dateCompose={dateCompose} isMailCompose={isMailCompose} setIsMailCompose={setIsMailCompose} mails={mails} />
             </section>
         </section>
     )

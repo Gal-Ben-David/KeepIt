@@ -78,7 +78,7 @@ function save(mail) {
     }
 }
 
-function getEmptyMail(subject = '', body = '', isRead = false, sentAt = '', createdAt = '', from = '', to = '') {
+function getEmptyMail(subject = '', body = '', isRead = false, sentAt = '', createdAt = '', from = `${loggedInUser.email}`, to = '') {
     return { subject, body, isRead, sentAt, createdAt, from, to }
 }
 
