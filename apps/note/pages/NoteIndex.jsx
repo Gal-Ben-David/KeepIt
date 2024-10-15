@@ -11,6 +11,7 @@ export function NoteIndex() {
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
     const [cmpType, setCmpType] = useState('NoteTxt')
+    const [todosCounter, setTodosCounter] = useState(0)
 
     useEffect(() => {
         loadNotes()
@@ -60,7 +61,7 @@ export function NoteIndex() {
                 value = target.checked
                 break
         }
-        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.book, [field]: value } }))
+        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
     }
 
     function onSubmit(ev) {
@@ -136,20 +137,30 @@ export function NoteIndex() {
                         placeholder="New note..."
                         onChange={handleInfoChange} />
 
-                    <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} />
+                    <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} todosCounter={todosCounter} />
+                    <div className="actions">
+                        <input
+                            type="color"
+                            className="control-color"
+                            id="color-input"
+                            name="style"
+                            onChange={handleChange} />
 
-                    <input
-                        type="color"
-                        className="control-color"
-                        id="color-input"
-                        name="style"
-                        onChange={handleChange} />
+                        <button
+                            type='button'
+                            title="Add image"
+                            onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
 
-                    <button
-                        type='button'
-                        title="Add image"
-                        onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
-                    <button>Save</button>
+                        <button
+                            type='button'
+                            onClick={() => setCmpType('NoteVideo')}><i className="fa-solid fa-video"></i></button>
+
+                        <button
+                            type='button'
+                            onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}><i className="fa-regular fa-square-check"></i></button>
+                    </div>
+
+                    <button className="save-new-note-btn">Save</button>
                 </form>
 
                 <NotePreview
@@ -170,6 +181,8 @@ function DynamicCmp(props) {
             return <CreateNoteByTextbox {...props} />
         case 'NoteImg':
             return <CreateNoteByImg {...props} />
+        case 'NoteVideo':
+            return <CreateNoteByVideo {...props} />
         case 'NoteTodos':
             return <CreateNoteByTodos {...props} />
         default:
@@ -193,5 +206,35 @@ function CreateNoteByImg({ handleInfoChange }) {
             id="imgUrl"
             placeholder="Enter an image url"
             onChange={handleInfoChange} />
+    )
+}
+
+function CreateNoteByVideo({ handleInfoChange }) {
+    return (
+        <input
+            type="text"
+            name="videoUrl"
+            id="videoUrl"
+            placeholder="Enter a video url"
+            onChange={handleInfoChange} />
+    )
+}
+
+function CreateNoteByTodos({ handleChange, todosCounter }) {
+    return (
+        <div>
+            {console.log([...Array(todosCounter)])}
+            {[...Array(todosCounter)].map((_, i) =>
+                <div key={i}>
+                    <button type='button' onClick={() => setTodosCounter(prevCount => prevCount++)}>+</button>
+                    <input
+                        type="text"
+                        name="dotos"
+                        id="todos"
+                        placeholder="List item"
+                        onChange={handleChange} />
+                </div>
+            )}
+        </div>
     )
 }

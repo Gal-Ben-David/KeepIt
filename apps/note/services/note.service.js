@@ -22,10 +22,16 @@ export const noteService = {
 function query(filterBy = {}) {
     return storageService.query(NOTE_KEY)
         .then(notes => {
-            if (filterBy.noteTitle) {
-                const regExp = new RegExp(filterBy.noteTitle, 'i')
-                notes = notes.filter(note => regExp.test(note.noteTitle))
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                notes = notes.filter(note => {
+                    const matchesTitle = regExp.test(note.noteTitle)
+                    const matchesTxt = regExp.test(note.info.txt)
+
+                    return matchesTitle || matchesTxt
+                })
             }
+
             // if (filterBy.type) {
             //     notes = notes.filter(note => note.type >= filterBy.type)
             // }
@@ -57,7 +63,7 @@ function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', 
 
 function getDefaultFilter() {
     return {
-        noteTitle: '',
+        txt: '',
         type: '',
     }
 }
@@ -75,13 +81,21 @@ function _createNotes() {
 
             _createNote(1112223,
                 'NoteImg',
-                'New Note',
+                'Tiger',
                 false,
-                { backgroundColor: '#eaece5' },
+                { backgroundColor: '#FFDFD3' },
                 {
                     imgUrl: 'https://media.4-paws.org/5/4/4/c/544c2b2fd37541596134734c42bf77186f0df0ae/VIER%20PFOTEN_2017-10-20_164-3854x2667-1920x1329.jpg',
-                    title: 'Tiger',
                     txt: 'Here is my tiger'
+                }),
+            _createNote(1112224,
+                'NoteVideo',
+                'Cool Motivating Background Music',
+                false,
+                { backgroundColor: '#fcf4dd' },
+                {
+                    videoUrl: 'https://www.youtube.com/embed/wt8nzHv9Gn8?si=xYcgEo-Cbw0mNReD',
+                    txt: '🎵 Remember to explore MorningLightMusic for background music. '
                 }),
         ]
         console.log(notes)
