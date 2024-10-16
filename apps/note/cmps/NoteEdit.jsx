@@ -45,8 +45,8 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
         setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...noteToEdit.info, [field]: value } }))
     }
 
-    function onSubmit(ev) {
-        ev.preventDefault()
+    function onSubmit() {
+        // ev.preventDefault()
         setNoteType(noteToEdit)
         noteService.save(noteToEdit)
             .then(note => {
@@ -86,7 +86,7 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
     return (
         <section>
 
-            <form className="edit-note-form" onSubmit={onSubmit} style={{ backgroundColor: noteToEdit.style.backgroundColor }}>
+            <div className="edit-note-form" style={{ backgroundColor: noteToEdit.style.backgroundColor }}>
                 {noteToEdit.info.imgUrl && renderImgOrVideo(<img src={note.info.imgUrl} />, 'img')}
                 {noteToEdit.info.videoUrl && renderImgOrVideo(<iframe src={note.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                 </iframe>, 'video')}
@@ -144,9 +144,9 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
                             <i className="fa-regular fa-square-check"></i>
                         </button>
                     </div>
-                    <button className="save-new-note-btn">Save</button>
+                    <button className="save-new-note-btn" onClick={onSubmit}>Save</button>
                 </div>
-            </form>
+            </div>
 
 
         </section>

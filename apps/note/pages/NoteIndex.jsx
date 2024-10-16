@@ -17,6 +17,9 @@ export function NoteIndex() {
     const [showFilterOption, setShowFilterOption] = useState(false)
     const [cmpType, setCmpType] = useState('NoteTxt')
     const [todosCounter, setTodosCounter] = useState(0)
+    const [noteAddingFormStyle, setNoteAddingFormStyle] = useState({
+        backgroundColor: '#000000'
+    })
 
     useEffect(() => {
         loadNotes()
@@ -89,8 +92,8 @@ export function NoteIndex() {
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
     }
 
-    function onSubmit(ev) {
-        ev.preventDefault()
+    function onSubmit() {
+        // ev.preventDefault()
         if (noteToAdd.noteTitle === '' && noteToAdd.info.txt === '') return console.log('empty note')
         else {
             setNoteType(noteToAdd)
@@ -164,21 +167,23 @@ export function NoteIndex() {
             </section>
 
             <section className="new-note">
-                <form className="add-note-form" onSubmit={(event) => onSubmit(event, noteToAdd)}>
+                <div className="add-note-form" style={{ backgroundColor: noteToAdd.style.backgroundColor }}>
                     <input
                         type="text"
                         name="noteTitle"
                         id="title"
                         placeholder="Title"
                         value={noteToAdd.noteTitle}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        style={{ backgroundColor: noteToAdd.style.backgroundColor }} />
                     <input
                         type="text"
                         name="txt"
                         id="txt"
                         placeholder="New note..."
                         value={noteToAdd.info.txt || ''}
-                        onChange={handleInfoChange} />
+                        onChange={handleInfoChange}
+                        style={{ backgroundColor: noteToAdd.style.backgroundColor }} />
 
                     <DynamicCmp
                         cmpType={cmpType}
@@ -218,11 +223,11 @@ export function NoteIndex() {
                                 <i className="fa-regular fa-square-check"></i>
                             </button>
                         </div>
-                        <button className="save-new-note-btn">Save</button>
+                        <button className="save-new-note-btn" onClick={onSubmit}>Save</button>
                     </div>
 
 
-                </form>
+                </div>
 
                 <NotePreview
                     notes={notes}
