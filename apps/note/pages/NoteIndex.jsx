@@ -189,7 +189,7 @@ export function NoteIndex() {
 
                     <div className="actions">
                         <div className="actions-toolbar">
-                            <label htmlFor="color-input"><i className="fa-solid fa-palette"></i></label>
+                            <label title="Background color" htmlFor="color-input"><i className="fa-solid fa-palette"></i></label>
                             <input
                                 type="color"
                                 className="control-color"
@@ -206,12 +206,14 @@ export function NoteIndex() {
 
                             <button
                                 type='button'
+                                title="Add video"
                                 onClick={() => { setCmpType('NoteVideo') }}>
                                 <i className="fa-solid fa-video">
                                 </i></button>
 
                             <button
                                 type='button'
+                                title="Todo list"
                                 onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
                                 <i className="fa-regular fa-square-check"></i>
                             </button>
