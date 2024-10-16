@@ -3,16 +3,17 @@
     /* top: 6.6em; */
 
     display: grid;
-    grid-template-columns: 14em 1fr;
+    grid-template-columns: var(--width-side-filter-mail) 1fr;
     justify-items: center;
     align-items: center;
 
     background-color: var(--crl-mail-bg);
-    height: 3.2em;
+    height: 5.3em;
 }
 
 .search-bar-container {
     grid-column: 2;
+    align-items: center;
 }
 
 .top-filter button {
@@ -23,7 +24,6 @@
     position: relative;
     width: clamp(20em, 50vw, 800em);
     display: flex;
-    align-items: center;
 }
 
 .search-bar-container .search-btn {
@@ -36,7 +36,7 @@
 
     border: 0px;
     border-radius: 50%;
-    scale: 0.3;
+    scale: 0.25;
 }
 
 .search-bar-container .date-btn {
@@ -49,7 +49,7 @@
 
     border: 0px;
     border-radius: 50%;
-    scale: 0.3;
+    scale: 0.25;
 }
 
 .top-filter .date-input {
@@ -69,12 +69,33 @@
     height: 2.875em;
     width: 100%;
     padding-inline-start: 4em;
+
+    margin-bottom: 0.4em;
 }
 
 .top-filter input:focus {
     outline: none !important;
     background-color: white;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 3px 0px, rgba(60, 64, 67, 0.15) 0px 4px 8px 3px;
+}
+
+.top-filters {
+    /* margin-inline-start: calc(var(--width-side-filter-mail)+3.7em); */
+    width: 100%;
+    grid-column: 2;
+    grid-row: 2;
+    height: 3.5em;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 0.25fr;
+}
+
+.top-filters>* {
+    display: flex;
+    padding-inline-end: 50%;
+    gap: 1em;
+    align-items: center;
+    /* font-family: inherit; */
+    font-family: 'roboto-medium';
 }
 
 .side-filter {
@@ -136,12 +157,14 @@ button.mail-compose-btn {
     height: 3.5em;
     margin-left: 1em;
     margin-bottom: 1em;
+    margin-top: 1em;
     padding: 2em;
 
     border-radius: 1em;
     background-color: var(--crl-mail-compose-btn);
 
-    font-weight: 500;
+    /* font-weight: 500; */
+    font-family: 'roboto-medium';
 
     transition: 200ms;
 }

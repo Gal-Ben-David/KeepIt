@@ -43,8 +43,6 @@ export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filte
         setIsDateClicked(isDateClicked => !isDateClicked)
         filterByToEdit.date=""
         console.log(filterByToEdit)
-        
-        
     }
 
     const {
@@ -81,6 +79,11 @@ export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filte
                         {/* <input onClick={backToIndex ? () => backToIndex() : () => { return }} value={date} onChange={handleChange} type="date" name="date" id="date" /> */}
                     </div>
                 </form>
+                <div className="top-filters">
+                    <button><img src="" alt="" /><span>Primary</span></button>
+                    <button><img src="" alt="" /><span>Read</span></button>
+                    <button><img src="" alt="" /><span>Unread</span></button>
+                </div>
             </section>
             <section className="side-filter">
                 <button onClick={backToIndex ? () => backToIndex() : openMailCompose} className="mail-compose-btn">

@@ -2,7 +2,7 @@
 
 @import './setup/variables.css';
 @import './setup/note-mq.css';
-/* @import './setup/fonts.css'; */
+@import './setup/fonts.css';
 
 /* Basics */
 

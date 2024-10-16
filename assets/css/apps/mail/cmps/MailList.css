@@ -1,11 +1,13 @@
  /* mail list */
 
  .mail-from {
-     font-weight: bold;
+     /* font-weight: bold; */
+     font-family: 'roboto-bold';
  }
 
  .mail-subject {
-     font-weight: bold;
+     /* font-weight: bold; */
+     font-family: 'roboto-bold';
  }
 
  ul.mail-list {
