@@ -4,10 +4,12 @@ const { useState, useEffect, useRef } = React
 export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filterBy, onSetFilterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    const [isDateClicked, setIsDateClicked] = useState(false)
+
 
     useEffect(() => {
         onSetFilterBy(filterByToEdit)
-    }, [filterByToEdit])
+    }, [filterByToEdit, isDateClicked])
 
     function handleChange({ target }) {
         const field = target.name
@@ -37,6 +39,14 @@ export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filte
         return unreadMails.length
     }
 
+    function onClickDateBtn() {
+        setIsDateClicked(isDateClicked => !isDateClicked)
+        filterByToEdit.date=""
+        console.log(filterByToEdit)
+        
+        
+    }
+
     const {
         status,
         isRead,
@@ -45,9 +55,14 @@ export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filte
         txt,
         date } = filterByToEdit
 
+
+
+
     const isValid = !!status || !!isRead || !!isStared || !!labels || !!txt || !!date
-    
-    // console.log(isIndex);
+
+    const dateSearch = isDateClicked ? <input className="date-input" onClick={backToIndex ? () => backToIndex() : () => { return }} value={date} onChange={handleChange} type="date" name="date" id="date" /> : ''
+
+    console.log(isDateClicked);
 
     // const input = isIndex ?
     //     <input onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" /> :
@@ -59,14 +74,17 @@ export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filte
                 <form onSubmit={onSubmit} className="search-bar-container">
                     <div className="search-bar">
                         <button disabled={!isValid} className="search-btn"><img src="assets\img\mail-icons\search_24dp_202124_FILL1_wght400_GRAD0_opsz24.png" alt="search" /></button>
+                        <button onClick={backToIndex ? () => backToIndex() : () => onClickDateBtn()}  type="button" className="date-btn"><img src="assets\img\mail-icons\event_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="date-search" /></button>
                         {/* {input} */}
-                        <input onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" />
+                        <input className="text-input" onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" />
+                        {dateSearch}
+                        {/* <input onClick={backToIndex ? () => backToIndex() : () => { return }} value={date} onChange={handleChange} type="date" name="date" id="date" /> */}
                     </div>
                 </form>
             </section>
             <section className="side-filter">
-            <button onClick={backToIndex ? () => backToIndex() : openMailCompose} className="mail-compose-btn">
-            <section className="mail-compose-btn-container">
+                <button onClick={backToIndex ? () => backToIndex() : openMailCompose} className="mail-compose-btn">
+                    <section className="mail-compose-btn-container">
                         <img src="assets\img\mail-icons\edit_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="pencil" />
                         <span>Compose</span>
                     </section>

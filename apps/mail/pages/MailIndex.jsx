@@ -16,6 +16,7 @@ export function MailIndex() {
     const [dateCompose, setDateCompose] = useState()
     const [changeReadStatus, setChangeReadStatus] = useState(false)
 
+
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
 
@@ -64,6 +65,8 @@ export function MailIndex() {
                 // showErrorMsg(`Problems removing mail (${mailId})`)
             })
     }
+
+
 
 
     const toggleMailCompose = isMailCompose ? '' : 'hide'

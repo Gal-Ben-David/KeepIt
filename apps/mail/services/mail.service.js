@@ -51,10 +51,16 @@ function query(filterBy = {}) {
             }
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail => regExp.test(mail.body) || regExp.test(mail.subject))
+                mails = mails.filter(mail => regExp.test(mail.body) || regExp.test(mail.subject) || regExp.test(mail.from))
             }
             if (filterBy.date) {
-                mails = mails.filter(mail => mail.sentAt === filterBy.date)
+                mails = mails.filter(mail => {
+                    const mailDate = new Date(mail.sentAt)
+                    const filterDate = new Date(filterBy.date)
+                    console.log(mailDate.getDate(), filterDate.getDate());
+                    
+                    return mailDate.getDate() === filterDate.getDate() && mailDate.getMonth() === filterDate.getMonth() && mailDate.getYear() === filterDate.getYear()
+                })
             }
             return mails
         })

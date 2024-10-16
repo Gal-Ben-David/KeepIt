@@ -56,19 +56,25 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 0;
+    right: 6%;
     top: 2px;
     background-color: inherit;
     height: 2lh;
     /* width: 6em; */
-    margin-right:0;
-    padding: 0 4vw;
+    /* margin-right:4em; */
+    grid-column: 5;
+
+    /* padding: 0 4vw; */
  }
 
  li.mail-li:hover .mail-icons{
-    z-index: 2;
+    /* z-index: 2; */
      display: flex;
 
+ }
+
+ li.mail-li:hover .mail-date{
+   display: none;
  }
 
  .mail-icons img{
