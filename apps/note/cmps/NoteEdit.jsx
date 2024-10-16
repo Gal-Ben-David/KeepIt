@@ -60,16 +60,16 @@ export function NoteEdit({ note, onCloseModal, loadNotes }) {
 
     return (
         <section>
-            <h1>Edit Note</h1>
 
-            <form className="edit-note-form" onSubmit={onSubmit}>
+            <form className="edit-note-form" onSubmit={onSubmit} style={{ backgroundColor: noteToEdit.style.backgroundColor }}>
                 <input
                     type="text"
                     name="noteTitle"
                     id="title-update"
                     placeholder="Title"
                     value={noteToEdit.noteTitle}
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    style={{ backgroundColor: noteToEdit.style.backgroundColor }} />
 
                 <input
                     type="text"
@@ -77,11 +77,12 @@ export function NoteEdit({ note, onCloseModal, loadNotes }) {
                     id="note-content"
                     placeholder="New note..."
                     value={noteToEdit.info.txt}
-                    onChange={handleInfoChange} />
+                    onChange={handleInfoChange}
+                    style={{ backgroundColor: noteToEdit.style.backgroundColor }} />
 
                 <input
                     type="color"
-                    className="control-color"
+                    className="control-color-edit"
                     id="color-input"
                     name="style"
                     value={noteToEdit.style.backgroundColor}
