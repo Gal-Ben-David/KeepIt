@@ -24,7 +24,7 @@ function post(entityType, newEntity, isPinned = false) {
     newEntity.id = _makeId()
     return query(entityType).then(entities => {
         if (isPinned) entities.unshift(newEntity)
-        else entities.push(newEntity)
+        else entities.unshift(newEntity)
         _save(entityType, entities)
         return newEntity
     })
