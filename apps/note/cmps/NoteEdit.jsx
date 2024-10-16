@@ -42,7 +42,7 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
                 value = target.checked
                 break
         }
-        setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...noteToEdit.book, [field]: value } }))
+        setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...noteToEdit.info, [field]: value } }))
     }
 
     function onSubmit(ev) {
@@ -62,22 +62,34 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
             })
     }
 
-    function renderImgOrVideo(element) {
+    function renderImgOrVideo(element, urlType) {
         return (
             <div className="edit-video-or-img">
                 {element}
-                <button type='button'><i className="fa-solid fa-trash"></i></button>
+                <button type='button' onClick={() => onRemoveUrl(urlType)}><i className="fa-solid fa-trash"></i></button>
             </div>
         )
+    }
+
+    function onRemoveUrl(urlType) {
+        const updatedInfo = { ...noteToEdit.info }
+        if (urlType === 'img') {
+            updatedInfo.imgUrl = ''
+            delete updatedInfo.imgUrl
+        } else if (urlType === 'video') {
+            updatedInfo.videoUrl = ''
+            delete updatedInfo.videoUrl
+        }
+        setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...updatedInfo } }))
     }
 
     return (
         <section>
 
             <form className="edit-note-form" onSubmit={onSubmit} style={{ backgroundColor: noteToEdit.style.backgroundColor }}>
-                {noteToEdit.info.imgUrl && renderImgOrVideo(<img src={note.info.imgUrl} />)}
+                {noteToEdit.info.imgUrl && renderImgOrVideo(<img src={note.info.imgUrl} />, 'img')}
                 {noteToEdit.info.videoUrl && renderImgOrVideo(<iframe src={note.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                </iframe>)}
+                </iframe>, 'video')}
 
 
                 <input

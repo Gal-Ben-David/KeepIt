@@ -200,19 +200,19 @@ export function NoteIndex() {
                             <button
                                 type='button'
                                 title="Add image"
-                                onClick={() => { setCmpType('NoteImg'); setNoteType('NoteImg') }}>
+                                onClick={() => { setCmpType('NoteImg') }}>
                                 <i className="fa-solid fa-image"></i>
                             </button>
 
                             <button
                                 type='button'
-                                onClick={() => { setCmpType('NoteVideo'); setNoteType('NoteVideo') }}>
+                                onClick={() => { setCmpType('NoteVideo') }}>
                                 <i className="fa-solid fa-video">
                                 </i></button>
 
                             <button
                                 type='button'
-                                onClick={() => { setCmpType('NoteTodos'); setNoteType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
+                                onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
                                 <i className="fa-regular fa-square-check"></i>
                             </button>
                         </div>
