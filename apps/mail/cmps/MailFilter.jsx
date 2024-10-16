@@ -89,6 +89,13 @@ export function MailFilter({ setMails, isIndex, backToIndex, mails, openMailComp
                     <button onClick={() => { setFilterByToEdit({ ...filterBy, isRead:undefined }) }} className="top-filter-first"><img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" /><span>Primary</span></button>
                     <button onClick={() => onReadMails(false)}><img src="assets\img\mail-icons\mail_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="unread" /><span>Unread</span></button>
                     <button onClick={() => onReadMails(true)}><img src="assets\img\mail-icons\drafts_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="read" /><span>Read</span></button>
+                    <button className="sort-btn">
+                        <img src="assets\img\mail-icons\sort_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" />
+                        <div className="sort-list">
+                            <button> <img src="assets\img\mail-icons\match_case_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" /></button>
+                            <button><img src="assets\img\mail-icons\schedule_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" /></button>
+                        </div>
+                    </button>
                 </div>
             </section>
             <section className="side-filter">

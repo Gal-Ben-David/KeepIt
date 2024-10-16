@@ -106,15 +106,35 @@
     background-color: white;
 }
 
-.top-filters img{
+.top-filters img {
     width: 1.3em;
     height: 1.3em;
     /* font-family: 'roboto-regular'; */
 
 }
 
+button.sort-btn{
+    cursor:default;
+}
+button.sort-btn:hover .sort-list>*{
 
-.top-filters>*:hover{
+    display: flex;
+    flex-direction: column;
+}
+
+.sort-list>* {
+    border: 0px;
+    background-color: white;
+    display: none;
+}
+
+.sort-list>*:hover {
+    background-color: var(--clr-mail-filter-hover);
+ 
+}
+
+
+.top-filters>*:hover {
     background-color: var(--clr-mail-filter-hover);
 }
 
@@ -150,7 +170,7 @@
     cursor: pointer;
 }
 
-.top-filter-first{
+.top-filter-first {
     border-radius: 1em 0 0 0;
 }
 
