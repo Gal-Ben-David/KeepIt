@@ -17,9 +17,9 @@ export function NoteIndex() {
     const [showFilterOption, setShowFilterOption] = useState(false)
     const [cmpType, setCmpType] = useState('NoteTxt')
     const [todosCounter, setTodosCounter] = useState(0)
-    const [noteAddingFormStyle, setNoteAddingFormStyle] = useState({
-        backgroundColor: '#000000'
-    })
+    // const [noteAddingFormStyle, setNoteAddingFormStyle] = useState({
+    //     backgroundColor: '#000000'
+    // })
 
     useEffect(() => {
         loadNotes()
@@ -146,6 +146,8 @@ export function NoteIndex() {
 
     }
 
+    const bgColor = noteToAdd.style.backgroundColor
+
     if (!notes) return <div>Loading....</div>
 
     return (
@@ -167,7 +169,7 @@ export function NoteIndex() {
             </section>
 
             <section className="new-note">
-                <div className="add-note-form" style={{ backgroundColor: noteToAdd.style.backgroundColor }}>
+                <div className="add-note-form" style={{ backgroundColor: bgColor }}>
                     <input
                         type="text"
                         name="noteTitle"
@@ -175,7 +177,7 @@ export function NoteIndex() {
                         placeholder="Title"
                         value={noteToAdd.noteTitle}
                         onChange={handleChange}
-                        style={{ backgroundColor: noteToAdd.style.backgroundColor }} />
+                        style={{ backgroundColor: bgColor }} />
                     <input
                         type="text"
                         name="txt"
@@ -183,14 +185,15 @@ export function NoteIndex() {
                         placeholder="New note..."
                         value={noteToAdd.info.txt || ''}
                         onChange={handleInfoChange}
-                        style={{ backgroundColor: noteToAdd.style.backgroundColor }} />
+                        style={{ backgroundColor: bgColor }} />
 
                     <DynamicCmp
                         cmpType={cmpType}
                         handleChange={handleChange}
                         handleInfoChange={handleInfoChange}
                         todosCounter={todosCounter}
-                        note={noteToAdd} />
+                        note={noteToAdd}
+                        bgColor={bgColor} />
 
                     <div className="actions">
                         <div className="actions-toolbar">

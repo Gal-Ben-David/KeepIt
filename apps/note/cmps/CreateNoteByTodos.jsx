@@ -1,4 +1,4 @@
-export function CreateNoteByTodos({ handleInfoChange, todosCounter, note }) {
+export function CreateNoteByTodos({ handleInfoChange, todosCounter, note, bgColor }) {
     return (
         <div>
             {console.log([...Array(todosCounter)])}
@@ -10,7 +10,8 @@ export function CreateNoteByTodos({ handleInfoChange, todosCounter, note }) {
                         name="dotos"
                         id="todos"
                         placeholder="List item"
-                        onChange={handleInfoChange} />
+                        onChange={handleInfoChange}
+                        style={{ backgroundColor: bgColor || '#ffffff' }} />
                 </div>
             )}
         </div>

@@ -1,4 +1,4 @@
-export function CreateNoteByImg({ handleInfoChange, note }) {
+export function CreateNoteByImg({ handleInfoChange, note, bgColor }) {
     return (
         <input
             type="text"
@@ -6,6 +6,7 @@ export function CreateNoteByImg({ handleInfoChange, note }) {
             id="imgUrl"
             placeholder="Enter an image url"
             value={note.info.imgUrl || ''}
-            onChange={handleInfoChange} />
+            onChange={handleInfoChange}
+            style={{ backgroundColor: bgColor || '#ffffff' }} />
     )
 }

@@ -10,6 +10,7 @@ const { useState, useEffect } = React
 export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
 
     const [noteToEdit, setNoteToEdit] = useState(note)
+    const [cmpType, setCmpType] = useState('')
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
@@ -83,10 +84,12 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
         setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...updatedInfo } }))
     }
 
+    const bgColor = noteToEdit.style.backgroundColor
+
     return (
         <section>
 
-            <div className="edit-note-form" style={{ backgroundColor: noteToEdit.style.backgroundColor }}>
+            <div className="edit-note-form" style={{ backgroundColor: bgColor }}>
                 {noteToEdit.info.imgUrl && renderImgOrVideo(<img src={note.info.imgUrl} />, 'img')}
                 {noteToEdit.info.videoUrl && renderImgOrVideo(<iframe src={note.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                 </iframe>, 'video')}
@@ -99,7 +102,7 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
                     placeholder="Title"
                     value={noteToEdit.noteTitle}
                     onChange={handleChange}
-                    style={{ backgroundColor: noteToEdit.style.backgroundColor }} />
+                    style={{ backgroundColor: bgColor }} />
 
                 <input
                     type="text"
@@ -108,13 +111,14 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
                     placeholder="New note..."
                     value={noteToEdit.info.txt}
                     onChange={handleInfoChange}
-                    style={{ backgroundColor: noteToEdit.style.backgroundColor }} />
+                    style={{ backgroundColor: bgColor }} />
 
                 <DynamicCmp
-                    noteType={noteToEdit.type}
+                    noteType={cmpType}
                     handleChange={handleChange}
                     handleInfoChange={handleInfoChange}
-                    note={noteToEdit} />
+                    note={noteToEdit}
+                    bgColor={bgColor} />
 
 
                 <div className="actions">
@@ -125,22 +129,25 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
                             className="control-color"
                             id="color-input-edit"
                             name="style"
-                            value={noteToEdit.style.backgroundColor}
+                            value={bgColor}
                             onChange={handleChange} />
 
                         <button
                             type='button'
-                            title="Add image">
+                            title="Add image"
+                            onClick={() => setCmpType('NoteImg')}>
                             <i className="fa-solid fa-image"></i>
                         </button>
 
                         <button
-                            type='button'>
+                            type='button'
+                            onClick={() => setCmpType('NoteVideo')}>
                             <i className="fa-solid fa-video"></i>
                         </button>
 
                         <button
-                            type='button'>
+                            type='button'
+                            onClick={() => setCmpType('NoteTodos')}>
                             <i className="fa-regular fa-square-check"></i>
                         </button>
                     </div>
