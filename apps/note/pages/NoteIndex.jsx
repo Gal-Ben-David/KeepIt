@@ -2,6 +2,9 @@ import { noteService } from '../services/note.service.js'
 import { NotePreview } from '../cmps/NotePreview.jsx'
 import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { FilterOptions } from '../cmps/FilterOptions.jsx'
+import { CreateNoteByImg } from '../cmps/CreateNoteByImg.jsx'
+import { CreateNoteByVideo } from '../cmps/CreateNoteByVideo.jsx'
+import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect, Fragment, Link } = React
@@ -37,6 +40,17 @@ export function NoteIndex() {
 
     function handleFromClick() {
         setShowFilterOption(true)
+    }
+
+    function onClearForm() {
+        setNoteToAdd(noteService.getEmptyNote())
+    }
+
+    function setNoteType(note) {
+        if (note.info.imgUrl) note.type = 'NoteImg'
+        else if (note.info.videoUrl) note.type = 'NoteVideo'
+        else if (note.info.todos) note.type = 'NoteTodos'
+        else note.type = 'NoteTxt'
     }
 
     function handleChange({ target }) {
@@ -79,11 +93,13 @@ export function NoteIndex() {
         ev.preventDefault()
         if (noteToAdd.noteTitle === '' && noteToAdd.info.txt === '') return console.log('empty note')
         else {
+            setNoteType(noteToAdd)
             noteService.save(noteToAdd)
                 .then(note => {
                     console.log(note)
                     console.log('Note added')
                     showSuccessMsg('Note has been saved successfully')
+                    onClearForm()
                     loadNotes()
                     setNoteToAdd(noteService.getEmptyNote())
                 })
@@ -148,25 +164,32 @@ export function NoteIndex() {
             </section>
 
             <section className="new-note">
-                <form className="add-note-form" onSubmit={onSubmit}>
+                <form className="add-note-form" onSubmit={(event) => onSubmit(event, noteToAdd)}>
                     <input
                         type="text"
                         name="noteTitle"
                         id="title"
                         placeholder="Title"
+                        value={noteToAdd.noteTitle}
                         onChange={handleChange} />
                     <input
                         type="text"
                         name="txt"
                         id="txt"
                         placeholder="New note..."
+                        value={noteToAdd.info.txt || ''}
                         onChange={handleInfoChange} />
 
-                    <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} todosCounter={todosCounter} />
+                    <DynamicCmp
+                        cmpType={cmpType}
+                        handleChange={handleChange}
+                        handleInfoChange={handleInfoChange}
+                        todosCounter={todosCounter}
+                        note={noteToAdd} />
 
                     <div className="actions">
                         <div className="actions-toolbar">
-                            <label htmlFor="color-input"><i className="fa-solid fa-palette"></i></label>
+                            <label title="Background color" htmlFor="color-input"><i className="fa-solid fa-palette"></i></label>
                             <input
                                 type="color"
                                 className="control-color"
@@ -177,15 +200,23 @@ export function NoteIndex() {
                             <button
                                 type='button'
                                 title="Add image"
-                                onClick={() => setCmpType('NoteImg')}><i className="fa-solid fa-image"></i></button>
+                                onClick={() => { setCmpType('NoteImg') }}>
+                                <i className="fa-solid fa-image"></i>
+                            </button>
 
                             <button
                                 type='button'
-                                onClick={() => setCmpType('NoteVideo')}><i className="fa-solid fa-video"></i></button>
+                                title="Add video"
+                                onClick={() => { setCmpType('NoteVideo') }}>
+                                <i className="fa-solid fa-video">
+                                </i></button>
 
                             <button
                                 type='button'
-                                onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}><i className="fa-regular fa-square-check"></i></button>
+                                title="Todo list"
+                                onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
+                                <i className="fa-regular fa-square-check"></i>
+                            </button>
                         </div>
                         <button className="save-new-note-btn">Save</button>
                     </div>
@@ -198,7 +229,8 @@ export function NoteIndex() {
                     onRemoveNote={onRemoveNote}
                     loadNotes={loadNotes}
                     onPinNote={onPinNote}
-                    onDuplicateNote={onDuplicateNote} />
+                    onDuplicateNote={onDuplicateNote}
+                    setNoteType={setNoteType} />
 
             </section>
         </section>
@@ -207,8 +239,8 @@ export function NoteIndex() {
 
 function DynamicCmp(props) {
     switch (props.cmpType) {
-        case 'NoteTxt':
-            return <CreateNoteByTextbox {...props} />
+        // case 'NoteTxt':
+        //     return <CreateNoteByTextbox {...props} />
         case 'NoteImg':
             return <CreateNoteByImg {...props} />
         case 'NoteVideo':
@@ -228,43 +260,5 @@ function CreateNoteByTextbox({ handleChange, handleInfoChange }) {
     )
 }
 
-function CreateNoteByImg({ handleInfoChange }) {
-    return (
-        <input
-            type="text"
-            name="imgUrl"
-            id="imgUrl"
-            placeholder="Enter an image url"
-            onChange={handleInfoChange} />
-    )
-}
 
-function CreateNoteByVideo({ handleInfoChange }) {
-    return (
-        <input
-            type="text"
-            name="videoUrl"
-            id="videoUrl"
-            placeholder="Enter a video url"
-            onChange={handleInfoChange} />
-    )
-}
 
-function CreateNoteByTodos({ handleInfoChange, todosCounter }) {
-    return (
-        <div>
-            {console.log([...Array(todosCounter)])}
-            {[...Array(todosCounter)].map((_, i) =>
-                <div key={i}>
-                    <button type='button' onClick={() => setTodosCounter(prevCount => prevCount++)}>+</button>
-                    <input
-                        type="text"
-                        name="dotos"
-                        id="todos"
-                        placeholder="List item"
-                        onChange={handleInfoChange} />
-                </div>
-            )}
-        </div>
-    )
-}

@@ -9,7 +9,7 @@ export function Modal({ children, isOpen = false, onCloseModal = () => { }, bgCo
             <section onClick={onCloseModal} className='modal-backdrop'></section>
             <section className='modal-content' style={{ backgroundColor: bgColor }}>
                 {children}
-                <button className='close-btn' onClick={onCloseModal}>X</button>
+                {/* <button className='close-btn' onClick={onCloseModal}>X</button> */}
             </section>
         </Fragment>
     )
