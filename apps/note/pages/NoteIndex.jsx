@@ -26,7 +26,7 @@ export function NoteIndex() {
     }, [filterBy])
 
     useEffect(() => {
-        document.body.style.backgroundColor = '#FFFFFF';
+        document.body.style.backgroundColor = '#FFFFFF'
     }, [])
 
     function loadNotes() {
@@ -90,6 +90,17 @@ export function NoteIndex() {
         }
         console.log(noteToAdd)
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
+    }
+
+    function handleInfoChangeForTodos({ target }) {
+        let { value, name: field, type } = target
+        const todosNote = { ...noteToAdd }
+        if (!todosNote.info.todos) todosNote.info.todos = []
+
+        todosNote.info.todos[todosCounter] = value
+
+        console.log(noteToAdd)
+        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos] } }))
     }
 
     function onSubmit() {
@@ -191,7 +202,9 @@ export function NoteIndex() {
                         cmpType={cmpType}
                         handleChange={handleChange}
                         handleInfoChange={handleInfoChange}
+                        handleInfoChangeForTodos={handleInfoChangeForTodos}
                         todosCounter={todosCounter}
+                        setTodosCounter={setTodosCounter}
                         note={noteToAdd}
                         bgColor={bgColor} />
 

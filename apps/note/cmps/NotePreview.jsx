@@ -34,10 +34,11 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
             <section className={`pinned-notes ${pinnedDisplay}`}>
                 <h4>Pinned</h4>
                 <ul className="notes">
-                    {notes.filter(note => note.isPinned).map(note =>
+                    {notes.filter(note => note.isPinned).map(note => {
 
-                        <li key={note.id} style={{ backgroundColor: note.style.backgroundColor }} onClick={() => handleEditClick(note)}>
+                        { console.log(note) }
 
+                        return (<li key={note.id} style={{ backgroundColor: note.style.backgroundColor }} onClick={() => handleEditClick(note)}>
 
                             {note.info.imgUrl && <img src={note.info.imgUrl} />}
                             {note.info.videoUrl &&
@@ -53,6 +54,16 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
 
                                 <h3>{note.noteTitle}</h3>
                                 <p>{note.info.txt}</p>
+
+                                {console.log(note.info.todos)}
+                                {console.log(note.info && note.info.todos)}
+                                {note.info.todos && note.info.todos.filter(item => item).map((item, i) =>
+                                    <label key={i}>
+                                        <input
+                                            type="checkbox" />
+                                        {item}
+                                    </label>
+                                )}
                             </div>
 
                             <div className="toolbar">
@@ -60,8 +71,8 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                                 <button title="Edit Note" onClick={(ev) => { ev.stopPropagation(); handleEditClick(note) }}><i className="fa-regular fa-pen-to-square"></i></button>
                                 <button title="Duplicate Note" onClick={(ev) => { ev.stopPropagation(); onDuplicateNote(note) }}><i className="fa-regular fa-clone"></i></button>
                             </div>
-                        </li>
-                    )}
+                        </li>)
+                    })}
                 </ul>
 
             </section>
@@ -87,6 +98,16 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
 
                                 <h3>{note.noteTitle}</h3>
                                 <p>{note.info.txt}</p>
+
+                                {console.log(note.info.todos)}
+                                {console.log(note.info && note.info.todos)}
+                                {note.info.todos && note.info.todos.filter(item => item).map((item, i) =>
+                                    <label key={i}>
+                                        <input
+                                            type="checkbox" />
+                                        {item}
+                                    </label>
+                                )}
                             </div>
 
                             <div className="toolbar">

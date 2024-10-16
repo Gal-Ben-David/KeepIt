@@ -1,16 +1,16 @@
-export function CreateNoteByTodos({ handleInfoChange, todosCounter, note, bgColor }) {
+export function CreateNoteByTodos({ handleInfoChangeForTodos, todosCounter, note, bgColor, setTodosCounter }) {
     return (
         <div>
-            {console.log([...Array(todosCounter)])}
+
             {[...Array(todosCounter)].map((_, i) =>
                 <div key={i}>
                     <button type='button' onClick={() => setTodosCounter(prevCount => prevCount++)}>+</button>
                     <input
                         type="text"
-                        name="dotos"
+                        name="todos"
                         id="todos"
                         placeholder="List item"
-                        onChange={handleInfoChange}
+                        onChange={handleInfoChangeForTodos}
                         style={{ backgroundColor: bgColor || '#ffffff' }} />
                 </div>
             )}
