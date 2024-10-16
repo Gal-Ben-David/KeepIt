@@ -124,6 +124,7 @@ button.sort-btn:hover .sort-list>*{
 
 .sort-list>* {
     border: 0px;
+    border-radius: 1em;
     background-color: white;
     display: none;
 }
