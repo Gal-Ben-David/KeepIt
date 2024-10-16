@@ -16,6 +16,8 @@
     --clr-mail-font-black: #202124;
     --clr-mail-font-gray: #5f6368;
 
+    --clr-mail-filter-hover: rgb(68, 71, 70, 0.06);
+
 
     --width-side-filter-mail: 14em;
 }

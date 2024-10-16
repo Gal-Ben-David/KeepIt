@@ -34,7 +34,7 @@ function query(filterBy = {}) {
                     mails = mails.filter(mail => !!mail.removedAt)
                 else mails = mails.filter(mail => !mail.sentAt)
             }
-            if (filterBy.isRead) {
+            if (filterBy.isRead === true || filterBy.isRead === false) {
                 mails = mails.filter(mail => mail.isRead === filterBy.isRead)
             }
             if (filterBy.isStared) {

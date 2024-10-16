@@ -1,11 +1,13 @@
 
 const { useState, useEffect, useRef } = React
+const { useNavigate } = ReactRouterDOM
 
-export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filterBy, onSetFilterBy }) {
+
+export function MailFilter({ setMails, isIndex, backToIndex, mails, openMailCompose, filterBy, onSetFilterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
     const [isDateClicked, setIsDateClicked] = useState(false)
-
+    const navigate = useNavigate()
 
     useEffect(() => {
         onSetFilterBy(filterByToEdit)
@@ -41,8 +43,12 @@ export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filte
 
     function onClickDateBtn() {
         setIsDateClicked(isDateClicked => !isDateClicked)
-        filterByToEdit.date=""
+        filterByToEdit.date = ""
         console.log(filterByToEdit)
+    }
+
+    function onReadMails(bool) {
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, isRead: bool }))
     }
 
     const {
@@ -72,7 +78,7 @@ export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filte
                 <form onSubmit={onSubmit} className="search-bar-container">
                     <div className="search-bar">
                         <button disabled={!isValid} className="search-btn"><img src="assets\img\mail-icons\search_24dp_202124_FILL1_wght400_GRAD0_opsz24.png" alt="search" /></button>
-                        <button onClick={backToIndex ? () => backToIndex() : () => onClickDateBtn()}  type="button" className="date-btn"><img src="assets\img\mail-icons\event_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="date-search" /></button>
+                        <button onClick={backToIndex ? () => backToIndex() : () => onClickDateBtn()} type="button" className="date-btn"><img src="assets\img\mail-icons\event_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="date-search" /></button>
                         {/* {input} */}
                         <input className="text-input" onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" />
                         {dateSearch}
@@ -80,9 +86,9 @@ export function MailFilter({ isIndex, backToIndex, mails, openMailCompose, filte
                     </div>
                 </form>
                 <div className="top-filters">
-                    <button><img src="" alt="" /><span>Primary</span></button>
-                    <button><img src="" alt="" /><span>Read</span></button>
-                    <button><img src="" alt="" /><span>Unread</span></button>
+                    <button onClick={() => { setFilterByToEdit({ ...filterBy, isRead:undefined }) }} className="top-filter-first"><img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" /><span>Primary</span></button>
+                    <button onClick={() => onReadMails(false)}><img src="assets\img\mail-icons\mail_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="unread" /><span>Unread</span></button>
+                    <button onClick={() => onReadMails(true)}><img src="assets\img\mail-icons\drafts_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="read" /><span>Read</span></button>
                 </div>
             </section>
             <section className="side-filter">

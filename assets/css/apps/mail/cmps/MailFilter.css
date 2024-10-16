@@ -86,8 +86,15 @@
     grid-row: 2;
     height: 3.5em;
     display: grid;
-    grid-template-columns: repeat(3, 1fr) 0.25fr;
+    grid-template-columns: repeat(3, 1fr) 0.5fr;
+    background-color: white;
+    border-radius: 1em 1em 0 0;
+
 }
+
+/* .top-filters :first-child{
+    border-radius: 1em 0 0 0;
+} */
 
 .top-filters>* {
     display: flex;
@@ -95,7 +102,20 @@
     gap: 1em;
     align-items: center;
     /* font-family: inherit; */
-    font-family: 'roboto-medium';
+    border: 0px;
+    background-color: white;
+}
+
+.top-filters img{
+    width: 1.3em;
+    height: 1.3em;
+    /* font-family: 'roboto-regular'; */
+
+}
+
+
+.top-filters>*:hover{
+    background-color: var(--clr-mail-filter-hover);
 }
 
 .side-filter {
@@ -128,6 +148,10 @@
     margin-inline-end: 1em;
 
     cursor: pointer;
+}
+
+.top-filter-first{
+    border-radius: 1em 0 0 0;
 }
 
 .side-filter button:hover {

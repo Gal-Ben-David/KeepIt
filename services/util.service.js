@@ -65,7 +65,7 @@ export function getTruthyValues(obj) {
     const newObj = {}
     for (const key in obj) {
         const value = obj[key]
-        if (value || value === 0) {
+        if (value || value === 0 || value === false) {
             newObj[key] = value
         }
     }

@@ -75,7 +75,7 @@ export function MailIndex() {
     console.log('hi', isMailCompose, toggleMailCompose);
     return (
         <section className="mail-index">
-            <MailFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} openMailCompose={openMailCompose} mails={mails} />
+            <MailFilter setMails={setMails} filterBy={filterBy} onSetFilterBy={onSetFilterBy} openMailCompose={openMailCompose} mails={mails} />
             <section>
                 <MailList onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
             </section>
