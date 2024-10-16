@@ -46,8 +46,11 @@ export function NoteIndex() {
         setNoteToAdd(noteService.getEmptyNote())
     }
 
-    function onSetNoteType(type) {
-        noteToAdd.type = type
+    function setNoteType(note) {
+        if (note.info.imgUrl) note.type = 'NoteImg'
+        else if (note.info.videoUrl) note.type = 'NoteVideo'
+        else if (note.info.todos) note.type = 'NoteTodos'
+        else note.type = 'NoteTxt'
     }
 
     function handleChange({ target }) {
@@ -90,6 +93,7 @@ export function NoteIndex() {
         ev.preventDefault()
         if (noteToAdd.noteTitle === '' && noteToAdd.info.txt === '') return console.log('empty note')
         else {
+            setNoteType(noteToAdd)
             noteService.save(noteToAdd)
                 .then(note => {
                     console.log(note)
@@ -160,7 +164,7 @@ export function NoteIndex() {
             </section>
 
             <section className="new-note">
-                <form className="add-note-form" onSubmit={onSubmit}>
+                <form className="add-note-form" onSubmit={(event) => onSubmit(event, noteToAdd)}>
                     <input
                         type="text"
                         name="noteTitle"
@@ -196,19 +200,19 @@ export function NoteIndex() {
                             <button
                                 type='button'
                                 title="Add image"
-                                onClick={() => { setCmpType('NoteImg'); onSetNoteType('NoteImg') }}>
+                                onClick={() => { setCmpType('NoteImg'); setNoteType('NoteImg') }}>
                                 <i className="fa-solid fa-image"></i>
                             </button>
 
                             <button
                                 type='button'
-                                onClick={() => { setCmpType('NoteVideo'); onSetNoteType('NoteVideo') }}>
+                                onClick={() => { setCmpType('NoteVideo'); setNoteType('NoteVideo') }}>
                                 <i className="fa-solid fa-video">
                                 </i></button>
 
                             <button
                                 type='button'
-                                onClick={() => { setCmpType('NoteTodos'); onSetNoteType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
+                                onClick={() => { setCmpType('NoteTodos'); setNoteType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
                                 <i className="fa-regular fa-square-check"></i>
                             </button>
                         </div>
@@ -223,7 +227,8 @@ export function NoteIndex() {
                     onRemoveNote={onRemoveNote}
                     loadNotes={loadNotes}
                     onPinNote={onPinNote}
-                    onDuplicateNote={onDuplicateNote} />
+                    onDuplicateNote={onDuplicateNote}
+                    setNoteType={setNoteType} />
 
             </section>
         </section>
@@ -232,8 +237,8 @@ export function NoteIndex() {
 
 function DynamicCmp(props) {
     switch (props.cmpType) {
-        case 'NoteTxt':
-            return <CreateNoteByTextbox {...props} />
+        // case 'NoteTxt':
+        //     return <CreateNoteByTextbox {...props} />
         case 'NoteImg':
             return <CreateNoteByImg {...props} />
         case 'NoteVideo':

@@ -3,7 +3,7 @@ import { Modal } from '../cmps/Modal.jsx'
 
 const { Fragment, useState } = React
 
-export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDuplicateNote }) {
+export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDuplicateNote, setNoteType }) {
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(null)
@@ -55,7 +55,7 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
 
             {isEditModalOpen && (
                 <Modal isOpen={isEditModalOpen} onCloseModal={onCloseModal} bgColor={noteToEdit.style.backgroundColor}>
-                    <NoteEdit note={noteToEdit} onCloseModal={onCloseModal} loadNotes={loadNotes} />
+                    <NoteEdit note={noteToEdit} onCloseModal={onCloseModal} loadNotes={loadNotes} setNoteType={setNoteType} />
                 </Modal>
             )}
         </Fragment>
