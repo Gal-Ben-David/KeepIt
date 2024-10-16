@@ -2,6 +2,9 @@ import { noteService } from '../services/note.service.js'
 import { NotePreview } from '../cmps/NotePreview.jsx'
 import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { FilterOptions } from '../cmps/FilterOptions.jsx'
+import { CreateNoteByImg } from '../cmps/CreateNoteByImg.jsx'
+import { CreateNoteByVideo } from '../cmps/CreateNoteByVideo.jsx'
+import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect, Fragment, Link } = React
@@ -173,7 +176,12 @@ export function NoteIndex() {
                         value={noteToAdd.info.txt || ''}
                         onChange={handleInfoChange} />
 
-                    <DynamicCmp cmpType={cmpType} handleChange={handleChange} handleInfoChange={handleInfoChange} todosCounter={todosCounter} noteToAdd={noteToAdd} />
+                    <DynamicCmp
+                        cmpType={cmpType}
+                        handleChange={handleChange}
+                        handleInfoChange={handleInfoChange}
+                        todosCounter={todosCounter}
+                        note={noteToAdd} />
 
                     <div className="actions">
                         <div className="actions-toolbar">
@@ -245,45 +253,5 @@ function CreateNoteByTextbox({ handleChange, handleInfoChange }) {
     )
 }
 
-function CreateNoteByImg({ handleInfoChange, noteToAdd }) {
-    return (
-        <input
-            type="text"
-            name="imgUrl"
-            id="imgUrl"
-            placeholder="Enter an image url"
-            value={noteToAdd.info.imgUrl || ''}
-            onChange={handleInfoChange} />
-    )
-}
 
-function CreateNoteByVideo({ handleInfoChange, noteToAdd }) {
-    return (
-        <input
-            type="text"
-            name="videoUrl"
-            id="videoUrl"
-            placeholder="Enter a video url"
-            value={noteToAdd.info.videoUrl || ''}
-            onChange={handleInfoChange} />
-    )
-}
 
-function CreateNoteByTodos({ handleInfoChange, todosCounter, noteToAdd }) {
-    return (
-        <div>
-            {console.log([...Array(todosCounter)])}
-            {[...Array(todosCounter)].map((_, i) =>
-                <div key={i}>
-                    <button type='button' onClick={() => setTodosCounter(prevCount => prevCount++)}>+</button>
-                    <input
-                        type="text"
-                        name="dotos"
-                        id="todos"
-                        placeholder="List item"
-                        onChange={handleInfoChange} />
-                </div>
-            )}
-        </div>
-    )
-}
