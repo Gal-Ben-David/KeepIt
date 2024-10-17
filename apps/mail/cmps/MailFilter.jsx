@@ -36,7 +36,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
     }
 
     function countUnreadMails() {
-        if(filterByToEdit.isRead === true) return ''
+        if (filterByToEdit.isRead === true) return ''
         const unreadMails = mails.filter(mail => !mail.isRead)
         console.log(unreadMails);
         return unreadMails.length
@@ -67,11 +67,16 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
 
     const dateSearch = isDateClicked ? <input className="date-input" onClick={backToIndex ? () => backToIndex() : () => { return }} value={date} onChange={handleChange} type="date" name="date" id="date" /> : ''
 
-    console.log(isDateClicked);
+    console.log(isIndex);
 
     // const input = isIndex ?
     //     <input onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" /> :
     //     <input autoFocus onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" />
+    function checkIsIndex() {
+        if (isIndex === false) {
+            return 'hide'
+        }
+    }
 
     return (
         <React.Fragment>
@@ -86,15 +91,15 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                         {/* <input onClick={backToIndex ? () => backToIndex() : () => { return }} value={date} onChange={handleChange} type="date" name="date" id="date" /> */}
                     </div>
                 </form>
-                <div className="top-filters">
-                    <button onClick={() => { setFilterByToEdit({ ...filterBy, isRead:undefined }) }} className="top-filter-first"><img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" /><span>Primary</span></button>
+                <div className={`top-filters ${checkIsIndex()}`}>
+                    <button onClick={() => { setFilterByToEdit({ ...filterBy, isRead: undefined }) }} className="top-filter-first"><img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" /><span>Primary</span></button>
                     <button onClick={() => onReadMails(false)}><img src="assets\img\mail-icons\mail_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="unread" /><span>Unread</span></button>
                     <button onClick={() => onReadMails(true)}><img src="assets\img\mail-icons\drafts_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="read" /><span>Read</span></button>
                     <button className="sort-btn">
                         <img src="assets\img\mail-icons\sort_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" />
                         <div className="sort-list">
-                            <button onClick={()=>setSortBy('title')}><img src="assets\img\mail-icons\match_case_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" /></button>
-                            <button onClick={()=> setSortBy('date')}><img src="assets\img\mail-icons\schedule_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" /></button>
+                            <button onClick={() => setSortBy('title')}><img src="assets\img\mail-icons\match_case_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" /></button>
+                            <button onClick={() => setSortBy('date')}><img src="assets\img\mail-icons\schedule_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" /></button>
                         </div>
                     </button>
                 </div>
