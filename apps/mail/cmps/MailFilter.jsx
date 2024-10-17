@@ -6,9 +6,11 @@ const { useNavigate } = ReactRouterDOM
 
 export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, openMailCompose, filterBy, onSetFilterBy }) {
 
-    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy, status: 'inbox' })
     const [isDateClicked, setIsDateClicked] = useState(false)
     const [mailsCheck, setMailsCheck] = useState()
+    const [selectedTopFilter, setSelectedTopFilter] = useState('primary')
+    const [selectedSideFilter, setSelectedSideFilter] = useState('inbox')
 
     const navigate = useNavigate()
 
@@ -44,10 +46,10 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
             .then(setMailsCheck)
     }
 
-    function countUnreadMails(){
+    function countUnreadMails() {
         // if (filterByToEdit.isRead === true) return ''
-        if(!mailsCheck) return ''
-        
+        if (!mailsCheck) return ''
+
         const inboxMails = mailsCheck.filter(mail => mail.to === mailService.getUser().email)
         const unreadMails = inboxMails.filter(mail => !mail.isRead)
         return unreadMails.length
@@ -63,16 +65,30 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
     function onReadMails(bool) {
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, isRead: bool }))
+        if(bool === false) setSelectedTopFilter('unread')
+        else if(bool === true) setSelectedTopFilter('read')
+
     }
 
     function onInbox() {
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'inbox' }))
+        setSelectedSideFilter('inbox')
     }
 
     function onSentMails() {
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'sent' }))
+        setSelectedSideFilter('sent')
+    }
+
+    function onSelectedTopFilter(status){
+        if(selectedTopFilter === status) return 'selected-top-filter'
+    }
+
+    function onPrimary(){
+        setFilterByToEdit({ ...filterBy, isRead: undefined, to: mailService.getUser().email })
+        setSelectedTopFilter('primary')
     }
 
     const {
@@ -115,9 +131,9 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                     </div>
                 </form>
                 <div className={`top-filters ${checkIsIndex()}`}>
-                    <button onClick={() => { setFilterByToEdit({ ...filterBy, isRead: undefined, to: mailService.getUser().email }) }} className="top-filter-first"><img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" /><span>Primary</span></button>
-                    <button onClick={() => onReadMails(false)}><img src="assets\img\mail-icons\mail_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="unread" /><span>Unread</span></button>
-                    <button onClick={() => onReadMails(true)}><img src="assets\img\mail-icons\drafts_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="read" /><span>Read</span></button>
+                    <button className={`top-filter-first ${onSelectedTopFilter('primary')}`} onClick={onPrimary} ><img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" /><span>Primary</span></button>
+                    <button className={onSelectedTopFilter('unread')} onClick={() => onReadMails(false)}><img src="assets\img\mail-icons\mail_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="unread" /><span>Unread</span></button>
+                    <button className={onSelectedTopFilter('read')} onClick={() => onReadMails(true)}><img src="assets\img\mail-icons\drafts_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="read" /><span>Read</span></button>
                     <button className="sort-btn">
                         <img src="assets\img\mail-icons\sort_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" />
                         <div className="sort-list">

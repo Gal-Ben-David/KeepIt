@@ -89,6 +89,7 @@
     grid-template-columns: repeat(3, 1fr) 0.5fr;
     background-color: white;
     border-radius: 1em 1em 0 0;
+    font-family: 'roboto-medium';
 
 }
 
@@ -101,7 +102,6 @@
     padding-inline-end: 50%;
     gap: 1em;
     align-items: center;
-    /* font-family: inherit; */
     border: 0px;
     background-color: white;
 }
@@ -152,6 +152,8 @@ button.sort-btn:hover .sort-list>*{
     top: 6.6em;
     bottom: 0;
 
+    font-family: 'roboto-medium';
+
 }
 
 .side-filter button {
@@ -173,6 +175,11 @@ button.sort-btn:hover .sort-list>*{
 
 .top-filter-first {
     border-radius: 1em 0 0 0;
+}
+
+.selected-top-filter{
+    border-bottom: #0B57D0 3px solid;
+    color: #0B57D0
 }
 
 .side-filter button:hover {
