@@ -11,6 +11,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
 
     const [noteToEdit, setNoteToEdit] = useState(note)
     const [cmpType, setCmpType] = useState('')
+    const [todosCounter, setTodosCounter] = useState((noteToEdit.info.todos) ? noteToEdit.info.todos.length : 1)
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
@@ -44,6 +45,17 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
                 break
         }
         setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...noteToEdit.info, [field]: value } }))
+    }
+
+    function handleInfoChangeForTodos({ target }, idx) {
+        let { value, name: field, type } = target
+        const todosNote = { ...noteToEdit }
+        if (!todosNote.info.todos) todosNote.info.todos = []
+
+        todosNote.info.todos[idx] = { txt: value, isChecked: false }
+
+        console.log(noteToEdit)
+        setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos].filter(todo => todo) } }))
     }
 
     function changeIsCheckedTodo(todoIdx, note) {
@@ -148,7 +160,10 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
                     handleChange={handleChange}
                     handleInfoChange={handleInfoChange}
                     note={noteToEdit}
-                    bgColor={bgColor} />
+                    bgColor={bgColor}
+                    todosCounter={todosCounter}
+                    handleInfoChangeForTodos={handleInfoChangeForTodos}
+                    setTodosCounter={setTodosCounter} />
 
 
                 <div className="actions">
@@ -177,7 +192,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
 
                         <button
                             type='button'
-                            onClick={() => setCmpType('NoteTodos')}>
+                            onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
                             <i className="fa-regular fa-square-check"></i>
                         </button>
                     </div>
