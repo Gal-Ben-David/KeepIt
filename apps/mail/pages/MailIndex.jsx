@@ -87,19 +87,6 @@ export function MailIndex() {
         else mail.isStarred = !mail.isStarred
         mailService.save(mail)
         setChangeStarredStatus(!changeStarredStatus)
-        // mailService.get(mailId)
-        //     .then(mail => {
-        //         if (!mail.isStarred) mail.isStarred = true
-        //         else mail.isStarred = !mail.isStarred
-        //         mailService.save(mail)
-        //             .then(setChangeStared)
-        //         // .then(loadMails())
-        //         // .catch(err => console.log('problems', err))
-        //     })
-        //     .catch(err => {
-        //         console.log('Problems star mail:', err)
-        //         // showErrorMsg(`Problems removing mail (${mailId})`)
-        //     })
     }
 
     const toggleMailCompose = isMailCompose ? '' : 'hide'

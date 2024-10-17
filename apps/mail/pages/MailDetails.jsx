@@ -33,7 +33,7 @@ export function MailDetails() {
             })
             .catch(err => {
                 console.log('Problem getting mail', err)
-                showErrorMsg('Problem getting car')
+                // showErrorMsg('Problem getting mail')
                 navigate('/mail')
             })
     }
