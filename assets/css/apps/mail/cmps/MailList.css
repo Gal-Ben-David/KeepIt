@@ -51,6 +51,13 @@
 
  }
 
+ li.mail-li:hover{
+   /* border-bottom:2px black solid; */
+   /* box-shadow: black 0px -4px -4px 4px inset; */
+   
+   /* outline: 1px black solid; */
+ }
+
  .mail-icons{
      display: none;
      /* display: flex; */

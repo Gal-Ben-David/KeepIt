@@ -3,8 +3,8 @@
     grid-template-columns: 2fr 1em 7fr 1em 1fr;
     justify-content: space-between;
     align-items: center;
-    
-    box-shadow: rgba(100, 121, 143, 0.12) 0px -1px 0px 0px inset;
+    border-bottom: 1px rgba(100, 121, 143, 0.12) solid ;
+    /* box-shadow: rgba(100, 121, 143, 0.12) 0px -1px 0px 0px inset; */
    
     padding-inline-start: 1em;
     
@@ -27,8 +27,11 @@
 
 .mail-preview:hover {
     /* border: var(--clr-mail-bg) 5px solid; */
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 0px 0px;
-    
+    /* box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 0px 0px; */
+    /* box-shadow: rgba(100, 121, 143, 0.9) 1px -1px 1px 1px inset; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+
     /* box-shadow: 0 8px 6px -6px black; */
     /* filter: drop-shadow(30px 10px 4px #4444dd); */
 }
