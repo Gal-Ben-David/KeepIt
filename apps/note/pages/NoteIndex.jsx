@@ -93,12 +93,12 @@ export function NoteIndex() {
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
     }
 
-    function handleInfoChangeForTodos({ target }) {
+    function handleInfoChangeForTodos({ target }, idx) {
         let { value, name: field, type } = target
         const todosNote = { ...noteToAdd }
         if (!todosNote.info.todos) todosNote.info.todos = []
 
-        todosNote.info.todos[todosCounter] = { txt: value, isChecked: false }
+        todosNote.info.todos[idx] = { txt: value, isChecked: false }
 
         console.log(noteToAdd)
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos].filter(todo => todo) } }))
@@ -223,14 +223,14 @@ export function NoteIndex() {
                             <button
                                 type='button'
                                 title="Add image"
-                                onClick={() => { setCmpType('NoteImg') }}>
+                                onClick={() => { setCmpType('NoteImg'); setTodosCounter(0) }}>
                                 <i className="fa-solid fa-image"></i>
                             </button>
 
                             <button
                                 type='button'
                                 title="Add video"
-                                onClick={() => { setCmpType('NoteVideo') }}>
+                                onClick={() => { setCmpType('NoteVideo'); setTodosCounter(0) }}>
                                 <i className="fa-solid fa-video">
                                 </i></button>
 

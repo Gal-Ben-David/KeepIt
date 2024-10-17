@@ -10,7 +10,7 @@ export function CreateNoteByTodos({ handleInfoChangeForTodos, todosCounter, note
                         name="todos"
                         id="todos"
                         placeholder="List item"
-                        onChange={handleInfoChangeForTodos}
+                        onChange={(ev) => handleInfoChangeForTodos(ev, i)}
                         onClick={(event) => { event.stopPropagation() }}
                         style={{ backgroundColor: bgColor || '#ffffff' }} />
                 </div>
