@@ -7,7 +7,7 @@ import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.servic
 
 const { useState, useEffect } = React
 
-export function NoteEdit({ note, onCloseModal, setNotesPreview, setNoteType }) {
+export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
 
     const [noteToEdit, setNoteToEdit] = useState(note)
     const [cmpType, setCmpType] = useState('')
@@ -50,7 +50,6 @@ export function NoteEdit({ note, onCloseModal, setNotesPreview, setNoteType }) {
         const updatedTodos = note.info.todos.map((todo, idx) => idx === todoIdx ? { ...todo, isChecked: !todo.isChecked } : todo)
         const updatedNote = { ...note, info: { ...note.info, todos: updatedTodos } }
         setNoteToEdit(updatedNote)
-        onSubmit(updatedNote)
     }
 
     function onSubmit(updatedNote) {
@@ -62,7 +61,7 @@ export function NoteEdit({ note, onCloseModal, setNotesPreview, setNoteType }) {
                 console.log('Note updated')
                 showSuccessMsg('Note has been saved successfully')
 
-                setNotesPreview(prevNotes => {
+                setNotes(prevNotes => {
                     const noteIndex = prevNotes.findIndex(n => n.id === updatedNote.id)
                     if (noteIndex !== -1) {
                         const updatedNotes = [...prevNotes]
@@ -182,7 +181,7 @@ export function NoteEdit({ note, onCloseModal, setNotesPreview, setNoteType }) {
                             <i className="fa-regular fa-square-check"></i>
                         </button>
                     </div>
-                    <button className="save-new-note-btn" onClick={onSubmit}>Save</button>
+                    <button className="save-new-note-btn" onClick={() => onSubmit(noteToEdit)}>Save</button>
                 </div>
             </div>
 

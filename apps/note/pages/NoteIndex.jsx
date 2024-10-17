@@ -115,6 +115,7 @@ export function NoteIndex() {
                     console.log('Note added')
                     showSuccessMsg('Note has been saved successfully')
                     onClearForm()
+
                     loadNotes()
                     setNoteToAdd(noteService.getEmptyNote())
                 })
@@ -252,7 +253,8 @@ export function NoteIndex() {
                     loadNotes={loadNotes}
                     onPinNote={onPinNote}
                     onDuplicateNote={onDuplicateNote}
-                    setNoteType={setNoteType} />
+                    setNoteType={setNoteType}
+                    setNotes={setNotes} />
 
             </section>
         </section>

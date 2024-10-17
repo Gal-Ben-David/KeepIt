@@ -8,7 +8,6 @@ const { Fragment, useState, useEffect } = React
 
 export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDuplicateNote, setNoteType, setNotes }) {
 
-    const [notesPreview, setNotesPreview] = useState(notes)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(null)
     const [pinnedDisplay, setPinnedDisplay] = useState('')
@@ -37,7 +36,7 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
         const updatedNote = { ...note, info: { ...note.info, todos: updatedTodos } }
         setNoteToEdit(updatedNote)
 
-        setNotesPreview(prevNotes => {
+        setNotes(prevNotes => {
             const noteIndex = prevNotes.findIndex(n => n.id === updatedNote.id)
             if (noteIndex !== -1) {
                 const updatedNotes = [...prevNotes]
@@ -69,7 +68,7 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
         <Fragment>
             <section className={`pinned-notes ${pinnedDisplay}`}>
                 <h4>Pinned</h4>
-                <NoteList notes={notesPreview.filter(note => note.isPinned)}
+                <NoteList notes={notes.filter(note => note.isPinned)}
                     handleEditClick={handleEditClick}
                     onPinNote={onPinNote}
                     onRemoveNote={onRemoveNote}
@@ -77,7 +76,7 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
             </section>
 
             <section className="unPinned-notes">
-                <NoteList notes={notesPreview.filter(note => !note.isPinned)}
+                <NoteList notes={notes.filter(note => !note.isPinned)}
                     handleEditClick={handleEditClick}
                     onPinNote={onPinNote}
                     onRemoveNote={onRemoveNote}
@@ -92,7 +91,7 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                         onCloseModal={onCloseModal}
                         loadNotes={loadNotes}
                         setNoteType={setNoteType}
-                        setNotesPreview={setNotesPreview} />
+                        setNotes={setNotes} />
                 </Modal>
             )}
         </Fragment>
