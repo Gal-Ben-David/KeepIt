@@ -43,6 +43,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
     }
 
     function onClickDateBtn() {
+        setSortBy('')
         setIsDateClicked(isDateClicked => !isDateClicked)
         filterByToEdit.date = ""
         console.log(filterByToEdit)
@@ -87,7 +88,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                         <button disabled={!isValid} className="search-btn"><img src="assets\img\mail-icons\search_24dp_202124_FILL1_wght400_GRAD0_opsz24.png" alt="search" /></button>
                         <button onClick={backToIndex ? () => backToIndex() : () => onClickDateBtn()} type="button" className="date-btn"><img src="assets\img\mail-icons\event_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="date-search" /></button>
                         {/* {input} */}
-                        <input className="text-input" onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" />
+                        <input className="text-input" onClick={backToIndex ? () => backToIndex() : () => setSortBy('')} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" />
                         {dateSearch}
                         {/* <input onClick={backToIndex ? () => backToIndex() : () => { return }} value={date} onChange={handleChange} type="date" name="date" id="date" /> */}
                     </div>
