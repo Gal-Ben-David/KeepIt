@@ -67,7 +67,7 @@
      padding: 0.7em;
  }
 
- .new-note button:not(.save-new-note-btn, .pin-btn, .delete-btn, .pin-btn-adding-form) {
+ .new-note button:not(.save-new-note-btn, .pin-btn, .delete-btn, .pin-btn-adding-form, .pin-btn-edit-modal) {
      align-self: flex-end;
      background-color: transparent;
      border: none;

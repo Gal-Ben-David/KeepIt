@@ -152,6 +152,10 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
         ev.target.style.height = ev.target.scrollHeight + 'px'
     }
 
+    function onToggleIsPinned() {
+        setNoteToEdit((prevNote) => ({ ...prevNote, isPinned: !prevNote.isPinned }))
+    }
+
     function onSetNoteStyle(color) {
         setNoteToEdit(prevNote => ({ ...prevNote, style: { backgroundColor: color } }))
     }
@@ -162,6 +166,13 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
         <section>
 
             <div className="edit-note-form" style={{ backgroundColor: bgColor }}>
+
+                <button
+                    className={`pin-btn-edit-modal ${(noteToEdit.isPinned ? 'pinned' : '')}`}
+                    onClick={(ev) => { ev.stopPropagation(); onToggleIsPinned() }}>
+                    {noteToEdit.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
+                </button>
+
                 {noteToEdit.info.imgUrl && renderImgOrVideo(<img src={note.info.imgUrl} />, 'img')}
                 {noteToEdit.info.videoUrl && renderImgOrVideo(<iframe src={note.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                 </iframe>, 'video')}

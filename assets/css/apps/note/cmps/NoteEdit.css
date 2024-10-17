@@ -40,3 +40,21 @@
 .edit-note-form textarea[name="txt"] {
     margin-block-end: 1.5em;
 }
+
+.pin-btn-edit-modal {
+    align-self: flex-end;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    right: 10px;
+
+    padding: 0.7em;
+    margin-block-start: 0.5em;
+    cursor: pointer;
+    z-index: 11;
+}
+
+.pin-btn-edit-modal img {
+    width: 22px;
+    margin: 0;
+}
