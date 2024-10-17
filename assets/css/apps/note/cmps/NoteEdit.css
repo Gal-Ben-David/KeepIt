@@ -5,13 +5,35 @@
 .edit-note-form {
     display: flex;
     flex-direction: column;
-    position: relative;
 
     width: 50vw;
     max-width: 36em;
-    padding: 0 1em;
+    /* padding: 0 1em; */
 
     border-radius: 0.6em;
-
+    overflow: hidden;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.edit-video-or-img {
+    position: relative;
+}
+
+.edit-note-form .delete-btn {
+    position: absolute;
+    color: white;
+    bottom: 10px;
+    left: 5px;
+
+    padding: 0.5em;
+    border-radius: 0.3em;
+    background-color: rgba(0, 0, 0, 0.694);
+
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.edit-video-or-img:hover .delete-btn {
+
+    opacity: 0.8;
 }

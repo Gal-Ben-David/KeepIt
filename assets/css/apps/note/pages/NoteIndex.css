@@ -57,7 +57,7 @@
      padding: 0.7em;
  }
 
- .new-note button:not(.save-new-note-btn, .pin-btn) {
+ .new-note button:not(.save-new-note-btn, .pin-btn, .delete-btn) {
      align-self: flex-end;
      background-color: transparent;
      border: none;
@@ -66,7 +66,7 @@
      cursor: pointer;
  }
 
- .new-note button:not(.save-new-note-btn, .pin-btn):hover,
+ .new-note button:not(.save-new-note-btn, .pin-btn, .delete-btn):hover,
  .new-note label:hover,
  .note-bars-btn:hover {
      border-radius: 50%;

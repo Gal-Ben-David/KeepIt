@@ -96,7 +96,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
         return (
             <div className="edit-video-or-img">
                 {element}
-                <button type='button' onClick={() => onRemoveUrl(urlType)}><i className="fa-solid fa-trash"></i></button>
+                <button className="delete-btn" type='button' onClick={() => onRemoveUrl(urlType)}><i className="fa-solid fa-trash"></i></button>
             </div>
         )
     }
