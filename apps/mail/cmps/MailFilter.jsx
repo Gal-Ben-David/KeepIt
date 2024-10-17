@@ -1,3 +1,4 @@
+import { mailService } from "../services/mail.service.js"
 
 const { useState, useEffect, useRef } = React
 const { useNavigate } = ReactRouterDOM
@@ -7,9 +8,12 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
     const [isDateClicked, setIsDateClicked] = useState(false)
+    const [mailsCheck, setMailsCheck] = useState()
+
     const navigate = useNavigate()
 
     useEffect(() => {
+        getAllMails()
         onSetFilterBy(filterByToEdit)
     }, [filterByToEdit, isDateClicked])
 
@@ -35,10 +39,17 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         onSetFilterBy(filterByToEdit)
     }
 
-    function countUnreadMails() {
-        if (filterByToEdit.isRead === true) return ''
-        const unreadMails = mails.filter(mail => !mail.isRead)
-        console.log(unreadMails);
+    function getAllMails() {
+        return mailService.query()
+            .then(setMailsCheck)
+    }
+
+    function countUnreadMails(){
+        // if (filterByToEdit.isRead === true) return ''
+        if(!mailsCheck) return ''
+        
+        const inboxMails = mailsCheck.filter(mail => mail.to === mailService.getUser().email)
+        const unreadMails = inboxMails.filter(mail => !mail.isRead)
         return unreadMails.length
     }
 
@@ -52,6 +63,16 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
     function onReadMails(bool) {
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, isRead: bool }))
+    }
+
+    function onInbox() {
+        setSortBy('')
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'inbox' }))
+    }
+
+    function onSentMails() {
+        setSortBy('')
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'sent' }))
     }
 
     const {
@@ -69,7 +90,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
 
     const dateSearch = isDateClicked ? <input className="date-input" onClick={backToIndex ? () => backToIndex() : () => { return }} value={date} onChange={handleChange} type="date" name="date" id="date" /> : ''
 
-    console.log(isIndex);
+    console.log(mailService.getUser().email);
 
     // const input = isIndex ?
     //     <input onClick={backToIndex ? () => backToIndex() : () => { return }} value={txt} onChange={handleChange} placeholder="Search mail" type="text" name="txt" id="txt" /> :
@@ -94,7 +115,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                     </div>
                 </form>
                 <div className={`top-filters ${checkIsIndex()}`}>
-                    <button onClick={() => { setFilterByToEdit({ ...filterBy, isRead: undefined }) }} className="top-filter-first"><img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" /><span>Primary</span></button>
+                    <button onClick={() => { setFilterByToEdit({ ...filterBy, isRead: undefined, to: mailService.getUser().email }) }} className="top-filter-first"><img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" /><span>Primary</span></button>
                     <button onClick={() => onReadMails(false)}><img src="assets\img\mail-icons\mail_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="unread" /><span>Unread</span></button>
                     <button onClick={() => onReadMails(true)}><img src="assets\img\mail-icons\drafts_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="read" /><span>Read</span></button>
                     <button className="sort-btn">
@@ -113,7 +134,8 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                         <span>Compose</span>
                     </section>
                 </button>
-                <button  onClick={backToIndex ? () => backToIndex() : ()=>setFilterByToEdit({ ...filterBy, isRead: undefined }) }>
+                <button onClick={backToIndex ? () => backToIndex() : () => onInbox()}>
+                    {/* <button  onClick={backToIndex ? () => backToIndex() : ()=>setFilterByToEdit({ ...filterBy, isRead: undefined, to: mailService.getUser().email }) }> */}
                     <section>
                         <img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" />
                         <span>Inbox</span>
@@ -121,7 +143,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                     <span>{mails ? countUnreadMails() : ''}</span>
                 </button>
 
-                <button>
+                <button onClick={backToIndex ? () => backToIndex() : () => onSentMails()}>
                     <section>
                         <img src="assets\img\mail-icons\send_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="sent" />
                         <span>Sent</span>

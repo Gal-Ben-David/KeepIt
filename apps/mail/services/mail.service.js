@@ -19,7 +19,12 @@ export const mailService = {
     getDefaultFilter,
     getFilterFromSearchParams,
     animateCSS,
-    debounce
+    debounce,
+    getUser
+}
+
+function getUser(){
+    return loggedInUser
 }
 
 function query(filterBy = {}) {
