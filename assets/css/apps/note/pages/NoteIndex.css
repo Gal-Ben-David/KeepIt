@@ -37,8 +37,7 @@
  }
 
  .add-note-form input[name="noteTitle"] {
-     margin-block-start: .5em;
-     font-size: 0.9rem;
+     font-size: 1rem;
      font-weight: 500;
  }
 
@@ -150,4 +149,29 @@
  .note-bars-btn img {
      height: 20px;
 
+ }
+
+ .actions-collapsed-form {
+     position: absolute;
+     top: 50%;
+     right: 1.5em;
+     transform: translate(0, -50%);
+
+     display: flex;
+     gap: 1.8em;
+ }
+
+ .actions-collapsed-form>* {
+     padding: 0.5em;
+     border-radius: 50%;
+ }
+
+ .actions-collapsed-form img {
+     width: 1.3em;
+     opacity: 0.8;
+     cursor: pointer;
+ }
+
+ .actions-collapsed-form>*:hover {
+     background-color: #ededed;
  }

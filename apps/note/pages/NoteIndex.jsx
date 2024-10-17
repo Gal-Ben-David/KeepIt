@@ -50,8 +50,12 @@ export function NoteIndex() {
             if (noteToAddRef.current.noteTitle || noteToAddRef.current.info.txt ||
                 noteToAddRef.current.info.imgUrl || noteToAddRef.current.info.videoUrl || noteToAddRef.current.info.todos) {
                 onSubmit(noteToAddRef.current, true)
+                setCmpType('NoteTxt')
             }
-            else setNoteToAdd(noteService.getEmptyNote())
+            else {
+                setNoteToAdd(noteService.getEmptyNote())
+                setCmpType('NoteTxt')
+            }
         }
     }
 
@@ -216,6 +220,28 @@ export function NoteIndex() {
                         onClick={() => setIsExpandedForm(true)}
                         style={{ backgroundColor: bgColor }} />
 
+                    {!isExpandedForm && <div className="actions-collapsed-form">
+                        <div><img src="assets/img/check-box-icon.png"
+                            onClick={(ev) => {
+                                ev.stopPropagation();
+                                setCmpType('NoteTodos');
+                                setTodosCounter(prevCount => prevCount + 1);
+                                setIsExpandedForm(true)
+                            }} /></div>
+                        <div><img src="assets/img/image-icon.png"
+                            onClick={(ev) => {
+                                ev.stopPropagation();
+                                setCmpType('NoteImg');
+                                setIsExpandedForm(true)
+                            }} /></div>
+                        <div><img src="assets/img/videocam-icon.png"
+                            onClick={(ev) => {
+                                ev.stopPropagation();
+                                setCmpType('NoteVideo');
+                                setIsExpandedForm(true)
+                            }} /></div>
+                    </div>}
+
                     {isExpandedForm && <section className="expanded-form">
                         <input
                             type="text"
@@ -225,16 +251,17 @@ export function NoteIndex() {
                             value={noteToAdd.info.txt || ''}
                             onChange={handleInfoChange}
                             style={{ backgroundColor: bgColor }} />
-
-                        <DynamicCmp
-                            cmpType={cmpType}
-                            handleChange={handleChange}
-                            handleInfoChange={handleInfoChange}
-                            handleInfoChangeForTodos={handleInfoChangeForTodos}
-                            todosCounter={todosCounter}
-                            setTodosCounter={setTodosCounter}
-                            note={noteToAdd}
-                            bgColor={bgColor} />
+                        <div>
+                            <DynamicCmp
+                                cmpType={cmpType}
+                                handleChange={handleChange}
+                                handleInfoChange={handleInfoChange}
+                                handleInfoChangeForTodos={handleInfoChangeForTodos}
+                                todosCounter={todosCounter}
+                                setTodosCounter={setTodosCounter}
+                                note={noteToAdd}
+                                bgColor={bgColor} />
+                        </div>
 
                         <div className="actions">
                             <div className="actions-toolbar">
