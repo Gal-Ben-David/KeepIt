@@ -8,7 +8,7 @@ import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-const { useState, useEffect, Fragment, Link, useRef } = React
+const { useState, useEffect, Fragment, useRef } = React
 
 export function NoteIndex() {
 
@@ -20,7 +20,6 @@ export function NoteIndex() {
     const [todosCounter, setTodosCounter] = useState(0)
     const [isNoteStyle, setIsNoteStyle] = useState(false)
     const [isExpandedForm, setIsExpandedForm] = useState(false)
-    const [text, setText] = useState('')
 
     const noteToAddRef = useRef(noteToAdd)
 
@@ -101,7 +100,13 @@ export function NoteIndex() {
                 value = target.checked
                 break
         }
-        setNoteToAdd((prevNote) => ({ ...prevNote, [field]: value }))
+        setNoteToAdd((prevNote) => {
+            if (field === 'noteTitle') {
+                return { ...prevNote, noteTitle: value }
+            }
+            return { ...prevNote, info: { ...noteToEdit.info, [field]: value } }
+
+        })
     }
 
     function handleInfoChange({ target }) {
@@ -161,12 +166,9 @@ export function NoteIndex() {
     }
 
     function onPinNote(note) {
-        const noteToPin = { ...note, isPinned: true }
-        noteService.remove(note.id)
-            .then(() => {
-                noteService.save(noteToPin, true)
-                    .then(() => loadNotes())
-            })
+        const noteToPin = { ...note, isPinned: !note.isPinned }
+        noteService.save(noteToPin, noteToPin.isPinned)
+            .then(() => loadNotes())
             .catch(err => console.error('Error pin a book:', err))
     }
 
@@ -186,7 +188,6 @@ export function NoteIndex() {
     }
 
     function handleChangeTextAreaDimensions(ev) {
-        setText(ev.target.value)
         ev.target.style.height = 'auto'
         ev.target.style.height = ev.target.scrollHeight + 'px'
     }

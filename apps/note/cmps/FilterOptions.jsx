@@ -7,7 +7,10 @@ export function FilterOptions({ setFilterBy, filterBy }) {
 
     return (
         <section className="filter-options">
-            <span>Types</span>
+            <div className="filter-options-header">
+                <span>Types</span>
+                <button className="clear-filter-btn" onClick={() => handleTypeChange('')}>Clear</button>
+            </div>
             <div className="option-types">
                 <div className="images-option" onClick={() => handleTypeChange('NoteImg')}>
                     <i className="fa-regular fa-image"></i>
@@ -16,6 +19,10 @@ export function FilterOptions({ setFilterBy, filterBy }) {
                 <div className="videos-option" onClick={() => handleTypeChange('NoteVideo')}>
                     <i className="fa-brands fa-youtube"></i>
                     <span> Videos</span>
+                </div>
+                <div className="videos-option" onClick={() => handleTypeChange('NoteTodos')}>
+                    <i class="fa-regular fa-square-check"></i>
+                    <span> Todos</span>
                 </div>
             </div>
         </section>

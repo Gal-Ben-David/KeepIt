@@ -11,13 +11,8 @@
 }
 
 .unPinned-notes h1 {
-    display: none;
+    font-size: 1rem;
 }
-
-.unPinned-notes h1.show {
-    display: block;
-}
-
 
 ul.notes {
     column-gap: 20px;

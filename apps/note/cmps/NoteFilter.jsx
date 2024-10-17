@@ -43,15 +43,6 @@ export function NoteFilter({ filterBy, onSetFilter, handleFromClick }) {
                     name="txt"
                     id="note-title"
                     placeholder="Search" />
-
-                {/* <label htmlFor="book-price">Price</label>
-                <input
-                    onChange={handleChange}
-                    value={info || ''}
-                    type="number"
-                    name="info"
-                    id="book-price"
-                    placeholder="Search by price" /> */}
             </form>
         </section>
     )

@@ -18,8 +18,6 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
     const titleAreaRef = useRef(null)
     const textareaRef = useRef(null)
 
-    console.log(textareaRef.current)
-
     useEffect(() => {
         if (isOpen && textareaRef.current) {
             textareaRef.current.style.height = 'auto'

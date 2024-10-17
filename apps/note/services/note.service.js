@@ -50,7 +50,6 @@ function remove(noteId) {
 
 function save(note, isPinned = false) {
     if (note.id) {
-        console.log(isPinned)
         return storageService.put(NOTE_KEY, note, isPinned)
     } else {
         return storageService.post(NOTE_KEY, note)

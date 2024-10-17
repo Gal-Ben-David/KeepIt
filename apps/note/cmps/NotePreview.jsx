@@ -5,6 +5,7 @@ import { NoteList } from '../cmps/NoteList.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { Fragment, useState, useEffect } = React
+const { Link } = ReactRouterDOM
 
 export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDuplicateNote, setNoteType, setNotes }) {
 
@@ -72,10 +73,14 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                     handleEditClick={handleEditClick}
                     onPinNote={onPinNote}
                     onRemoveNote={onRemoveNote}
-                    onDuplicateNote={onDuplicateNote} />
+                    onDuplicateNote={onDuplicateNote}
+                    changeIsCheckedTodo={changeIsCheckedTodo} />
             </section>
 
             <section className="unPinned-notes">
+                {console.log(pinnedDisplay)}
+                {(pinnedDisplay === 'show') && <h1>Other notes</h1>}
+
                 <NoteList notes={notes.filter(note => !note.isPinned)}
                     handleEditClick={handleEditClick}
                     onPinNote={onPinNote}
@@ -92,9 +97,10 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                         loadNotes={loadNotes}
                         setNoteType={setNoteType}
                         setNotes={setNotes}
-                        isOpen={isEditModalOpen} />
+                        isOpen={isEditModalOpen}
+                    />
                 </Modal>
             )}
-        </Fragment>
+        </Fragment >
     )
 }
