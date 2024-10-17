@@ -72,14 +72,12 @@ export function MailIndex() {
 
 
     function onSort() {
-        console.log(mails);
         if (sortBy === 'title') {
             setMails(mails => mails.sort((mail1, mail2) => mail1.subject.localeCompare(mail2.subject)))
         }
         else if (sortBy === 'date') {
             setMails(mails => mails.sort((mail2, mail1) => new Date(mail1.sentAt) - new Date(mail2.sentAt)))
         }
-        console.log(mails);
     }
 
     function onStar(mail) {
