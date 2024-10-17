@@ -5,6 +5,7 @@ import { FilterOptions } from '../cmps/FilterOptions.jsx'
 import { CreateNoteByImg } from '../cmps/CreateNoteByImg.jsx'
 import { CreateNoteByVideo } from '../cmps/CreateNoteByVideo.jsx'
 import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
+import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect, Fragment, Link } = React
@@ -17,7 +18,7 @@ export function NoteIndex() {
     const [showFilterOption, setShowFilterOption] = useState(false)
     const [cmpType, setCmpType] = useState('NoteTxt')
     const [todosCounter, setTodosCounter] = useState(0)
-    const [todosList, setTodosList] = useState([])
+    const [isNoteStyle, setIsNoteStyle] = useState(false)
     // const [noteAddingFormStyle, setNoteAddingFormStyle] = useState({
     //     backgroundColor: '#000000'
     // })
@@ -159,6 +160,10 @@ export function NoteIndex() {
 
     }
 
+    function onSetNoteStyle(color) {
+        setNoteToAdd(prevNote => ({ ...prevNote, style: { backgroundColor: color } }))
+    }
+
     const bgColor = noteToAdd.style.backgroundColor
 
     if (!notes) return <div>Loading....</div>
@@ -212,13 +217,18 @@ export function NoteIndex() {
 
                     <div className="actions">
                         <div className="actions-toolbar">
-                            <label title="Background color" htmlFor="color-input"><i className="fa-solid fa-palette"></i></label>
-                            <input
+                            <label
+                                title="Background color"
+                                onClick={() => setIsNoteStyle(isNoteStyle => !isNoteStyle)}>
+                                <i className="fa-solid fa-palette"></i>
+                            </label>
+
+                            {/* <input
                                 type="color"
                                 className="control-color"
                                 id="color-input"
                                 name="style"
-                                onChange={handleChange} />
+                                onChange={handleChange} /> */}
 
                             <button
                                 type='button'
@@ -241,6 +251,7 @@ export function NoteIndex() {
                                 <i className="fa-regular fa-square-check"></i>
                             </button>
                         </div>
+                        {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
                         <button className="save-new-note-btn" onClick={onSubmit}>Save</button>
                     </div>
 

@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+
+.color-input .items-container {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    padding: 0.5em;
+    gap: 0.5em;
+
+    background-color: white;
+    border-radius: 0.5em;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.items-container .item {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    border-radius: 50%;
+    min-height: 33px;
+    min-width: 33px;
+
+    transition: .2s border-width;
+    cursor: pointer;
+}
+
+.item.no-color {
+    border: 3px solid #E0E0E0;
+    font-size: 0.8rem;
+    color: #444;
+}
+
+.items-container .chosen {
+    border: 2px solid #A142F4;
+}
+
+.items-container .chosen::after {
+    content: '\f00c';
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.8rem;
+    padding: 0.1em;
+
+    border-radius: 50%;
+
+    background-color: #A142F4;
+    color: white;
+    position: absolute;
+    top: -5px;
+    right: -3px;
+}

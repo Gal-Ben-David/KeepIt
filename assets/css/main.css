@@ -20,6 +20,7 @@
 @import './apps/note/cmps/NoteEdit.css';
 @import './apps/note/cmps/NoteFilter.css';
 @import './apps/note/cmps/FilterOptions.css';
+@import './apps/note/cmps/ColorInput.css';
 
 /* Mail */
 
