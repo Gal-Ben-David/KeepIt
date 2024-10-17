@@ -91,7 +91,8 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                         onCloseModal={onCloseModal}
                         loadNotes={loadNotes}
                         setNoteType={setNoteType}
-                        setNotes={setNotes} />
+                        setNotes={setNotes}
+                        isOpen={isEditModalOpen} />
                 </Modal>
             )}
         </Fragment>

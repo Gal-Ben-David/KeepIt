@@ -97,7 +97,6 @@ ul.notes {
 
 .title-and-info-content.absolute {
     display: grid;
-    grid-template-columns: 1fr;
 }
 
 .title-and-info-content.absolute h3 {
@@ -113,13 +112,22 @@ ul.notes {
     align-items: center;
 }
 
+.title-and-info-content p {
+    margin: 0 0 0.5em;
+    line-height: 1.2rem;
+}
+
 .pin-btn {
     grid-area: pin-btn;
     justify-self: end;
+    align-self: start;
 }
 
 .title-and-info-content h3 {
     grid-area: title;
+    padding: 0 !important;
+    margin-block-start: 0.5em;
+    line-height: 1.2rem;
 }
 
 p {

@@ -20,6 +20,7 @@ export function NoteIndex() {
     const [todosCounter, setTodosCounter] = useState(0)
     const [isNoteStyle, setIsNoteStyle] = useState(false)
     const [isExpandedForm, setIsExpandedForm] = useState(false)
+    const [text, setText] = useState('')
 
     const noteToAddRef = useRef(noteToAdd)
 
@@ -184,6 +185,12 @@ export function NoteIndex() {
 
     }
 
+    function handleChangeTextAreaDimensions(ev) {
+        setText(ev.target.value)
+        ev.target.style.height = 'auto'
+        ev.target.style.height = ev.target.scrollHeight + 'px'
+    }
+
     function onSetNoteStyle(color) {
         setNoteToAdd(prevNote => ({ ...prevNote, style: { backgroundColor: color } }))
     }
@@ -212,7 +219,8 @@ export function NoteIndex() {
 
             <section className="new-note">
                 <div className="add-note-form collapsible-element" style={{ backgroundColor: bgColor }}>
-                    <input
+                    <textarea
+                        className="textarea-input"
                         type="text"
                         name="noteTitle"
                         id="title"
@@ -230,12 +238,14 @@ export function NoteIndex() {
                                 setTodosCounter(prevCount => prevCount + 1);
                                 setIsExpandedForm(true)
                             }} /></div>
+
                         <div><img src="assets/img/image-icon.png"
                             onClick={(ev) => {
                                 ev.stopPropagation();
                                 setCmpType('NoteImg');
                                 setIsExpandedForm(true)
                             }} /></div>
+
                         <div><img src="assets/img/videocam-icon.png"
                             onClick={(ev) => {
                                 ev.stopPropagation();
@@ -245,13 +255,14 @@ export function NoteIndex() {
                     </div>}
 
                     {isExpandedForm && <section className="expanded-form">
-                        <input
+                        <textarea
+                            className="textarea-input"
                             type="text"
                             name="txt"
                             id="txt"
                             placeholder="New note..."
                             value={noteToAdd.info.txt || ''}
-                            onChange={handleInfoChange}
+                            onChange={(ev) => { handleInfoChange(ev); handleChangeTextAreaDimensions(ev) }}
                             style={{ backgroundColor: bgColor }} />
 
 

@@ -6,14 +6,31 @@ import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
-export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
+export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) {
 
     const [noteToEdit, setNoteToEdit] = useState(note)
     const [cmpType, setCmpType] = useState('')
     const [todosCounter, setTodosCounter] = useState((noteToEdit.info.todos) ? noteToEdit.info.todos.length : 1)
     const [isNoteStyle, setIsNoteStyle] = useState(false)
+
+    const titleAreaRef = useRef(null)
+    const textareaRef = useRef(null)
+
+    console.log(textareaRef.current)
+
+    useEffect(() => {
+        if (isOpen && textareaRef.current) {
+            textareaRef.current.style.height = 'auto'
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+        }
+
+        if (isOpen && titleAreaRef.current) {
+            titleAreaRef.current.style.height = 'auto'
+            titleAreaRef.current.style.height = `${titleAreaRef.current.scrollHeight}px`
+        }
+    }, [isOpen, noteToEdit])
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
@@ -46,11 +63,17 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
                 value = target.checked
                 break
         }
-        setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...noteToEdit.info, [field]: value } }))
+        setNoteToEdit((prevNote) => {
+            if (field === 'noteTitle') {
+                return { ...prevNote, noteTitle: value }
+            }
+            return { ...prevNote, info: { ...noteToEdit.info, [field]: value } }
+
+        })
     }
 
     function handleInfoChangeForTodos({ target }, idx) {
-        let { value, name: field, type } = target
+        let { value } = target
         const todosNote = { ...noteToEdit }
         if (!todosNote.info.todos) todosNote.info.todos = []
 
@@ -126,6 +149,11 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
         ))
     }
 
+    function handleChangeTextAreaDimensions(ev) {
+        ev.target.style.height = 'auto'
+        ev.target.style.height = ev.target.scrollHeight + 'px'
+    }
+
     function onSetNoteStyle(color) {
         setNoteToEdit(prevNote => ({ ...prevNote, style: { backgroundColor: color } }))
     }
@@ -140,22 +168,26 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
                 {noteToEdit.info.videoUrl && renderImgOrVideo(<iframe src={note.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                 </iframe>, 'video')}
 
-                <input
+                <textarea
+                    ref={titleAreaRef}
+                    className="textarea-input"
                     type="text"
                     name="noteTitle"
                     id="title-update"
                     placeholder="Title"
                     value={noteToEdit.noteTitle}
-                    onChange={handleChange}
+                    onChange={(ev) => { handleInfoChange(ev); handleChangeTextAreaDimensions(ev) }}
                     style={{ backgroundColor: bgColor }} />
 
-                <input
+                <textarea
+                    ref={textareaRef}
+                    className="textarea-input"
                     type="text"
                     name="txt"
                     id="note-content"
                     placeholder="New note..."
                     value={noteToEdit.info.txt}
-                    onChange={handleInfoChange}
+                    onChange={(ev) => { handleInfoChange(ev); handleChangeTextAreaDimensions(ev) }}
                     style={{ backgroundColor: bgColor }} />
 
                 {noteToEdit.info.todos && renderTodoList(noteToEdit.info.todos, noteToEdit)}

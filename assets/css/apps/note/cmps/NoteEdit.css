@@ -34,6 +34,9 @@
 }
 
 .edit-video-or-img:hover .delete-btn {
-
     opacity: 0.8;
+}
+
+.edit-note-form textarea[name="txt"] {
+    margin-block-end: 1.5em;
 }

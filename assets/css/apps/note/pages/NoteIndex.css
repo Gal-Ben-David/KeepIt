@@ -36,19 +36,29 @@
      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
  }
 
- .add-note-form input[name="noteTitle"] {
+ .add-note-form input[name="noteTitle"],
+ textarea[name="noteTitle"] {
      font-size: 1rem;
      font-weight: 500;
  }
 
- .new-note input {
+ .new-note input,
+ .textarea-input {
      border: none;
-     padding: 1em;
+     padding: 1em 1em 0;
      font-family: inherit;
      font-weight: 500;
  }
 
- .new-note input:focus {
+ .textarea-input {
+     width: 100%;
+     overflow: hidden;
+     resize: none;
+     line-height: 1.2rem;
+ }
+
+ .new-note input:focus,
+ .textarea-input:focus {
      outline: none;
      background-color: white;
  }
