@@ -1,4 +1,5 @@
 import { LongTxt } from "../../../cmps/LongTxt.jsx";
+import { mailService } from '../services/mail.service.js';
 
 export function MailPreview({ mail }) {
     let date = new Date(mail.sentAt)
@@ -12,19 +13,20 @@ export function MailPreview({ mail }) {
 
         const today = new Date
         // Today
-        if(today.getDate() === currDate) return `${date.getHours()}:${('0' + date.getMinutes()).slice(-2)}`
+        if (today.getDate() === currDate) return `${date.getHours()}:${('0' + date.getMinutes()).slice(-2)}`
         // This year
-        else if(today.getYear() === date.getYear()) return `${currMonth} ${currDate}`
+        else if (today.getYear() === date.getYear()) return `${currMonth} ${currDate}`
         // Other
-        else return `${date.getMonth()+1}/${date.getDate()}/${date.getYear()-100}`
+        else return `${date.getMonth() + 1}/${date.getDate()}/${date.getYear() - 100}`
     }
+
+
 
     const read = mail.isRead ? 'read' : ''
 
     // const date = new Date(mail.sentAt)
     return (
         <div className={`mail-preview ${read}`}>
-
             <div className="mail-from">{mail.from}</div>
             {/* <div><span className="mail-subject">{mail.subject}</span> - <span>{mail.body}</span></div> */}
             <div className="mail-data">

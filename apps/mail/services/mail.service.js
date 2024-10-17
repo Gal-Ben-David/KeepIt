@@ -23,7 +23,7 @@ export const mailService = {
     getUser
 }
 
-function getUser(){
+function getUser() {
     return loggedInUser
 }
 
@@ -35,6 +35,8 @@ function query(filterBy = {}) {
                     mails = mails.filter(mail => mail.to === loggedInUser.email)
                 else if (filterBy.status === 'sent')
                     mails = mails.filter(mail => mail.from === loggedInUser.email)
+                else if (filterBy.status === 'starred')
+                    mails = mails.filter(mail => mail.isStarred)
                 else if (filterBy.status === 'trash')
                     mails = mails.filter(mail => !!mail.removedAt)
                 else mails = mails.filter(mail => !mail.sentAt)
@@ -42,9 +44,9 @@ function query(filterBy = {}) {
             if (filterBy.isRead === true || filterBy.isRead === false) {
                 mails = mails.filter(mail => mail.isRead === filterBy.isRead)
             }
-            if (filterBy.isStared) {
+            if (filterBy.isStarred) {
                 mails = mails.filter(mail => {
-                    if (mail.stared) mail.isStared === filterBy.isStared
+                    if (mail.stared) mail.isStarred === filterBy.isStarred
                 })
             }
             if (filterBy.labels) {
@@ -63,7 +65,7 @@ function query(filterBy = {}) {
                     const mailDate = new Date(mail.sentAt)
                     const filterDate = new Date(filterBy.date)
                     console.log(mailDate.getDate(), filterDate.getDate());
-                    
+
                     return mailDate.getDate() === filterDate.getDate() && mailDate.getMonth() === filterDate.getMonth() && mailDate.getYear() === filterDate.getYear()
                 })
             }

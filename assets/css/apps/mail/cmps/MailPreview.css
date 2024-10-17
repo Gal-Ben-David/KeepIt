@@ -3,15 +3,15 @@
     grid-template-columns: 2fr 1em 7fr 1em 1fr;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px rgba(100, 121, 143, 0.12) solid ;
+    border-bottom: 1px rgba(100, 121, 143, 0.12) solid;
     /* box-shadow: rgba(100, 121, 143, 0.12) 0px -1px 0px 0px inset; */
-   
+
     padding-inline-start: 1em;
-    
+
     cursor: pointer;
 }
 
-.mail-preview{
+.mail-preview {
     background-color: white;
 }
 
@@ -19,8 +19,8 @@
     background-color: var(--crl-mail-read);
 }
 
-.mail-preview.read >*,
- .mail-preview.read >*>*{
+.mail-preview.read>*,
+.mail-preview.read>*>* {
     /* font-weight: 100; */
     font-family: 'roboto-regular';
 }
@@ -48,7 +48,7 @@
     grid-column: 3;
 }
 
-.mail-data p{
+.mail-data p {
     margin: 0;
 }
 
@@ -69,4 +69,10 @@
 
 .mail-preview .show-txt-btn {
     font-size: 0px;
+}
+
+
+
+.mail-from {
+margin-inline-start: 1.5em;
 }

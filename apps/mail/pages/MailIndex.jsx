@@ -9,12 +9,14 @@ import { MailList } from "../cmps/MailList.jsx";
 import { MailCompose } from '../cmps/MailCompose.jsx';
 import { getTruthyValues } from '../../../services/util.service.js'
 
+
 export function MailIndex() {
 
     const [mails, setMails] = useState(null)
     const [isMailCompose, setIsMailCompose] = useState(false)
     const [dateCompose, setDateCompose] = useState()
     const [changeReadStatus, setChangeReadStatus] = useState(false)
+    const [changeStarredStatus, setChangeStarredStatus] = useState(false)
     const [sortBy, setSortBy] = useState('')
 
 
@@ -80,6 +82,26 @@ export function MailIndex() {
         console.log(mails);
     }
 
+    function onStar(mail) {
+        if (!mail.isStarred) mail.isStarred = true
+        else mail.isStarred = !mail.isStarred
+        mailService.save(mail)
+        setChangeStarredStatus(!changeStarredStatus)
+        // mailService.get(mailId)
+        //     .then(mail => {
+        //         if (!mail.isStarred) mail.isStarred = true
+        //         else mail.isStarred = !mail.isStarred
+        //         mailService.save(mail)
+        //             .then(setChangeStared)
+        //         // .then(loadMails())
+        //         // .catch(err => console.log('problems', err))
+        //     })
+        //     .catch(err => {
+        //         console.log('Problems star mail:', err)
+        //         // showErrorMsg(`Problems removing mail (${mailId})`)
+        //     })
+    }
+
     const toggleMailCompose = isMailCompose ? '' : 'hide'
     if (!mails) return <div className="loader"></div>
 
@@ -88,7 +110,7 @@ export function MailIndex() {
         <section className="mail-index">
             <MailFilter setSortBy={setSortBy} setMails={setMails} filterBy={filterBy} onSetFilterBy={onSetFilterBy} openMailCompose={openMailCompose} mails={mails} />
             <section>
-                <MailList onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
+                <MailList onStar={onStar} onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
             </section>
             <section className={`mail-compose-container ${toggleMailCompose}`}>
                 <MailCompose setSortBy={setSortBy} dateCompose={dateCompose} isMailCompose={isMailCompose} setIsMailCompose={setIsMailCompose} mails={mails} />

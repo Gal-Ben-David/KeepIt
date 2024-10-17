@@ -82,6 +82,12 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         setSelectedSideFilter('sent')
     }
 
+    function onStarredMails() {
+        setSortBy('')
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'starred' }))
+        setSelectedSideFilter('starred')
+    }
+
     function onSelectedTopFilter(status) {
         if (selectedTopFilter === status) return 'selected-top-filter'
     }
@@ -105,15 +111,20 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         else return <img src="assets\img\mail-icons\send_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="sent" />
     }
 
+    function starredIcon() {
+        if (selectedSideFilter === 'starred') return <img src="assets\img\mail-icons\star_24dp_202124_FILL1_wght400_GRAD0_opsz24.png" alt="sent" />
+        else return <img src="assets\img\mail-icons\star_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="star-empty" />
+    }
+
     const {
         status,
         isRead,
-        isStared,
+        isStarred,
         labels,
         txt,
         date } = filterByToEdit
 
-    const isValid = !!status || !!isRead || !!isStared || !!labels || !!txt || !!date
+    const isValid = !!status || !!isRead || !!isStarred || !!labels || !!txt || !!date
 
     const dateSearch = isDateClicked ? <input className="date-input" onClick={backToIndex ? () => backToIndex() : () => { return }} value={date} onChange={handleChange} type="date" name="date" id="date" /> : ''
 
@@ -168,6 +179,13 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                         <span>Inbox</span>
                     </section>
                     <span>{mails ? countUnreadMails() : ''}</span>
+                </button>
+
+                <button className={onSelectedSideFilter('starred')} onClick={backToIndex ? () => backToIndex() : () => onStarredMails()}>
+                    <section>
+                        {starredIcon()}
+                        <span>Starred</span>
+                    </section>
                 </button>
 
                 <button className={onSelectedSideFilter('sent')} onClick={backToIndex ? () => backToIndex() : () => onSentMails()}>
