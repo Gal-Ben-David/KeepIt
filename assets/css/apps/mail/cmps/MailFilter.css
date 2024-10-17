@@ -153,7 +153,6 @@ button.sort-btn:hover .sort-list>*{
     bottom: 0;
 
     font-family: 'roboto-medium';
-
 }
 
 .side-filter button {
@@ -198,6 +197,11 @@ button.sort-btn:hover .sort-list>*{
 
 .side-filter>*>section>* {
     margin-inline-start: 2em;
+}
+
+button.selected-side-filter{
+    background-color: #d3e3fd;
+    font-family: 'roboto-bold';
 }
 
 button.mail-compose-btn {

@@ -65,8 +65,8 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
     function onReadMails(bool) {
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, isRead: bool }))
-        if(bool === false) setSelectedTopFilter('unread')
-        else if(bool === true) setSelectedTopFilter('read')
+        if (bool === false) setSelectedTopFilter('unread')
+        else if (bool === true) setSelectedTopFilter('read')
 
     }
 
@@ -82,13 +82,27 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         setSelectedSideFilter('sent')
     }
 
-    function onSelectedTopFilter(status){
-        if(selectedTopFilter === status) return 'selected-top-filter'
+    function onSelectedTopFilter(status) {
+        if (selectedTopFilter === status) return 'selected-top-filter'
     }
 
-    function onPrimary(){
+    function onSelectedSideFilter(status) {
+        if (selectedSideFilter === status) return 'selected-side-filter'
+    }
+
+    function onPrimary() {
         setFilterByToEdit({ ...filterBy, isRead: undefined, to: mailService.getUser().email })
         setSelectedTopFilter('primary')
+    }
+
+    function inboxIcon() {
+        if (selectedSideFilter === 'inbox') return <img src="assets\img\mail-icons\inbox_24dp_202124_FILL1_wght400_GRAD0_opsz24 (1).png" alt="inbox" />
+        else return <img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" />
+    }
+
+    function sentIcon() {
+        if (selectedSideFilter === 'sent') return <img src="assets\img\mail-icons\send_24dp_202124_FILL1_wght400_GRAD0_opsz24.png" alt="sent" />
+        else return <img src="assets\img\mail-icons\send_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="sent" />
     }
 
     const {
@@ -98,9 +112,6 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         labels,
         txt,
         date } = filterByToEdit
-
-
-
 
     const isValid = !!status || !!isRead || !!isStared || !!labels || !!txt || !!date
 
@@ -150,18 +161,18 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                         <span>Compose</span>
                     </section>
                 </button>
-                <button onClick={backToIndex ? () => backToIndex() : () => onInbox()}>
+                <button className={onSelectedSideFilter('inbox')} onClick={backToIndex ? () => backToIndex() : () => onInbox()}>
                     {/* <button  onClick={backToIndex ? () => backToIndex() : ()=>setFilterByToEdit({ ...filterBy, isRead: undefined, to: mailService.getUser().email }) }> */}
                     <section>
-                        <img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" />
+                        {inboxIcon()}
                         <span>Inbox</span>
                     </section>
                     <span>{mails ? countUnreadMails() : ''}</span>
                 </button>
 
-                <button onClick={backToIndex ? () => backToIndex() : () => onSentMails()}>
+                <button className={onSelectedSideFilter('sent')} onClick={backToIndex ? () => backToIndex() : () => onSentMails()}>
                     <section>
-                        <img src="assets\img\mail-icons\send_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="sent" />
+                        {sentIcon()}
                         <span>Sent</span>
                     </section>
                 </button>
