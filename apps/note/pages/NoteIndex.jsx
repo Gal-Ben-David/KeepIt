@@ -192,6 +192,10 @@ export function NoteIndex() {
         ev.target.style.height = ev.target.scrollHeight + 'px'
     }
 
+    function onToggleIsPinned() {
+        setNoteToAdd((prevNote) => ({ ...prevNote, isPinned: !prevNote.isPinned }))
+    }
+
     function onSetNoteStyle(color) {
         setNoteToAdd(prevNote => ({ ...prevNote, style: { backgroundColor: color } }))
     }
@@ -220,6 +224,12 @@ export function NoteIndex() {
 
             <section className="new-note">
                 <div className="add-note-form collapsible-element" style={{ backgroundColor: bgColor }}>
+                    {isExpandedForm && <button
+                        className={`pin-btn-adding-form ${(noteToAdd.isPinned ? 'pinned' : '')}`}
+                        onClick={(ev) => { ev.stopPropagation(); onToggleIsPinned() }}>
+                        {noteToAdd.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
+                    </button>}
+
                     <textarea
                         className="textarea-input"
                         type="text"

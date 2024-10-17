@@ -16,6 +16,14 @@ export function ColorInput({ onSetNoteStyle, bgColor }) {
     return (
         <section className="color-input">
             <div className="items-container">
+                <div
+                    className={`item no-color ${bgColor === '#ffffff' ? 'chosen' : ''}`}
+                    key='#ffffff'
+                    style={{ backgroundColor: '#ffffff' }}
+                    onClick={() => onSetNoteStyle('#ffffff')}>
+                    <i className="fa-solid fa-droplet-slash"></i>
+                </div>
+
                 {colors.map(color => (
                     <div
                         key={color}
@@ -24,13 +32,6 @@ export function ColorInput({ onSetNoteStyle, bgColor }) {
                         onClick={() => onSetNoteStyle(color)}
                     ></div>
                 ))}
-                <div
-                    className={`item no-color ${bgColor === '#ffffff' ? 'chosen' : ''}`}
-                    key='#ffffff'
-                    style={{ backgroundColor: '#ffffff' }}
-                    onClick={() => onSetNoteStyle('#ffffff')}>
-                    <i className="fa-solid fa-droplet-slash"></i>
-                </div>
             </div>
         </section >
     )
