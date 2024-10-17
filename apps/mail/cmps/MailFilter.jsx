@@ -49,6 +49,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
     }
 
     function onReadMails(bool) {
+        setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, isRead: bool }))
     }
 

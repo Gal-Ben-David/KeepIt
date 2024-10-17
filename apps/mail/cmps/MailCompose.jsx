@@ -5,7 +5,7 @@ import { mailService } from "../services/mail.service.js"
 const { useState, useEffect } = React
 
 
-export function MailCompose({ dateCompose, setIsMailCompose, isMailCompose, mails }) {
+export function MailCompose({ setSortBy, dateCompose, setIsMailCompose, isMailCompose, mails }) {
 
     const [mailToEdit, setMailToEdit] = useState(mailService.getEmptyMail())
     const navigate = useNavigate()
@@ -37,14 +37,15 @@ export function MailCompose({ dateCompose, setIsMailCompose, isMailCompose, mail
         mailToEdit.sentAt = Date.now()
         ev.preventDefault()
         mailService.save(mailToEdit)
-        .then(mail => {
-        })
-        .catch(err => {
-            console.log('err:', err)
-        })
-        .finally(() => {
-            setIsMailCompose(false)
-            navigate('/mail')
+            .then(mail => {
+            })
+            .catch(err => {
+                console.log('err:', err)
+            })
+            .finally(() => {
+                setIsMailCompose(false)
+                setSortBy('')
+                navigate('/mail')
             })
     }
 
@@ -57,7 +58,7 @@ export function MailCompose({ dateCompose, setIsMailCompose, isMailCompose, mail
                 <span>New Message</span>
                 <div className="top-buttons">
                     <button><img src="assets\img\mail-icons\minimize_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="minimize" /></button>
-                    <button onClick={()=>setIsMailCompose(false)}><img src="assets\img\mail-icons\close_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="close" /></button>
+                    <button onClick={() => setIsMailCompose(false)}><img src="assets\img\mail-icons\close_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="close" /></button>
                 </div>
             </div>
             <div>
@@ -67,10 +68,10 @@ export function MailCompose({ dateCompose, setIsMailCompose, isMailCompose, mail
                     <input value={subject} onChange={handleChange} type="text" name="subject" id="subject" placeholder="Subject" />
                     <textarea value={body} onChange={handleChange} type="text" name="body" cols="50" rows="14"></textarea>
 
-            <div className="bottom-buttons">
-                <button type="submit" className="send-btn">Send</button>
-                <button type="button" className="trash"><img src="assets\img\mail-icons\delete_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="delete" /></button>
-            </div>
+                    <div className="bottom-buttons">
+                        <button type="submit" className="send-btn">Send</button>
+                        <button type="button" className="trash"><img src="assets\img\mail-icons\delete_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="delete" /></button>
+                    </div>
                 </form>
             </div>
         </section>

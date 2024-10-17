@@ -91,7 +91,7 @@ export function MailIndex() {
                 <MailList onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
             </section>
             <section className={`mail-compose-container ${toggleMailCompose}`}>
-                <MailCompose dateCompose={dateCompose} isMailCompose={isMailCompose} setIsMailCompose={setIsMailCompose} mails={mails} />
+                <MailCompose setSortBy={setSortBy} dateCompose={dateCompose} isMailCompose={isMailCompose} setIsMailCompose={setIsMailCompose} mails={mails} />
             </section>
         </section>
     )

@@ -9,7 +9,14 @@ export function MailPreview({ mail }) {
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const currMonth = months[date.getMonth()]
         const currDate = date.getDate()
-        return `${currMonth} ${currDate}`
+
+        const today = new Date
+        // Today
+        if(today.getDate() === currDate) return `${date.getHours()}:${date.getMinutes()}`
+        // This year
+        else if(today.getYear() === date.getYear()) return `${currMonth} ${currDate}`
+        // Other
+        else return `${date.getMonth()+1}/${date.getDate()}/${date.getYear()-100}`
     }
 
     const read = mail.isRead ? 'read' : ''
