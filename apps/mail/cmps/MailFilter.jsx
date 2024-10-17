@@ -3,7 +3,7 @@ const { useState, useEffect, useRef } = React
 const { useNavigate } = ReactRouterDOM
 
 
-export function MailFilter({ setMails, isIndex, backToIndex, mails, openMailCompose, filterBy, onSetFilterBy }) {
+export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, openMailCompose, filterBy, onSetFilterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
     const [isDateClicked, setIsDateClicked] = useState(false)
@@ -36,6 +36,7 @@ export function MailFilter({ setMails, isIndex, backToIndex, mails, openMailComp
     }
 
     function countUnreadMails() {
+        if(filterByToEdit.isRead === true) return ''
         const unreadMails = mails.filter(mail => !mail.isRead)
         console.log(unreadMails);
         return unreadMails.length
@@ -92,8 +93,8 @@ export function MailFilter({ setMails, isIndex, backToIndex, mails, openMailComp
                     <button className="sort-btn">
                         <img src="assets\img\mail-icons\sort_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" />
                         <div className="sort-list">
-                            <button> <img src="assets\img\mail-icons\match_case_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" /></button>
-                            <button><img src="assets\img\mail-icons\schedule_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" /></button>
+                            <button onClick={()=>setSortBy('title')}><img src="assets\img\mail-icons\match_case_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" /></button>
+                            <button onClick={()=> setSortBy('date')}><img src="assets\img\mail-icons\schedule_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="" /></button>
                         </div>
                     </button>
                 </div>

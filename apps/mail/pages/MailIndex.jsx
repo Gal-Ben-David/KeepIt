@@ -15,6 +15,7 @@ export function MailIndex() {
     const [isMailCompose, setIsMailCompose] = useState(false)
     const [dateCompose, setDateCompose] = useState()
     const [changeReadStatus, setChangeReadStatus] = useState(false)
+    const [sortBy, setSortBy] = useState('')
 
 
     const [searchParams, setSearchParams] = useSearchParams()
@@ -22,8 +23,9 @@ export function MailIndex() {
 
     useEffect(() => {
         setSearchParams(getTruthyValues(filterBy))
-        loadMails()
-    }, [isMailCompose, filterBy])
+        onSort()
+        if (!sortBy) loadMails()
+    }, [isMailCompose, filterBy, sortBy])
 
     useEffect(() => {
         document.body.style.backgroundColor = '#F6F8FC';
@@ -67,7 +69,16 @@ export function MailIndex() {
     }
 
 
-
+    function onSort() {
+        console.log(mails);
+        if (sortBy === 'title') {
+            setMails(mails => mails.sort((mail1, mail2) => mail1.subject.localeCompare(mail2.subject)))
+        }
+        else if (sortBy === 'date') {
+            setMails(mails => mails.sort((mail2, mail1) => new Date(mail1.sentAt) - new Date(mail2.sentAt)))
+        }
+        console.log(mails);
+    }
 
     const toggleMailCompose = isMailCompose ? '' : 'hide'
     if (!mails) return <div className="loader"></div>
@@ -75,7 +86,7 @@ export function MailIndex() {
     console.log('hi', isMailCompose, toggleMailCompose);
     return (
         <section className="mail-index">
-            <MailFilter setMails={setMails} filterBy={filterBy} onSetFilterBy={onSetFilterBy} openMailCompose={openMailCompose} mails={mails} />
+            <MailFilter setSortBy={setSortBy} setMails={setMails} filterBy={filterBy} onSetFilterBy={onSetFilterBy} openMailCompose={openMailCompose} mails={mails} />
             <section>
                 <MailList onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
             </section>
