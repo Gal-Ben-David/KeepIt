@@ -1,1 +1,16 @@
  /* note list */
+
+ * {
+     box-sizing: border-box;
+ }
+
+ .todo-list-preview {
+     display: flex;
+     flex-direction: column;
+     grid-column: 1/-1;
+     padding-bottom: 0.1em;
+ }
+
+ .todo-text {
+     padding-left: 0.5em;
+ }

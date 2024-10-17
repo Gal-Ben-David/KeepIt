@@ -21,6 +21,7 @@
 @import './apps/note/cmps/NoteFilter.css';
 @import './apps/note/cmps/FilterOptions.css';
 @import './apps/note/cmps/ColorInput.css';
+@import './apps/note/cmps/NoteList.css';
 
 /* Mail */
 

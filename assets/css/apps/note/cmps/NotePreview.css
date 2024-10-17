@@ -38,7 +38,8 @@ ul.notes {
 
     list-style-type: none;
     background-color: whitesmoke;
-    padding: 1em 1em 0.3em;
+    overflow: hidden;
+    /* padding: 1em 1em 0.3em; */
     border-radius: 0.6em;
     break-inside: avoid;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -55,20 +56,12 @@ ul.notes {
 
 .notes li h3 {
     font-weight: 550;
+    padding: 1em 0.8em 0;
 }
 
 .notes li p {
     font-size: 0.9rem;
-}
-
-.notes img {
-    border-radius: 0.7em;
-    margin-block-end: 2em;
-}
-
-.notes iframe {
-    border-radius: 0.7em;
-    margin-block-end: 2em;
+    padding: 0 1em;
 }
 
 .toolbar {
@@ -85,7 +78,7 @@ ul.notes {
     background-color: transparent;
     border: none;
 
-    padding: 0.3em;
+    padding: 1em;
     cursor: pointer;
     opacity: 0;
 }
@@ -98,8 +91,8 @@ ul.notes {
 .title-and-info-content .pin-btn.absolute {
     width: 25px;
     position: absolute;
-    top: 5px;
-    left: 15px;
+    top: 0;
+    right: 20px;
 }
 
 .title-and-info-content.absolute {
@@ -111,13 +104,14 @@ ul.notes {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-areas:
-        "pin-btn title";
+        "title pin-btn";
     gap: 0.5em;
     align-items: center;
 }
 
 .pin-btn {
     grid-area: pin-btn;
+    justify-self: end;
 }
 
 .title-and-info-content h3 {

@@ -175,3 +175,23 @@
  .actions-collapsed-form>*:hover {
      background-color: #ededed;
  }
+
+ .todo-list:first-of-type,
+ .url-input {
+     display: flex;
+     width: 100%;
+     border-top: 1px solid lightgray;
+     border-bottom: 1px solid lightgray;
+ }
+
+ .todo-list {
+     border-bottom: 1px solid lightgray;
+ }
+
+ .todo-list input {
+     width: 100%;
+ }
+
+ .url-input input {
+     width: 100%;
+ }

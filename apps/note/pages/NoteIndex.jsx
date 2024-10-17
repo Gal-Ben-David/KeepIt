@@ -51,10 +51,12 @@ export function NoteIndex() {
                 noteToAddRef.current.info.imgUrl || noteToAddRef.current.info.videoUrl || noteToAddRef.current.info.todos) {
                 onSubmit(noteToAddRef.current, true)
                 setCmpType('NoteTxt')
+                setTodosCounter(0)
             }
             else {
                 setNoteToAdd(noteService.getEmptyNote())
                 setCmpType('NoteTxt')
+                setTodosCounter(0)
             }
         }
     }
@@ -251,17 +253,18 @@ export function NoteIndex() {
                             value={noteToAdd.info.txt || ''}
                             onChange={handleInfoChange}
                             style={{ backgroundColor: bgColor }} />
-                        <div>
-                            <DynamicCmp
-                                cmpType={cmpType}
-                                handleChange={handleChange}
-                                handleInfoChange={handleInfoChange}
-                                handleInfoChangeForTodos={handleInfoChangeForTodos}
-                                todosCounter={todosCounter}
-                                setTodosCounter={setTodosCounter}
-                                note={noteToAdd}
-                                bgColor={bgColor} />
-                        </div>
+
+
+                        <DynamicCmp
+                            cmpType={cmpType}
+                            handleChange={handleChange}
+                            handleInfoChange={handleInfoChange}
+                            handleInfoChangeForTodos={handleInfoChangeForTodos}
+                            todosCounter={todosCounter}
+                            setTodosCounter={setTodosCounter}
+                            note={noteToAdd}
+                            bgColor={bgColor} />
+
 
                         <div className="actions">
                             <div className="actions-toolbar">

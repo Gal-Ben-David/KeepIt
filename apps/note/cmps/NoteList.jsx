@@ -20,17 +20,21 @@ export function NoteList({ notes, handleEditClick, onPinNote, onRemoveNote, onDu
                                 {note.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
                             </button>
 
-                            <h3>{note.noteTitle}</h3>
-                            <p>{note.info.txt}</p>
-                            {note.info.todos && note.info.todos.map((item, i) =>
-                                item && <label key={i} onClick={(ev) => { ev.stopPropagation() }} >
-                                    <input
-                                        type="checkbox"
-                                        checked={item.isChecked || false}
-                                        onChange={() => changeIsCheckedTodo(i, note)} />
-                                    <span className="todo-text">{item.txt}</span>
-                                </label>
-                            )}
+                            {note.noteTitle && <h3>{note.noteTitle}</h3>}
+                            {note.info.txt && <p>{note.info.txt && note.info.txt}</p>}
+
+                            <div className="todo-list-preview">
+                                {note.info.todos && note.info.todos.map((item, i) =>
+                                    item && <label key={i} onClick={(ev) => { ev.stopPropagation() }} >
+                                        <input
+                                            type="checkbox"
+                                            checked={item.isChecked || false}
+                                            onChange={() => changeIsCheckedTodo(i, note)} />
+                                        <span className="todo-text">{item.txt}</span>
+                                    </label>
+                                )}
+                            </div>
+
                         </div>
 
                         <div className="toolbar">
