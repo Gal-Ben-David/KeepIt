@@ -7,7 +7,7 @@ import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.servic
 
 const { useState, useEffect } = React
 
-export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
+export function NoteEdit({ note, onCloseModal, setNotesPreview, setNoteType }) {
 
     const [noteToEdit, setNoteToEdit] = useState(note)
     const [cmpType, setCmpType] = useState('')
@@ -46,15 +46,31 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
         setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...noteToEdit.info, [field]: value } }))
     }
 
-    function onSubmit() {
+    function changeIsCheckedTodo(todoIdx, note) {
+        const updatedTodos = note.info.todos.map((todo, idx) => idx === todoIdx ? { ...todo, isChecked: !todo.isChecked } : todo)
+        const updatedNote = { ...note, info: { ...note.info, todos: updatedTodos } }
+        setNoteToEdit(updatedNote)
+        onSubmit(updatedNote)
+    }
+
+    function onSubmit(updatedNote) {
         // ev.preventDefault()
-        setNoteType(noteToEdit)
-        noteService.save(noteToEdit)
+        setNoteType(updatedNote)
+        noteService.save(updatedNote)
             .then(note => {
                 console.log(note)
                 console.log('Note updated')
                 showSuccessMsg('Note has been saved successfully')
-                loadNotes()
+
+                setNotesPreview(prevNotes => {
+                    const noteIndex = prevNotes.findIndex(n => n.id === updatedNote.id)
+                    if (noteIndex !== -1) {
+                        const updatedNotes = [...prevNotes]
+                        updatedNotes[noteIndex] = updatedNote
+                        return updatedNotes
+                    }
+                    return prevNotes
+                })
                 onCloseModal()
             })
             .catch(err => {
@@ -82,6 +98,19 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
             delete updatedInfo.videoUrl
         }
         setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...updatedInfo } }))
+    }
+
+    function renderTodoList(todoList, note) {
+        return (todoList.map((item, i) =>
+            item && <label key={i} onClick={(ev) => { ev.stopPropagation() }} >
+                <input
+                    type="checkbox"
+                    checked={item.isChecked || false}
+                    value={todoList.txt}
+                    onChange={() => changeIsCheckedTodo(i, note)} />
+                <span className="todo-text">{item.txt}</span>
+            </label>
+        ))
     }
 
     const bgColor = noteToEdit.style.backgroundColor
@@ -112,6 +141,8 @@ export function NoteEdit({ note, onCloseModal, loadNotes, setNoteType }) {
                     value={noteToEdit.info.txt}
                     onChange={handleInfoChange}
                     style={{ backgroundColor: bgColor }} />
+
+                {noteToEdit.info.todos && renderTodoList(noteToEdit.info.todos, noteToEdit)}
 
                 <DynamicCmp
                     noteType={cmpType}

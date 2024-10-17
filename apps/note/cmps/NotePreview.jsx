@@ -87,7 +87,12 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
 
             {isEditModalOpen && (
                 <Modal isOpen={isEditModalOpen} onCloseModal={onCloseModal} bgColor={noteToEdit.style.backgroundColor}>
-                    <NoteEdit note={noteToEdit} onCloseModal={onCloseModal} loadNotes={loadNotes} setNoteType={setNoteType} />
+                    <NoteEdit
+                        note={noteToEdit}
+                        onCloseModal={onCloseModal}
+                        loadNotes={loadNotes}
+                        setNoteType={setNoteType}
+                        setNotesPreview={setNotesPreview} />
                 </Modal>
             )}
         </Fragment>

@@ -17,6 +17,7 @@ export function NoteIndex() {
     const [showFilterOption, setShowFilterOption] = useState(false)
     const [cmpType, setCmpType] = useState('NoteTxt')
     const [todosCounter, setTodosCounter] = useState(0)
+    const [todosList, setTodosList] = useState([])
     // const [noteAddingFormStyle, setNoteAddingFormStyle] = useState({
     //     backgroundColor: '#000000'
     // })
@@ -100,7 +101,7 @@ export function NoteIndex() {
         todosNote.info.todos[todosCounter] = { txt: value, isChecked: false }
 
         console.log(noteToAdd)
-        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos] } }))
+        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos].filter(todo => todo) } }))
     }
 
     function onSubmit() {
