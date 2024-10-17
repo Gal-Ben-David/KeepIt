@@ -8,7 +8,7 @@ import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-const { useState, useEffect, Fragment, Link } = React
+const { useState, useEffect, Fragment, Link, useRef } = React
 
 export function NoteIndex() {
 
@@ -19,9 +19,9 @@ export function NoteIndex() {
     const [cmpType, setCmpType] = useState('NoteTxt')
     const [todosCounter, setTodosCounter] = useState(0)
     const [isNoteStyle, setIsNoteStyle] = useState(false)
-    // const [noteAddingFormStyle, setNoteAddingFormStyle] = useState({
-    //     backgroundColor: '#000000'
-    // })
+    const [isExpandedForm, setIsExpandedForm] = useState(false)
+
+    const noteToAddRef = useRef(noteToAdd)
 
     useEffect(() => {
         loadNotes()
@@ -30,6 +30,30 @@ export function NoteIndex() {
     useEffect(() => {
         document.body.style.backgroundColor = '#FFFFFF'
     }, [])
+
+    useEffect(() => {
+        document.addEventListener('click', handleBodyClick)
+
+        return () => {
+            document.removeEventListener('click', handleBodyClick)
+        }
+    }, [])
+
+    useEffect(() => {
+        noteToAddRef.current = noteToAdd
+    }, [noteToAdd])
+
+    function handleBodyClick(ev) {
+        if (!ev.target.closest('.collapsible-element')) {
+            setIsExpandedForm(false)
+
+            if (noteToAddRef.current.noteTitle || noteToAddRef.current.info.txt ||
+                noteToAddRef.current.info.imgUrl || noteToAddRef.current.info.videoUrl || noteToAddRef.current.info.todos) {
+                onSubmit(noteToAddRef.current, true)
+            }
+            else setNoteToAdd(noteService.getEmptyNote())
+        }
+    }
 
     function loadNotes() {
         noteService.query(filterBy)
@@ -69,11 +93,6 @@ export function NoteIndex() {
             case 'checkbox':
                 value = target.checked
                 break
-
-            case 'color':
-                value = { backgroundColor: value }
-                break
-
         }
         setNoteToAdd((prevNote) => ({ ...prevNote, [field]: value }))
     }
@@ -105,26 +124,25 @@ export function NoteIndex() {
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos].filter(todo => todo) } }))
     }
 
-    function onSubmit() {
+    function onSubmit(newNote, autoSubmit = false) {
+        const noteToSave = (autoSubmit) ? newNote : noteToAdd
         // ev.preventDefault()
-        if (noteToAdd.noteTitle === '' && noteToAdd.info.txt === '') return console.log('empty note')
-        else {
-            setNoteType(noteToAdd)
-            noteService.save(noteToAdd)
-                .then(note => {
-                    console.log(note)
-                    console.log('Note added')
-                    showSuccessMsg('Note has been saved successfully')
-                    onClearForm()
+        // if (noteToAdd.noteTitle === '' && noteToAdd.info.txt === '') return console.log('empty note')
+        setNoteType(noteToSave)
+        noteService.save(noteToSave)
+            .then(note => {
+                console.log(note)
+                console.log('Note added')
+                showSuccessMsg('Note has been saved successfully')
+                onClearForm()
 
-                    loadNotes()
-                    setNoteToAdd(noteService.getEmptyNote())
-                })
-                .catch(err => {
-                    console.log('err:', err)
-                    showErrorMsg(`Problems saving note`)
-                })
-        }
+                loadNotes()
+                setNoteToAdd(noteService.getEmptyNote())
+            })
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg(`Problems saving note`)
+            })
     }
 
     function onRemoveNote(noteId) {
@@ -187,75 +205,71 @@ export function NoteIndex() {
             </section>
 
             <section className="new-note">
-                <div className="add-note-form" style={{ backgroundColor: bgColor }}>
+                <div className="add-note-form collapsible-element" style={{ backgroundColor: bgColor }}>
                     <input
                         type="text"
                         name="noteTitle"
                         id="title"
-                        placeholder="Title"
+                        placeholder={`${isExpandedForm ? 'Title' : 'New note...'}`}
                         value={noteToAdd.noteTitle}
                         onChange={handleChange}
-                        style={{ backgroundColor: bgColor }} />
-                    <input
-                        type="text"
-                        name="txt"
-                        id="txt"
-                        placeholder="New note..."
-                        value={noteToAdd.info.txt || ''}
-                        onChange={handleInfoChange}
+                        onClick={() => setIsExpandedForm(true)}
                         style={{ backgroundColor: bgColor }} />
 
-                    <DynamicCmp
-                        cmpType={cmpType}
-                        handleChange={handleChange}
-                        handleInfoChange={handleInfoChange}
-                        handleInfoChangeForTodos={handleInfoChangeForTodos}
-                        todosCounter={todosCounter}
-                        setTodosCounter={setTodosCounter}
-                        note={noteToAdd}
-                        bgColor={bgColor} />
+                    {isExpandedForm && <section className="expanded-form">
+                        <input
+                            type="text"
+                            name="txt"
+                            id="txt"
+                            placeholder="New note..."
+                            value={noteToAdd.info.txt || ''}
+                            onChange={handleInfoChange}
+                            style={{ backgroundColor: bgColor }} />
 
-                    <div className="actions">
-                        <div className="actions-toolbar">
-                            <label
-                                title="Background color"
-                                onClick={() => setIsNoteStyle(isNoteStyle => !isNoteStyle)}>
-                                <i className="fa-solid fa-palette"></i>
-                            </label>
+                        <DynamicCmp
+                            cmpType={cmpType}
+                            handleChange={handleChange}
+                            handleInfoChange={handleInfoChange}
+                            handleInfoChangeForTodos={handleInfoChangeForTodos}
+                            todosCounter={todosCounter}
+                            setTodosCounter={setTodosCounter}
+                            note={noteToAdd}
+                            bgColor={bgColor} />
 
-                            {/* <input
-                                type="color"
-                                className="control-color"
-                                id="color-input"
-                                name="style"
-                                onChange={handleChange} /> */}
+                        <div className="actions">
+                            <div className="actions-toolbar">
+                                <label
+                                    title="Background color"
+                                    onClick={() => setIsNoteStyle(isNoteStyle => !isNoteStyle)}>
+                                    <i className="fa-solid fa-palette"></i>
+                                </label>
 
-                            <button
-                                type='button'
-                                title="Add image"
-                                onClick={() => { setCmpType('NoteImg'); setTodosCounter(0) }}>
-                                <i className="fa-solid fa-image"></i>
-                            </button>
+                                <button
+                                    type='button'
+                                    title="Add image"
+                                    onClick={() => { setCmpType('NoteImg'); setTodosCounter(0) }}>
+                                    <i className="fa-solid fa-image"></i>
+                                </button>
 
-                            <button
-                                type='button'
-                                title="Add video"
-                                onClick={() => { setCmpType('NoteVideo'); setTodosCounter(0) }}>
-                                <i className="fa-solid fa-video">
-                                </i></button>
+                                <button
+                                    type='button'
+                                    title="Add video"
+                                    onClick={() => { setCmpType('NoteVideo'); setTodosCounter(0) }}>
+                                    <i className="fa-solid fa-video">
+                                    </i></button>
 
-                            <button
-                                type='button'
-                                title="Todo list"
-                                onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
-                                <i className="fa-regular fa-square-check"></i>
-                            </button>
+                                <button
+                                    type='button'
+                                    title="Todo list"
+                                    onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
+                                    <i className="fa-regular fa-square-check"></i>
+                                </button>
+                            </div>
+                            {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
+                            <button className="save-new-note-btn" onClick={onSubmit}>Save</button>
                         </div>
-                        {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
-                        <button className="save-new-note-btn" onClick={onSubmit}>Save</button>
-                    </div>
-
-
+                    </section>
+                    }
                 </div>
 
                 <NotePreview
