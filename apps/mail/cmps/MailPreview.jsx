@@ -12,7 +12,7 @@ export function MailPreview({ mail }) {
 
         const today = new Date
         // Today
-        if(today.getDate() === currDate) return `${date.getHours()}:${date.getMinutes()}`
+        if(today.getDate() === currDate) return `${date.getHours()}:${('0' + date.getMinutes()).slice(-2)}`
         // This year
         else if(today.getYear() === date.getYear()) return `${currMonth} ${currDate}`
         // Other

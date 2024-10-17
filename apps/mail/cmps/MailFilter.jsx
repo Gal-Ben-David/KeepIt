@@ -113,7 +113,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                         <span>Compose</span>
                     </section>
                 </button>
-                <button>
+                <button  onClick={backToIndex ? () => backToIndex() : ()=>setFilterByToEdit({ ...filterBy, isRead: undefined }) }>
                     <section>
                         <img src="assets\img\mail-icons\inbox_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="inbox" />
                         <span>Inbox</span>
