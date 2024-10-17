@@ -42,18 +42,24 @@
      font-weight: 500;
  }
 
+ .new-note input {
+     padding: 0.7em;
+ }
+
  .new-note input,
  .textarea-input {
      border: none;
-     padding: 1em 1em 0;
      font-family: inherit;
      font-weight: 500;
  }
 
  .textarea-input {
      width: 100%;
+     padding: 1em 1em 0;
+
      overflow: hidden;
      resize: none;
+
      line-height: 1.2rem;
  }
 
@@ -215,6 +221,7 @@
      padding: 0.7em;
      margin-block-start: 0.5em;
      cursor: pointer;
+     z-index: 11;
  }
 
  .pin-btn-adding-form img {

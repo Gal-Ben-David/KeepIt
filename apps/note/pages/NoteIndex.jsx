@@ -21,6 +21,9 @@ export function NoteIndex() {
     const [isNoteStyle, setIsNoteStyle] = useState(false)
     const [isExpandedForm, setIsExpandedForm] = useState(false)
 
+    const [imgUrl, setImgUrl] = useState(noteToAdd.info.imgUrl || '')
+    const [videoUrl, setVideoUrl] = useState(noteToAdd.info.videoUrl || '')
+
     const noteToAddRef = useRef(noteToAdd)
 
     useEffect(() => {
@@ -122,7 +125,14 @@ export function NoteIndex() {
                 break
         }
         console.log(noteToAdd)
-        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
+        // setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
+
+        setNoteToAdd((prevNote) => {
+            if (field === 'imgUrl') setImgUrl(value)
+            if (field === 'videoUrl') setVideoUrl(value)
+            return { ...prevNote, info: { ...prevNote.info, [field]: value } }
+
+        })
     }
 
     function handleInfoChangeForTodos({ target }, idx) {
@@ -196,6 +206,29 @@ export function NoteIndex() {
         setNoteToAdd((prevNote) => ({ ...prevNote, isPinned: !prevNote.isPinned }))
     }
 
+    function renderImgOrVideo(element, urlType) {
+        return (
+            <div className="edit-video-or-img">
+                {element}
+                <button className="delete-btn" type='button' onClick={() => onRemoveUrl(urlType)}><i className="fa-solid fa-trash"></i></button>
+            </div>
+        )
+    }
+
+    function onRemoveUrl(urlType) {
+        const updatedInfo = { ...noteToAdd.info }
+        if (urlType === 'img') {
+            updatedInfo.imgUrl = ''
+            setImgUrl('')
+            delete updatedInfo.imgUrl
+        } else if (urlType === 'video') {
+            updatedInfo.videoUrl = ''
+            delete updatedInfo.videoUrl
+            setVideoUrl('')
+        }
+        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...updatedInfo } }))
+    }
+
     function onSetNoteStyle(color) {
         setNoteToAdd(prevNote => ({ ...prevNote, style: { backgroundColor: color } }))
     }
@@ -229,6 +262,10 @@ export function NoteIndex() {
                         onClick={(ev) => { ev.stopPropagation(); onToggleIsPinned() }}>
                         {noteToAdd.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
                     </button>}
+
+                    {isExpandedForm && imgUrl && renderImgOrVideo(<img src={imgUrl} />, 'img')}
+                    {isExpandedForm && videoUrl && renderImgOrVideo(<iframe src={videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                    </iframe>, 'video')}
 
                     <textarea
                         className="textarea-input"

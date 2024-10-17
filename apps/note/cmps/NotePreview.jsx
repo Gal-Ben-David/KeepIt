@@ -78,7 +78,6 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
             </section>
 
             <section className="unPinned-notes">
-                {console.log(pinnedDisplay)}
                 {(pinnedDisplay === 'show') && <h1>Other notes</h1>}
 
                 <NoteList notes={notes.filter(note => !note.isPinned)}

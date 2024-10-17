@@ -19,7 +19,8 @@
     position: relative;
 }
 
-.edit-note-form .delete-btn {
+.edit-note-form .delete-btn,
+.add-note-form .delete-btn {
     position: absolute;
     color: white;
     bottom: 10px;
@@ -31,6 +32,7 @@
 
     opacity: 0;
     transition: 0.4s;
+    cursor: pointer;
 }
 
 .edit-video-or-img:hover .delete-btn {

@@ -14,6 +14,8 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
     const [cmpType, setCmpType] = useState('')
     const [todosCounter, setTodosCounter] = useState((noteToEdit.info.todos) ? noteToEdit.info.todos.length : 1)
     const [isNoteStyle, setIsNoteStyle] = useState(false)
+    const [imgUrl, setImgUrl] = useState(note.info.imgUrl || '')
+    const [videoUrl, setVideoUrl] = useState(note.info.videoUrl || '')
 
     const titleAreaRef = useRef(null)
     const textareaRef = useRef(null)
@@ -62,10 +64,12 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
                 break
         }
         setNoteToEdit((prevNote) => {
+            if (field === 'imgUrl') setImgUrl(value)
+            if (field === 'videoUrl') setVideoUrl(value)
             if (field === 'noteTitle') {
                 return { ...prevNote, noteTitle: value }
             }
-            return { ...prevNote, info: { ...noteToEdit.info, [field]: value } }
+            return { ...prevNote, info: { ...prevNote.info, [field]: value } }
 
         })
     }
@@ -127,9 +131,11 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
         if (urlType === 'img') {
             updatedInfo.imgUrl = ''
             delete updatedInfo.imgUrl
+            setImgUrl('')
         } else if (urlType === 'video') {
             updatedInfo.videoUrl = ''
             delete updatedInfo.videoUrl
+            setVideoUrl('')
         }
         setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...updatedInfo } }))
     }
@@ -173,8 +179,8 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
                     {noteToEdit.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
                 </button>
 
-                {noteToEdit.info.imgUrl && renderImgOrVideo(<img src={note.info.imgUrl} />, 'img')}
-                {noteToEdit.info.videoUrl && renderImgOrVideo(<iframe src={note.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                {imgUrl && renderImgOrVideo(<img src={imgUrl} />, 'img')}
+                {videoUrl && renderImgOrVideo(<iframe src={videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                 </iframe>, 'video')}
 
                 <textarea
