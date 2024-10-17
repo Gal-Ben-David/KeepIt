@@ -127,3 +127,7 @@ ul.notes {
 p {
     grid-column: 1 / -1;
 }
+
+input[type="checkbox"]:checked+.todo-text {
+    text-decoration: line-through;
+}

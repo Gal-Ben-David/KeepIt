@@ -97,7 +97,7 @@ export function NoteIndex() {
         const todosNote = { ...noteToAdd }
         if (!todosNote.info.todos) todosNote.info.todos = []
 
-        todosNote.info.todos[todosCounter] = value
+        todosNote.info.todos[todosCounter] = { txt: value, isChecked: false }
 
         console.log(noteToAdd)
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos] } }))

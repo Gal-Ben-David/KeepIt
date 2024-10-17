@@ -1,17 +1,19 @@
 import { NoteEdit } from '../cmps/NoteEdit.jsx'
 import { Modal } from '../cmps/Modal.jsx'
+import { noteService } from '../services/note.service.js'
 
 const { Fragment, useState, useEffect } = React
 
-export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDuplicateNote, setNoteType }) {
+export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDuplicateNote, setNoteType, setNotes }) {
 
-    useEffect(() => {
-        findPinnedNote()
-    }, [])
-
+    const [notesPreview, setNotesPreview] = useState(notes)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(null)
     const [pinnedDisplay, setPinnedDisplay] = useState('')
+
+    useEffect(() => {
+        findPinnedNote()
+    }, [notes])
 
     function onCloseModal() {
         setIsEditModalOpen(false)
@@ -28,15 +30,45 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
         setPinnedDisplay((isPinnedNote) ? 'show' : '')
     }
 
+    function changeIsCheckedTodo(todoIdx, note) {
+        const updatedTodos = note.info.todos.map((todo, idx) => idx === todoIdx ? { ...todo, isChecked: !todo.isChecked } : todo)
+        const updatedNote = { ...note, info: { ...note.info, todos: updatedTodos } }
+        setNoteToEdit(updatedNote)
+
+        setNotesPreview(prevNotes => {
+            const noteIndex = prevNotes.findIndex(n => n.id === updatedNote.id)
+            if (noteIndex !== -1) {
+                const updatedNotes = [...prevNotes]
+                updatedNotes[noteIndex] = updatedNote
+                return updatedNotes
+            }
+            return prevNotes
+        })
+        onSubmit(updatedNote)
+    }
+
+    function onSubmit(updatedNote) {
+        console.log(updatedNote)
+        noteService.save(updatedNote)
+            .then(savedNote => {
+                console.log(savedNote)
+                console.log('Note updated')
+                showSuccessMsg('Note has been saved successfully')
+                setNoteToEdit(noteService.getEmptyNote())
+            })
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg(`Problems saving note`)
+            })
+    }
+
     return (
 
         <Fragment>
             <section className={`pinned-notes ${pinnedDisplay}`}>
                 <h4>Pinned</h4>
                 <ul className="notes">
-                    {notes.filter(note => note.isPinned).map(note => {
-
-                        { console.log(note) }
+                    {notesPreview.filter(note => note.isPinned).map(note => {
 
                         return (<li key={note.id} style={{ backgroundColor: note.style.backgroundColor }} onClick={() => handleEditClick(note)}>
 
@@ -55,13 +87,12 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                                 <h3>{note.noteTitle}</h3>
                                 <p>{note.info.txt}</p>
 
-                                {console.log(note.info.todos)}
-                                {console.log(note.info && note.info.todos)}
                                 {note.info.todos && note.info.todos.filter(item => item).map((item, i) =>
-                                    <label key={i}>
+                                    <label key={i} onClick={(event) => { event.stopPropagation() }} >
                                         <input
-                                            type="checkbox" />
-                                        {item}
+                                            type="checkbox"
+                                            onClick={(event) => { event.stopPropagation() }} />
+                                        <span style={{ pointerEvents: 'none' }}>{item}</span>
                                     </label>
                                 )}
                             </div>
@@ -80,9 +111,8 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
             <section className="unPinned-notes">
                 <h1 className={pinnedDisplay ? 'show' : ''}>Other notes</h1>
                 <ul className="notes">
-                    {notes.filter(note => !note.isPinned).map(note =>
+                    {notesPreview.filter(note => !note.isPinned).map(note =>
                         <li key={note.id} style={{ backgroundColor: note.style.backgroundColor }} onClick={() => handleEditClick(note)}>
-
 
                             {note.info.imgUrl && <img src={note.info.imgUrl} />}
                             {note.info.videoUrl &&
@@ -99,13 +129,13 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                                 <h3>{note.noteTitle}</h3>
                                 <p>{note.info.txt}</p>
 
-                                {console.log(note.info.todos)}
-                                {console.log(note.info && note.info.todos)}
-                                {note.info.todos && note.info.todos.filter(item => item).map((item, i) =>
-                                    <label key={i}>
+                                {note.info.todos && note.info.todos.map((item, i) =>
+                                    item && <label key={i} onClick={(ev) => { ev.stopPropagation() }} >
                                         <input
-                                            type="checkbox" />
-                                        {item}
+                                            type="checkbox"
+                                            checked={item.isChecked || false}
+                                            onChange={() => changeIsCheckedTodo(i, note)} />
+                                        <span className="todo-text">{item.txt}</span>
                                     </label>
                                 )}
                             </div>

@@ -11,6 +11,7 @@ export function CreateNoteByTodos({ handleInfoChangeForTodos, todosCounter, note
                         id="todos"
                         placeholder="List item"
                         onChange={handleInfoChangeForTodos}
+                        onClick={(event) => { event.stopPropagation() }}
                         style={{ backgroundColor: bgColor || '#ffffff' }} />
                 </div>
             )}
