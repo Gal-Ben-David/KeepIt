@@ -3,6 +3,7 @@ import { noteService } from '../services/note.service.js'
 import { CreateNoteByImg } from '../cmps/CreateNoteByImg.jsx'
 import { CreateNoteByVideo } from '../cmps/CreateNoteByVideo.jsx'
 import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
+import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
@@ -12,6 +13,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
     const [noteToEdit, setNoteToEdit] = useState(note)
     const [cmpType, setCmpType] = useState('')
     const [todosCounter, setTodosCounter] = useState((noteToEdit.info.todos) ? noteToEdit.info.todos.length : 1)
+    const [isNoteStyle, setIsNoteStyle] = useState(false)
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
@@ -124,6 +126,10 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
         ))
     }
 
+    function onSetNoteStyle(color) {
+        setNoteToEdit(prevNote => ({ ...prevNote, style: { backgroundColor: color } }))
+    }
+
     const bgColor = noteToEdit.style.backgroundColor
 
     return (
@@ -133,7 +139,6 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
                 {noteToEdit.info.imgUrl && renderImgOrVideo(<img src={note.info.imgUrl} />, 'img')}
                 {noteToEdit.info.videoUrl && renderImgOrVideo(<iframe src={note.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                 </iframe>, 'video')}
-
 
                 <input
                     type="text"
@@ -168,14 +173,11 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
 
                 <div className="actions">
                     <div className="actions-toolbar">
-                        <label htmlFor="color-input-edit"><i className="fa-solid fa-palette"></i></label>
-                        <input
-                            type="color"
-                            className="control-color"
-                            id="color-input-edit"
-                            name="style"
-                            value={bgColor}
-                            onChange={handleChange} />
+                        <label
+                            title="Background color"
+                            onClick={() => setIsNoteStyle(isNoteStyle => !isNoteStyle)}>
+                            <i className="fa-solid fa-palette"></i>
+                        </label>
 
                         <button
                             type='button'
@@ -196,6 +198,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
                             <i className="fa-regular fa-square-check"></i>
                         </button>
                     </div>
+                    {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
                     <button className="save-new-note-btn" onClick={() => onSubmit(noteToEdit)}>Save</button>
                 </div>
             </div>

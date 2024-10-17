@@ -5,6 +5,7 @@
 .edit-note-form {
     display: flex;
     flex-direction: column;
+    position: relative;
 
     width: 50vw;
     max-width: 36em;
