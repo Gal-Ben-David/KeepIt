@@ -117,6 +117,70 @@ function _createNotes() {
                     todos: [{ txt: 'Respond to client emails', isChecked: false }, { txt: 'Review the code for the new feature', isChecked: false }],
                     txt: ''
                 }),
+
+            _createNote(1112227,
+                'NoteTodos',
+                '🛒 Buy groceries',
+                true,
+                { backgroundColor: '#EFEFF1' },
+                {
+                    todos: [{ txt: 'milk', isChecked: false }, { txt: 'eggs', isChecked: true }, { txt: 'vegetables', isChecked: false }, { txt: 'bread', isChecked: false }],
+                    txt: ''
+                }),
+
+            _createNote(1112228,
+                'NoteImg',
+                '',
+                true,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'https://cdn-fkmoj.nitrocdn.com/xvpOGZRTxJUhXKufpOYIruQcRqtvAAQX/assets/images/optimized/rev-4e1f421/media.briantracy.com/blog/wp-content/uploads/2024/01/23111850/Quote-22-800x800.png',
+                    txt: ''
+                }),
+
+            _createNote(1112229,
+                'NoteImg',
+                '',
+                true,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/076A6C50-040B-4B6F-8EAD-7308AEAC277A.jpeg',
+                    txt: ''
+                }),
+
+            _createNote(1112230,
+                'NoteTxt',
+                'Reminder',
+                true,
+                { backgroundColor: '#FCF4DD' },
+                {
+                    txt: 'Meeting with the project team at 3 PM on Tuesday'
+                }),
+
+            _createNote(1112230,
+                'NoteTxt',
+                '',
+                true,
+                { backgroundColor: '#ffffff' },
+                {
+                    txt: 'Explore ways to improve team communication'
+                }),
+
+            _createNote(1112231,
+                'NoteTxt',
+                'Birthday message 🎉',
+                true,
+                { backgroundColor: '#E2F6D3' },
+                {
+                    txt: `Today is all about you, and I just want to take a moment to celebrate the incredible person you are!
+                        On this special day, I wish you a year filled with joy, laughter, and unforgettable memories
+                        May every moment be a reminder of how loved and cherished you are.
+                        May this year bring you closer to your goals and dreams. I hope you find success in everything you
+                        do and the courage to pursue your passions. Remember that I’m always here cheering you on,
+                        supporting you every step of the way.
+                        Enjoy your day to the fullest—surrounded by the people you love, with all the things that make you happy.
+                        Happy Birthday! 🎂✨`
+                }),
         ]
         console.log(notes)
         saveToStorage(NOTE_KEY, notes)

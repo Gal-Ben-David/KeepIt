@@ -72,10 +72,20 @@ ul.notes {
 .pin-btn {
     background-color: transparent;
     border: none;
+    display: grid;
+    justify-content: center;
 
-    padding: 1em;
+    padding: 0.6em;
+    margin-block-start: 2px;
+    margin-inline-end: 2px;
+
     cursor: pointer;
     opacity: 0;
+}
+
+.pin-btn:hover {
+    background-color: whitesmoke;
+    border-radius: 50%;
 }
 
 .pin-btn img {
@@ -84,10 +94,10 @@ ul.notes {
 }
 
 .title-and-info-content .pin-btn.absolute {
-    width: 25px;
     position: absolute;
-    top: 0;
-    right: 20px;
+    top: 2px;
+    right: 2px;
+    padding: 0.6em;
 }
 
 .title-and-info-content.absolute {

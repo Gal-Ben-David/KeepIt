@@ -83,19 +83,11 @@ export function NoteIndex() {
             if (noteToAddRef.current.noteTitle || noteToAddRef.current.info.txt ||
                 noteToAddRef.current.info.imgUrl || noteToAddRef.current.info.videoUrl || noteToAddRef.current.info.todos) {
                 onSubmit(noteToAddRef.current, true)
-                setCmpType('NoteTxt')
-                setTodosCounter(0)
-                setVideoUrl('')
-                setImgUrl('')
-                setIsNoteStyle(false)
+                resetValues()
             }
             else {
                 setNoteToAdd(noteService.getEmptyNote())
-                setCmpType('NoteTxt')
-                setTodosCounter(0)
-                setVideoUrl('')
-                setImgUrl('')
-                setIsNoteStyle(false)
+                resetValues()
             }
         }
     }
@@ -193,14 +185,24 @@ export function NoteIndex() {
                 console.log('Note added')
                 showSuccessMsg('Note has been saved successfully')
                 onClearForm()
-
                 loadNotes()
+
+                setIsExpandedForm(false)
+                resetValues()
                 setNoteToAdd(noteService.getEmptyNote())
             })
             .catch(err => {
                 console.log('err:', err)
                 showErrorMsg(`Problems saving note`)
             })
+    }
+
+    function resetValues() {
+        setCmpType('NoteTxt')
+        setVideoUrl('')
+        setImgUrl('')
+        setIsNoteStyle(false)
+        setTodosCounter(0)
     }
 
     function onRemoveNote(noteId) {

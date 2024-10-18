@@ -29,7 +29,8 @@ export function NoteList({ notes, handleEditClick, onPinNote, onRemoveNote, onDu
                                 {note.info.todos &&
                                     <div className="todo-list-preview">
                                         {note.info.todos.map((item, i) =>
-                                            item && <label key={i} onClick={(ev) => { ev.stopPropagation() }} >
+                                            item &&
+                                            <label className="checkbox-label-preview" key={i} onClick={(ev) => { ev.stopPropagation() }} >
                                                 <input
                                                     type="checkbox"
                                                     checked={item.isChecked || false}
