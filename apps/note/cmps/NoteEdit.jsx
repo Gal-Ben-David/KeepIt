@@ -12,7 +12,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
 
     const [noteToEdit, setNoteToEdit] = useState(note)
     const [cmpType, setCmpType] = useState('')
-    const [todosCounter, setTodosCounter] = useState((noteToEdit.info.todos) ? noteToEdit.info.todos.length : 1)
+    const [todosCounter, setTodosCounter] = useState((noteToEdit.info.todos) ? noteToEdit.info.todos.length : 0)
     const [isNoteStyle, setIsNoteStyle] = useState(false)
     const [imgUrl, setImgUrl] = useState(note.info.imgUrl || '')
     const [videoUrl, setVideoUrl] = useState(note.info.videoUrl || '')
@@ -141,16 +141,18 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
     }
 
     function renderTodoList(todoList, note) {
-        return (todoList.map((item, i) =>
-            item && <label key={i} onClick={(ev) => { ev.stopPropagation() }} >
-                <input
-                    type="checkbox"
-                    checked={item.isChecked || false}
-                    value={todoList.txt}
-                    onChange={() => changeIsCheckedTodo(i, note)} />
-                <span className="todo-text">{item.txt}</span>
-            </label>
-        ))
+        return (<div className="todo-list-preview edit">
+            {todoList.map((item, i) =>
+                item &&
+                <label className="checkbox-label-preview edit" key={i} onClick={(ev) => { ev.stopPropagation() }} >
+                    <input
+                        type="checkbox"
+                        checked={item.isChecked || false}
+                        value={todoList.txt}
+                        onChange={() => changeIsCheckedTodo(i, note)} />
+                    <span className="todo-text">{item.txt}</span>
+                </label>)}
+        </div>)
     }
 
     function handleChangeTextAreaDimensions(ev) {

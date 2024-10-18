@@ -23,7 +23,7 @@ export function NoteList({ notes, handleEditClick, onPinNote, onRemoveNote, onDu
                                     {note.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
                                 </button>
 
-                                {note.noteTitle && <h3><LongTxt children={note.noteTitle} length={200} showButton={false} /></h3>}
+                                {note.noteTitle && <h3 className="preview-title"><LongTxt children={note.noteTitle} length={200} showButton={false} /></h3>}
                                 {note.info.txt && <LongTxt children={note.info.txt} length={300} showButton={false} />}
 
                                 {note.info.todos &&

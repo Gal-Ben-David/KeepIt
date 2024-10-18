@@ -65,3 +65,11 @@
     width: 22px;
     margin: 0;
 }
+
+label.edit {
+    color: var(--crl-font-2);
+}
+
+.todo-list-preview.edit {
+    margin-block-end: 2em;
+}

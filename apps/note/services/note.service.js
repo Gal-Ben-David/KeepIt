@@ -172,14 +172,14 @@ function _createNotes() {
                 true,
                 { backgroundColor: '#E2F6D3' },
                 {
-                    txt: `Today is all about you, and I just want to take a moment to celebrate the incredible person you are!
-                        On this special day, I wish you a year filled with joy, laughter, and unforgettable memories
-                        May every moment be a reminder of how loved and cherished you are.
-                        May this year bring you closer to your goals and dreams. I hope you find success in everything you
-                        do and the courage to pursue your passions. Remember that I’m always here cheering you on,
-                        supporting you every step of the way.
-                        Enjoy your day to the fullest—surrounded by the people you love, with all the things that make you happy.
-                        Happy Birthday! 🎂✨`
+                    txt: "Today is all about you, and I just want to take a moment to celebrate the incredible person you are!" +
+                        " On this special day, I wish you a year filled with joy, laughter, and unforgettable memories" +
+                        " May every moment be a reminder of how loved and cherished you are." +
+                        " May this year bring you closer to your goals and dreams. I hope you find success in everything you" +
+                        " do and the courage to pursue your passions. Remember that I’m always here cheering you on," +
+                        " supporting you every step of the way. " +
+                        "  Enjoy your day to the fullest—surrounded by the people you love, with all the things that make you happy. " +
+                        " Happy Birthday! 🎂✨"
                 }),
         ]
         console.log(notes)
