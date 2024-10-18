@@ -7,14 +7,18 @@ import { CreateNoteByVideo } from '../cmps/CreateNoteByVideo.jsx'
 import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+import { getTruthyValues } from "../../../services/util.service.js"
 
 const { useState, useEffect, Fragment, useRef } = React
+const { Link, useSearchParams } = ReactRouterDOM
 
 export function NoteIndex() {
 
     const [notes, setNotes] = useState(null)
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
-    const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
+    // const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
     const [showFilterOption, setShowFilterOption] = useState(false)
     const [cmpType, setCmpType] = useState('NoteTxt')
     const [todosCounter, setTodosCounter] = useState(0)
@@ -27,6 +31,7 @@ export function NoteIndex() {
     const noteToAddRef = useRef(noteToAdd)
 
     useEffect(() => {
+        setSearchParams(getTruthyValues(filterBy))
         loadNotes()
     }, [filterBy])
 

@@ -21,7 +21,7 @@ export function FilterOptions({ setFilterBy, filterBy }) {
                     <span> Videos</span>
                 </div>
                 <div className="videos-option" onClick={() => handleTypeChange('NoteTodos')}>
-                    <i class="fa-regular fa-square-check"></i>
+                    <i className="fa-regular fa-square-check"></i>
                     <span> Todos</span>
                 </div>
             </div>

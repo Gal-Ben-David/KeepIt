@@ -132,10 +132,10 @@ function _createNote(createdAt, type, noteTitle, isPinned, style, info) {
 
 function getFilterFromSearchParams(searchParams) {
     const txt = searchParams.get('txt') || ''
-    const minSpeed = searchParams.get('minSpeed') || ''
+    const type = searchParams.get('type') || ''
     return {
         txt,
-        minSpeed
+        type
     }
 }
 
