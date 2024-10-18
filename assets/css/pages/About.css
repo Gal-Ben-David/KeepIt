@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+.team-data {
+    display: flex;
+    gap: 30px;
+}
+
+.team-member {
+    width: 30em;
+    height: 40em;
+    border-radius: 2em;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}

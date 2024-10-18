@@ -4,11 +4,11 @@ export function Menu({ handleTypeChange, setShowFilterOption, isExpandedMenu, se
 
     return (
 
-        <div className="menu" onClick={() => { setIsExpandedMenu(prevValue => !prevValue); handleTypeChange(); setShowFilterOption(false) }}>
-            <i className="fa-regular fa-note-sticky"></i>
+        <div className="menu" onClick={() => { setIsExpandedMenu(prevValue => !prevValue) }}>
+            <i className="fa-regular fa-lightbulb"></i>
             {isExpandedMenu &&
                 <ul className="menu-notes">
-                    <li>Notes</li>
+                    <li onClick={() => { handleTypeChange(''); setShowFilterOption(false) }}>Notes</li>
                 </ul>}
         </div>
     )

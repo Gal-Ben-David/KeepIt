@@ -9,7 +9,6 @@ export function About() {
 
     return (
         <section className="about">
-            <h1>About Page</h1>
             <div className="animation-container">
                 <video
                     src="assets/animation/fist-bump.mp4"
@@ -19,6 +18,17 @@ export function About() {
                 // loop
                 />
             </div>
+
+            <article className="team-data">
+                <div className="team-member">
+                    <h1>Matan Odentz</h1>
+                </div>
+
+                <div className="team-member">
+                    <h1>Gal Ben David</h1>
+                </div>
+
+            </article>
         </section>
     )
 }

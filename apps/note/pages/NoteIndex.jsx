@@ -288,9 +288,9 @@ export function NoteIndex() {
     }
 
     function handleTypeChange(value) {
-        console.log(filterBy)
         setFilterBy(prevFilter => ({ ...prevFilter, type: value }))
     }
+
 
     const bgColor = noteToAdd.style.backgroundColor
 
@@ -298,9 +298,8 @@ export function NoteIndex() {
 
     return (
         <section className="main-note">
-            {/* <img src="assets/img/keeps.svg" /> */}
             <section className="keep-header">
-                <button className="note-bars-btn" onClick={() => { setIsExpandedMenu(prevValue => !prevValue); handleTypeChange(); setShowFilterOption(false) }}>
+                <button className="note-bars-btn" onClick={() => { setIsExpandedMenu(prevValue => !prevValue) }}>
                     <img src="assets\img\menu.png" />
                 </button>
                 <div className="keep-logo">
@@ -313,13 +312,16 @@ export function NoteIndex() {
 
             <section className="menu-and-notes">
 
-                <Menu handleTypeChange={handleTypeChange} setShowFilterOption={setShowFilterOption} isExpandedMenu={isExpandedMenu} setIsExpandedMenu={setIsExpandedMenu} />
+                <Menu
+                    setShowFilterOption={setShowFilterOption}
+                    isExpandedMenu={isExpandedMenu}
+                    setIsExpandedMenu={setIsExpandedMenu}
+                    handleTypeChange={handleTypeChange} />
                 <div>
-                    <section className="search">
-                        {showFilterOption && (
+                    {showFilterOption &&
+                        <section className="search">
                             <FilterOptions setFilterBy={setFilterBy} filterBy={filterBy} handleTypeChange={handleTypeChange} />
-                        )}
-                    </section>
+                        </section>}
 
                     <section className="new-note">
                         <div className="add-note-form collapsible-element" style={{ backgroundColor: bgColor }}>
