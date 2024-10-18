@@ -83,7 +83,7 @@
      cursor: pointer;
  }
 
- .new-note button:not(.save-new-note-btn, .pin-btn, .delete-btn, .pin-btn-adding-form, .pin-btn-edit-modal) {
+ .new-note button:not(.save-new-note-btn, .pin-btn, .delete-btn, .pin-btn-adding-form, .pin-btn-edit-modal, .save-drawing-btn) {
      align-self: flex-end;
      background-color: transparent;
      border: none;
@@ -92,7 +92,7 @@
      cursor: pointer;
  }
 
- .new-note button:not(.save-new-note-btn, .pin-btn, .delete-btn):hover,
+ .new-note button:not(.save-new-note-btn, .pin-btn, .delete-btn, .save-drawing-btn):hover,
  .new-note label:not(.checkbox-label-preview):hover,
  .note-bars-btn:hover {
      border-radius: 50%;
@@ -234,7 +234,6 @@
      padding: 0.7em;
      margin-block-start: 0.5em;
      cursor: pointer;
-     z-index: 11;
  }
 
  .pin-btn-adding-form img {

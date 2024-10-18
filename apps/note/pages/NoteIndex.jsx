@@ -9,6 +9,7 @@ import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { getTruthyValues } from "../../../services/util.service.js"
 import { mailService } from "../../mail/services/mail.service.js"
+import { CreateNoteByDrawing } from "../../note/cmps/CreateNoteByDrawing.jsx"
 
 const { useState, useEffect, Fragment, useRef } = React
 const { Link, useSearchParams, useNavigate } = ReactRouterDOM
@@ -25,9 +26,11 @@ export function NoteIndex() {
     const [todosCounter, setTodosCounter] = useState(0)
     const [isNoteStyle, setIsNoteStyle] = useState(false)
     const [isExpandedForm, setIsExpandedForm] = useState(false)
+    const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false)
 
     const [imgUrl, setImgUrl] = useState(noteToAdd.info.imgUrl || '')
     const [videoUrl, setVideoUrl] = useState(noteToAdd.info.videoUrl || '')
+    const [drawingUrl, setDrawingUrl] = useState(noteToAdd.info.drawingUrl || '')
 
     const noteToAddRef = useRef(noteToAdd)
 
@@ -38,8 +41,8 @@ export function NoteIndex() {
 
     useEffect(() => {
         document.body.style.backgroundColor = '#FFFFFF'
-        const emailId = getEmailIdFromUrl()
-        if (emailId) handleEmailToNoteConversion(emailId)
+        // const emailId = getEmailIdFromUrl()
+        // if (emailId) handleEmailToNoteConversion(emailId)
     }, [])
 
     useEffect(() => {
@@ -54,27 +57,27 @@ export function NoteIndex() {
         noteToAddRef.current = noteToAdd
     }, [noteToAdd])
 
-    function getEmailIdFromUrl() {
-        const params = new URLSearchParams(window.location.search)
-        return params.get('emailId')
-    }
+    // function getEmailIdFromUrl() {
+    //     const params = new URLSearchParams(window.location.search)
+    //     return params.get('emailId')
+    // }
 
-    function fetchEmailById(emailId) {
-        return mailService.get(emailId)
-    }
+    // function fetchEmailById(emailId) {
+    //     return mailService.get(emailId)
+    // }
 
-    function handleEmailToNoteConversion(emailId) {
-        fetchEmailById(emailId)
-            .then(email => {
-                if (email) {
-                    var newNote = { ...noteService.getEmptyNote(), noteTitle: email.subject, info: { txt: email.body } }
-                }
-                onSubmit(newNote, true)
-            })
-            .catch(err => {
-                console.log('Failed to fetch email:', err)
-            })
-    }
+    // function handleEmailToNoteConversion(emailId) {
+    //     fetchEmailById(emailId)
+    //         .then(email => {
+    //             if (email) {
+    //                 var newNote = { ...noteService.getEmptyNote(), noteTitle: email.subject, info: { txt: email.body } }
+    //             }
+    //             onSubmit(newNote, true)
+    //         })
+    //         .catch(err => {
+    //             console.log('Failed to fetch email:', err)
+    //         })
+    // }
 
     function handleBodyClick(ev) {
         if (!ev.target.closest('.collapsible-element')) {
@@ -203,6 +206,7 @@ export function NoteIndex() {
         setImgUrl('')
         setIsNoteStyle(false)
         setTodosCounter(0)
+        setDrawingUrl('')
     }
 
     function onRemoveNote(noteId) {
@@ -258,7 +262,7 @@ export function NoteIndex() {
         if (urlType === 'img') {
             updatedInfo.imgUrl = ''
             setImgUrl('')
-            delete updatedInfo.imgUrl
+            delete updatedInfo.imgUrls
         } else if (urlType === 'video') {
             updatedInfo.videoUrl = ''
             delete updatedInfo.videoUrl
@@ -271,7 +275,13 @@ export function NoteIndex() {
         setNoteToAdd(prevNote => ({ ...prevNote, style: { backgroundColor: color } }))
     }
 
+    function closeDrawingModal() {
+        setIsDrawingModalOpen(false)
+    }
+
     const bgColor = noteToAdd.style.backgroundColor
+
+    console.log(noteToAdd)
 
     if (!notes) return <div>Loading....</div>
 
@@ -300,6 +310,7 @@ export function NoteIndex() {
                         {isExpandedForm && imgUrl && renderImgOrVideo(<img src={imgUrl} />, 'img')}
                         {isExpandedForm && videoUrl && renderImgOrVideo(<iframe src={videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                         </iframe>, 'video')}
+                        {isExpandedForm && drawingUrl && renderImgOrVideo(<img src={drawingUrl} />, 'img')}
                     </div>
 
                     <div className="info-area">
@@ -364,7 +375,11 @@ export function NoteIndex() {
                                 todosCounter={todosCounter}
                                 setTodosCounter={setTodosCounter}
                                 note={noteToAdd}
-                                bgColor={bgColor} />
+                                setNoteToAdd={setNoteToAdd}
+                                bgColor={bgColor}
+                                isDrawingModalOpen={isDrawingModalOpen}
+                                closeDrawingModal={closeDrawingModal}
+                                setIsExpandedForm={setIsExpandedForm} />
 
 
                             <div className="actions">
@@ -394,6 +409,13 @@ export function NoteIndex() {
                                         title="Todo list"
                                         onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
                                         <i className="fa-regular fa-square-check"></i>
+                                    </button>
+
+                                    <button
+                                        type='button'
+                                        title="Drawing"
+                                        onClick={() => { setCmpType('NoteDrawing'); setIsDrawingModalOpen(true) }}>
+                                        <i className="fa-solid fa-pencil"></i>
                                     </button>
                                 </div>
                                 {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
@@ -429,6 +451,8 @@ function DynamicCmp(props) {
             return <CreateNoteByVideo {...props} />
         case 'NoteTodos':
             return <CreateNoteByTodos {...props} />
+        case 'NoteDrawing':
+            return <CreateNoteByDrawing {...props} />
         default:
             return null
     }
