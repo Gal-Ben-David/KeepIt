@@ -16,8 +16,10 @@ export function MailPreview({ mail }) {
         if (today.getDate() === currDate) return `${date.getHours()}:${('0' + date.getMinutes()).slice(-2)}`
         // This year
         else if (today.getYear() === date.getYear()) return `${currMonth} ${currDate}`
-        // Other
-        else return `${date.getMonth() + 1}/${date.getDate()}/${date.getYear() - 100}`
+        // Above year
+        else if (today.getYear() > date.getYear()) return `${date.getMonth() + 1}/${date.getDate()}/${date.getYear() - 100}`
+        // No year
+        else if(!date.getYear()) return ''
     }
 
 
