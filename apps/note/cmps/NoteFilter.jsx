@@ -1,12 +1,9 @@
-import { FilterOptions } from './FilterOptions.jsx'
 
-const { useState, useEffect, Link } = React
+const { useState, useEffect } = React
 
 export function NoteFilter({ filterBy, onSetFilter, handleFromClick }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
-
-    //console.log('filterByToEdit:', filterByToEdit)
 
     useEffect(() => {
         onSetFilter(filterByToEdit)
@@ -30,7 +27,7 @@ export function NoteFilter({ filterBy, onSetFilter, handleFromClick }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
-    const { noteTitle, info } = filterByToEdit
+    const { noteTitle } = filterByToEdit
 
     return (
         <section className="note-filter">

@@ -83,7 +83,7 @@ export function NoteIndex() {
         if (!ev.target.closest('.collapsible-element')) {
             setIsExpandedForm(false)
 
-            if (noteToAddRef.current.noteTitle || noteToAddRef.current.info.txt ||
+            if (noteToAddRef.current.noteTitle || noteToAddRef.current.info.txt || noteToAddRef.current.info.drawingUrl ||
                 noteToAddRef.current.info.imgUrl || noteToAddRef.current.info.videoUrl || noteToAddRef.current.info.todos) {
                 onSubmit(noteToAddRef.current, true)
                 resetValues()
@@ -119,7 +119,7 @@ export function NoteIndex() {
         if (note.info.imgUrl) note.type = 'NoteImg'
         else if (note.info.videoUrl) note.type = 'NoteVideo'
         else if (note.info.todos) note.type = 'NoteTodos'
-        else if (note.info.drawingUrl) note.type = 'NoteTodos'
+        else if (note.info.drawingUrl) note.type = 'NoteDrawing'
         else note.type = 'NoteTxt'
     }
 
