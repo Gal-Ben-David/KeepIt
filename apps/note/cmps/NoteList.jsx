@@ -2,7 +2,7 @@ import { LongTxt } from '../../../cmps/LongTxt.jsx'
 
 const { Fragment, useState, useEffect } = React
 
-export function NoteList({ notes, handleEditClick, onPinNote, onRemoveNote, onDuplicateNote, changeIsCheckedTodo }) {
+export function NoteList({ notes, handleEditClick, onPinNote, onRemoveNote, onDuplicateNote, changeIsCheckedTodo, transferNoteToMailApp }) {
     return (
         <Fragment>
             <ul className="notes">
@@ -43,7 +43,7 @@ export function NoteList({ notes, handleEditClick, onPinNote, onRemoveNote, onDu
                                 <button title="Delete Note" onClick={(ev) => { ev.stopPropagation(); onRemoveNote(note.id) }}><i className="fa-solid fa-trash"></i></button>
                                 <button title="Edit Note" onClick={(ev) => { ev.stopPropagation(); handleEditClick(note) }}><i className="fa-regular fa-pen-to-square"></i></button>
                                 <button title="Duplicate Note" onClick={(ev) => { ev.stopPropagation(); onDuplicateNote(note) }}><i className="fa-regular fa-clone"></i></button>
-                                <button title="Sent by email" onClick={(ev) => { ev.stopPropagation() }}><i className="fa-regular fa-envelope"></i></button>
+                                <button title="Send by email" onClick={(ev) => { ev.stopPropagation(); transferNoteToMailApp(note) }}><i className="fa-regular fa-envelope"></i></button>
                             </div>
                         </li>
                     )

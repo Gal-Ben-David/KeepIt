@@ -8,9 +8,10 @@ import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { getTruthyValues } from "../../../services/util.service.js"
+import { mailService } from "../../mail/services/mail.service.js"
 
 const { useState, useEffect, Fragment, useRef } = React
-const { Link, useSearchParams } = ReactRouterDOM
+const { Link, useSearchParams, useNavigate } = ReactRouterDOM
 
 export function NoteIndex() {
 
@@ -37,6 +38,8 @@ export function NoteIndex() {
 
     useEffect(() => {
         document.body.style.backgroundColor = '#FFFFFF'
+        const emailId = getEmailIdFromUrl()
+        if (emailId) handleEmailToNoteConversion(emailId)
     }, [])
 
     useEffect(() => {
@@ -50,6 +53,28 @@ export function NoteIndex() {
     useEffect(() => {
         noteToAddRef.current = noteToAdd
     }, [noteToAdd])
+
+    function getEmailIdFromUrl() {
+        const params = new URLSearchParams(window.location.search)
+        return params.get('emailId')
+    }
+
+    function fetchEmailById(emailId) {
+        return mailService.get(emailId)
+    }
+
+    function handleEmailToNoteConversion(emailId) {
+        fetchEmailById(emailId)
+            .then(email => {
+                if (email) {
+                    var newNote = { ...noteService.getEmptyNote(), noteTitle: email.subject, info: { txt: email.body } }
+                }
+                onSubmit(newNote, true)
+            })
+            .catch(err => {
+                console.log('Failed to fetch email:', err)
+            })
+    }
 
     function handleBodyClick(ev) {
         if (!ev.target.closest('.collapsible-element')) {
