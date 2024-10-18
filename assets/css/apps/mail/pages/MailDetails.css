@@ -34,6 +34,13 @@
 .tools-bar button {
     background-color: inherit;
     border: 0px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 0.5em;
+}
+
+.tools-bar button:hover {
+    background-color: var(--crl-mail-search-bar);
 }
 
 .mail-main{

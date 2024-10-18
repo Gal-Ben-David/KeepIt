@@ -50,7 +50,7 @@ export function MailDetails() {
 
     function transferMailToNoteApp(mail) {
         // noteService.getEmptyNote()
-        const newNote = {...noteService.getEmptyNote(), noteTitle: mail.subject, info: {txt:mail.body}}
+        const newNote = { ...noteService.getEmptyNote(), noteTitle: mail.subject, info: { txt: mail.body } }
         noteService.save(newNote)
         navigate(`/note`)
     }
@@ -62,8 +62,10 @@ export function MailDetails() {
             <MailFilter isIndex={isIndex} backToIndex={backToIndex} filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
             <section className="mail-details">
                 <section className="tools-bar">
-                    <button><Link to={`/mail`}><img src="assets\img\mail-icons\arrow_back_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="arrow-back" /></Link></button>
-                    <button onClick={() => transferMailToNoteApp(mail)}>note</button>
+                    <div>
+                        <button><Link to={`/mail`}><img src="assets\img\mail-icons\arrow_back_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="arrow-back" /></Link></button>
+                        <button onClick={() => transferMailToNoteApp(mail)}> <img src="assets\img\mail-icons\description_24dp_202124_FILL0_wght400_GRAD0_opsz24 (1).png" alt="notes" /> </button>
+                    </div>
                     <section className="paging-btn-container">
                         <button ><Link to={`/mail/${mail.prevMailId}`}><img src="assets\img\mail-icons\chevron_right_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="arrow-right" /></Link></button>
                         <button ><Link to={`/mail/${mail.nextMailId}`}><img src="assets\img\mail-icons\chevron_left_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="arrow-left" /></Link></button>
