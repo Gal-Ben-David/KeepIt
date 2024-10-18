@@ -88,6 +88,12 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         setSelectedSideFilter('starred')
     }
 
+    function onTrashMails() {
+        setSortBy('')
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'trash' }))
+        setSelectedSideFilter('trash')
+    }
+
     function onSelectedTopFilter(status) {
         if (selectedTopFilter === status) return 'selected-top-filter'
     }
@@ -114,6 +120,11 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
     function starredIcon() {
         if (selectedSideFilter === 'starred') return <img src="assets\img\mail-icons\star_24dp_202124_FILL1_wght400_GRAD0_opsz24.png" alt="sent" />
         else return <img src="assets\img\mail-icons\star_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="star-empty" />
+    }
+
+    function trashIcon() {
+        if (selectedSideFilter === 'trash') return <img src="assets\img\mail-icons\delete_24dp_202124_FILL1_wght400_GRAD0_opsz24 (1).png" alt="trash-empty" />
+        else return <img src="assets\img\mail-icons\delete_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="trash-full" />
     }
 
     const {
@@ -200,9 +211,9 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                         <span>Drafts</span>
                     </section>
                 </button>
-                <button>
+                <button className={onSelectedSideFilter('trash')} onClick={backToIndex ? () => backToIndex() : () => onTrashMails()}>
                     <section>
-                        <img src="assets\img\mail-icons\delete_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="trash" />
+                        {trashIcon()}
                         <span>Trash</span>
                     </section>
                 </button>

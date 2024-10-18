@@ -58,16 +58,25 @@ export function MailIndex() {
         setChangeReadStatus(!changeReadStatus)
     }
 
-    function onRemoveMail(mailId) {
-        mailService.remove(mailId)
-            .then(() => {
-                setMails(mails => mails.filter(mail => mail.id !== mailId))
-                showSuccessMsg(`Mail removed successfully!`)
-            })
-            .catch(err => {
-                console.log('Problems removing mail:', err)
-                // showErrorMsg(`Problems removing mail (${mailId})`)
-            })
+    function onRemoveMail(mailId, mail) {
+        if (!!mail.removedAt) {
+            mailService.remove(mailId)
+                .then(() => {
+                    setMails(mails => mails.filter(mail => mail.id !== mailId))
+                    // showSuccessMsg(`Mail removed successfully!`)
+                })
+                .catch(err => {
+                    console.log('Problems removing mail:', err)
+                    // showErrorMsg(`Problems removing mail (${mailId})`)
+                })
+        } else {
+            mail.removedAt = new Date()
+            mailService.save(mail)
+                .then(() => {
+                    setMails(mails => mails.filter(mail => !mail.removedAt))
+                    // showSuccessMsg(`Mail removed successfully!`)
+                })
+        }
     }
 
 
