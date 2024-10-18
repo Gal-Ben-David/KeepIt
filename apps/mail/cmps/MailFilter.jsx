@@ -164,6 +164,8 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         <React.Fragment>
             <section className="top-filter">
                 <form onSubmit={onSubmit} className="search-bar-container">
+                    <div className="gmail-logo"><img src="assets\img\mail-icons\gmail-logo.png" alt="gmail-logo" /></div>
+
                     <div className="search-bar">
                         <button disabled={!isValid} className="search-btn"><img src="assets\img\mail-icons\search_24dp_202124_FILL1_wght400_GRAD0_opsz24.png" alt="search" /></button>
                         <button onClick={backToIndex ? () => backToIndex() : () => onClickDateBtn()} type="button" className="date-btn"><img src="assets\img\mail-icons\event_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="date-search" /></button>
@@ -217,7 +219,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                 </button>
                 <button className={onSelectedSideFilter('drafts')} onClick={backToIndex ? () => backToIndex() : () => onDraftsMails()}>
                     <section>
-                        {draftsIcon()}                        
+                        {draftsIcon()}
                         <span>Drafts</span>
                     </section>
                 </button>

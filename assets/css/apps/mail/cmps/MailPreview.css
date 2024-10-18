@@ -65,6 +65,8 @@
     font-family: 'roboto-bold';
     font-size: 0.8em;
     grid-column: 5;
+    justify-self: right;
+    margin-right: 1em;
 }
 
 .mail-preview .show-txt-btn {
