@@ -15,10 +15,11 @@ export function NoteList({ notes, handleEditClick, onPinNote, onRemoveNote, onDu
                             {note.info.videoUrl &&
                                 <iframe src={note.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                                 </iframe>}
+                            {note.info.drawingUrl && <img src={note.info.drawingUrl} />}
 
-                            <div className={`title-and-info-content ${(note.info.imgUrl || note.info.videoUrl) ? 'absolute' : ''}`}>
+                            <div className={`title-and-info-content ${(note.info.imgUrl || note.info.videoUrl || note.info.drawingUrl) ? 'absolute' : ''}`}>
                                 <button
-                                    className={`pin-btn ${(note.info.imgUrl || note.info.videoUrl) ? 'absolute' : ''} ${(note.isPinned ? 'pinned' : '')}`}
+                                    className={`pin-btn ${(note.info.imgUrl || note.info.videoUrl || note.info.drawingUrl) ? 'absolute' : ''} ${(note.isPinned ? 'pinned' : '')}`}
                                     onClick={(ev) => { ev.stopPropagation(); onPinNote(note) }}>
                                     {note.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
                                 </button>

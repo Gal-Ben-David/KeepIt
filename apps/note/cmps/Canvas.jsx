@@ -1,7 +1,7 @@
 
 const { useEffect, useRef } = React
 
-export function Canvas({ setNoteToAdd, closeDrawingModal, setIsExpandedForm }) {
+export function Canvas({ setNoteToAdd, closeDrawingModal, setIsExpandedForm, setDrawingUrl }) {
 
     const canvasRef = useRef(null)
     let context = null
@@ -11,9 +11,9 @@ export function Canvas({ setNoteToAdd, closeDrawingModal, setIsExpandedForm }) {
 
         const canvas = canvasRef.current;
         if (canvas) {
-            context = canvas.getContext('2d') // Get the canvas 2D context
-            canvas.width = 600 // Set canvas width
-            canvas.height = 600 // Set canvas height
+            context = canvas.getContext('2d')
+            canvas.width = 600
+            canvas.height = 600
         }
 
         document.addEventListener('mousedown', onDown)
@@ -81,6 +81,7 @@ export function Canvas({ setNoteToAdd, closeDrawingModal, setIsExpandedForm }) {
     function onSaveDrawing() {
         const dataURL = canvasRef.current.toDataURL('image/png')
         setNoteToAdd(prevNote => ({ ...prevNote, info: { drawingUrl: dataURL } }))
+        setDrawingUrl(dataURL)
         setIsExpandedForm(true)
         closeDrawingModal()
         console.log('Drawing saved!')

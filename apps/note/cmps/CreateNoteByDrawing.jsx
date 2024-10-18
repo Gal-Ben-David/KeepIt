@@ -1,12 +1,16 @@
 import { Modal } from '../cmps/Modal.jsx'
 import { Canvas } from '../cmps/Canvas.jsx'
 
-export function CreateNoteByDrawing({ setIsExpandedForm, setNoteToAdd, isDrawingModalOpen, closeDrawingModal }) {
+export function CreateNoteByDrawing({ setIsExpandedForm, setNoteToAdd, isDrawingModalOpen, closeDrawingModal, setDrawingUrl }) {
 
     return (
 
         <Modal isOpen={isDrawingModalOpen} onCloseModal={closeDrawingModal}>
-            <Canvas setNoteToAdd={setNoteToAdd} closeDrawingModal={closeDrawingModal} setIsExpandedForm={setIsExpandedForm} />
+            <Canvas
+                setNoteToAdd={setNoteToAdd}
+                closeDrawingModal={closeDrawingModal}
+                setIsExpandedForm={setIsExpandedForm}
+                setDrawingUrl={setDrawingUrl} />
         </Modal>
     )
 }

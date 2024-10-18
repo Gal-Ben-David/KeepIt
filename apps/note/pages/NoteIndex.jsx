@@ -119,6 +119,7 @@ export function NoteIndex() {
         if (note.info.imgUrl) note.type = 'NoteImg'
         else if (note.info.videoUrl) note.type = 'NoteVideo'
         else if (note.info.todos) note.type = 'NoteTodos'
+        else if (note.info.drawingUrl) note.type = 'NoteTodos'
         else note.type = 'NoteTxt'
     }
 
@@ -167,13 +168,12 @@ export function NoteIndex() {
     }
 
     function handleInfoChangeForTodos({ target }, idx) {
-        let { value, name: field, type } = target
+        let { value } = target
         const todosNote = { ...noteToAdd }
         if (!todosNote.info.todos) todosNote.info.todos = []
 
         todosNote.info.todos[idx] = { txt: value, isChecked: false }
 
-        console.log(noteToAdd)
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos].filter(todo => todo) } }))
     }
 
@@ -281,8 +281,6 @@ export function NoteIndex() {
 
     const bgColor = noteToAdd.style.backgroundColor
 
-    console.log(noteToAdd)
-
     if (!notes) return <div>Loading....</div>
 
     return (
@@ -379,7 +377,8 @@ export function NoteIndex() {
                                 bgColor={bgColor}
                                 isDrawingModalOpen={isDrawingModalOpen}
                                 closeDrawingModal={closeDrawingModal}
-                                setIsExpandedForm={setIsExpandedForm} />
+                                setIsExpandedForm={setIsExpandedForm}
+                                setDrawingUrl={setDrawingUrl} />
 
 
                             <div className="actions">
