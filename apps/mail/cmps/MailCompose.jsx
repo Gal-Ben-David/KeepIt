@@ -84,7 +84,7 @@ export function MailCompose({ intervalRef, mailToEdit, setMailToEdit, setSortBy,
             <div className="compose-header">
                 <span>New Message</span>
                 <div className="top-buttons">
-                    <button><img src="assets\img\mail-icons\minimize_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="minimize" /></button>
+                    {/* <button><img src="assets\img\mail-icons\minimize_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="minimize" /></button> */}
                     <button onClick={() => setIsMailCompose(false)}><img src="assets\img\mail-icons\close_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="close" /></button>
                 </div>
             </div>
@@ -97,7 +97,7 @@ export function MailCompose({ intervalRef, mailToEdit, setMailToEdit, setSortBy,
 
                     <div className="bottom-buttons">
                         <button type="submit" className="send-btn">Send</button>
-                        <button type="button" className="trash"><img src="assets\img\mail-icons\delete_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="delete" /></button>
+                        {/* <button type="button" className="trash"><img src="assets\img\mail-icons\delete_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="delete" /></button> */}
                     </div>
                 </form>
             </div>
