@@ -1,7 +1,7 @@
 export function ColorInput({ onSetNoteStyle, bgColor }) {
 
     const colors = [
-        '#FAAFA8',
+        '#FFDFD3',
         '#F39F76',
         '#FFF8B8',
         '#E2F6D3',

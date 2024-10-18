@@ -87,6 +87,7 @@ function _createNotes() {
                     imgUrl: 'https://media.4-paws.org/5/4/4/c/544c2b2fd37541596134734c42bf77186f0df0ae/VIER%20PFOTEN_2017-10-20_164-3854x2667-1920x1329.jpg',
                     txt: 'Here is my tiger'
                 }),
+
             _createNote(1112224,
                 'NoteVideo',
                 'Cool Motivating Background Music',
@@ -95,6 +96,26 @@ function _createNotes() {
                 {
                     videoUrl: 'https://www.youtube.com/embed/wt8nzHv9Gn8?si=xYcgEo-Cbw0mNReD',
                     txt: '🎵 Remember to explore MorningLightMusic for background music. '
+                }),
+
+            _createNote(1112225,
+                'NoteImg',
+                'Success is a journey, not a destination; keep moving forward',
+                true,
+                { backgroundColor: '#FFDFD3' },
+                {
+                    imgUrl: 'https://www.worldanimalprotection.ca/cdn-cgi/image/width=1280,format=auto/siteassets/shutterstock_2461984615.jpg',
+                    txt: ''
+                }),
+
+            _createNote(1112226,
+                'NoteTodos',
+                'Daily Work Tasks',
+                true,
+                { backgroundColor: '#E9E3D4' },
+                {
+                    todos: [{ txt: 'Respond to client emails', isChecked: false }, { txt: 'Review the code for the new feature', isChecked: false }],
+                    txt: ''
                 }),
         ]
         console.log(notes)

@@ -2,12 +2,14 @@
     box-sizing: border-box;
 }
 
-.color-input .items-container {
+.color-input {
     position: absolute;
     bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
+}
 
+.color-input .items-container {
     display: flex;
     padding: 0.5em;
     gap: 0.5em;
