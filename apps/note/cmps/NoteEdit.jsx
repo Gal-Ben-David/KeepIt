@@ -6,14 +6,31 @@ import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
-export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
+export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) {
 
     const [noteToEdit, setNoteToEdit] = useState(note)
     const [cmpType, setCmpType] = useState('')
     const [todosCounter, setTodosCounter] = useState((noteToEdit.info.todos) ? noteToEdit.info.todos.length : 1)
     const [isNoteStyle, setIsNoteStyle] = useState(false)
+    const [imgUrl, setImgUrl] = useState(note.info.imgUrl || '')
+    const [videoUrl, setVideoUrl] = useState(note.info.videoUrl || '')
+
+    const titleAreaRef = useRef(null)
+    const textareaRef = useRef(null)
+
+    useEffect(() => {
+        if (isOpen && textareaRef.current) {
+            textareaRef.current.style.height = 'auto'
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+        }
+
+        if (isOpen && titleAreaRef.current) {
+            titleAreaRef.current.style.height = 'auto'
+            titleAreaRef.current.style.height = `${titleAreaRef.current.scrollHeight}px`
+        }
+    }, [isOpen, noteToEdit])
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
@@ -46,11 +63,19 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
                 value = target.checked
                 break
         }
-        setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...noteToEdit.info, [field]: value } }))
+        setNoteToEdit((prevNote) => {
+            if (field === 'imgUrl') setImgUrl(value)
+            if (field === 'videoUrl') setVideoUrl(value)
+            if (field === 'noteTitle') {
+                return { ...prevNote, noteTitle: value }
+            }
+            return { ...prevNote, info: { ...prevNote.info, [field]: value } }
+
+        })
     }
 
     function handleInfoChangeForTodos({ target }, idx) {
-        let { value, name: field, type } = target
+        let { value } = target
         const todosNote = { ...noteToEdit }
         if (!todosNote.info.todos) todosNote.info.todos = []
 
@@ -96,7 +121,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
         return (
             <div className="edit-video-or-img">
                 {element}
-                <button type='button' onClick={() => onRemoveUrl(urlType)}><i className="fa-solid fa-trash"></i></button>
+                <button className="delete-btn" type='button' onClick={() => onRemoveUrl(urlType)}><i className="fa-solid fa-trash"></i></button>
             </div>
         )
     }
@@ -106,9 +131,11 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
         if (urlType === 'img') {
             updatedInfo.imgUrl = ''
             delete updatedInfo.imgUrl
+            setImgUrl('')
         } else if (urlType === 'video') {
             updatedInfo.videoUrl = ''
             delete updatedInfo.videoUrl
+            setVideoUrl('')
         }
         setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...updatedInfo } }))
     }
@@ -126,6 +153,15 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
         ))
     }
 
+    function handleChangeTextAreaDimensions(ev) {
+        ev.target.style.height = 'auto'
+        ev.target.style.height = ev.target.scrollHeight + 'px'
+    }
+
+    function onToggleIsPinned() {
+        setNoteToEdit((prevNote) => ({ ...prevNote, isPinned: !prevNote.isPinned }))
+    }
+
     function onSetNoteStyle(color) {
         setNoteToEdit(prevNote => ({ ...prevNote, style: { backgroundColor: color } }))
     }
@@ -136,70 +172,83 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType }) {
         <section>
 
             <div className="edit-note-form" style={{ backgroundColor: bgColor }}>
-                {noteToEdit.info.imgUrl && renderImgOrVideo(<img src={note.info.imgUrl} />, 'img')}
-                {noteToEdit.info.videoUrl && renderImgOrVideo(<iframe src={note.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+
+                {imgUrl && renderImgOrVideo(<img src={imgUrl} />, 'img')}
+                {videoUrl && renderImgOrVideo(<iframe src={videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                 </iframe>, 'video')}
 
-                <input
-                    type="text"
-                    name="noteTitle"
-                    id="title-update"
-                    placeholder="Title"
-                    value={noteToEdit.noteTitle}
-                    onChange={handleChange}
-                    style={{ backgroundColor: bgColor }} />
+                <div className="info-area">
+                    <button
+                        className={`pin-btn-edit-modal ${(noteToEdit.isPinned ? 'pinned' : '')}`}
+                        onClick={(ev) => { ev.stopPropagation(); onToggleIsPinned() }}>
+                        {noteToEdit.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
+                    </button>
 
-                <input
-                    type="text"
-                    name="txt"
-                    id="note-content"
-                    placeholder="New note..."
-                    value={noteToEdit.info.txt}
-                    onChange={handleInfoChange}
-                    style={{ backgroundColor: bgColor }} />
+                    <textarea
+                        ref={titleAreaRef}
+                        className="textarea-input"
+                        type="text"
+                        name="noteTitle"
+                        id="title-update"
+                        placeholder="Title"
+                        value={noteToEdit.noteTitle}
+                        onChange={(ev) => { handleInfoChange(ev); handleChangeTextAreaDimensions(ev) }}
+                        style={{ backgroundColor: bgColor }} />
 
-                {noteToEdit.info.todos && renderTodoList(noteToEdit.info.todos, noteToEdit)}
+                    <textarea
+                        ref={textareaRef}
+                        className="textarea-input"
+                        type="text"
+                        name="txt"
+                        id="note-content"
+                        placeholder="New note..."
+                        value={noteToEdit.info.txt}
+                        onChange={(ev) => { handleInfoChange(ev); handleChangeTextAreaDimensions(ev) }}
+                        style={{ backgroundColor: bgColor }} />
 
-                <DynamicCmp
-                    noteType={cmpType}
-                    handleChange={handleChange}
-                    handleInfoChange={handleInfoChange}
-                    note={noteToEdit}
-                    bgColor={bgColor}
-                    todosCounter={todosCounter}
-                    handleInfoChangeForTodos={handleInfoChangeForTodos}
-                    setTodosCounter={setTodosCounter} />
+                    {noteToEdit.info.todos && renderTodoList(noteToEdit.info.todos, noteToEdit)}
+
+                    <DynamicCmp
+                        noteType={cmpType}
+                        handleChange={handleChange}
+                        handleInfoChange={handleInfoChange}
+                        note={noteToEdit}
+                        bgColor={bgColor}
+                        todosCounter={todosCounter}
+                        handleInfoChangeForTodos={handleInfoChangeForTodos}
+                        setTodosCounter={setTodosCounter} />
 
 
-                <div className="actions">
-                    <div className="actions-toolbar">
-                        <label
-                            title="Background color"
-                            onClick={() => setIsNoteStyle(isNoteStyle => !isNoteStyle)}>
-                            <i className="fa-solid fa-palette"></i>
-                        </label>
+                    <div className="actions">
+                        <div className="actions-toolbar">
+                            <label
+                                title="Background color"
+                                onClick={() => setIsNoteStyle(isNoteStyle => !isNoteStyle)}>
+                                <i className="fa-solid fa-palette"></i>
+                            </label>
 
-                        <button
-                            type='button'
-                            title="Add image"
-                            onClick={() => setCmpType('NoteImg')}>
-                            <i className="fa-solid fa-image"></i>
-                        </button>
+                            <button
+                                type='button'
+                                title="Add image"
+                                onClick={() => setCmpType('NoteImg')}>
+                                <i className="fa-solid fa-image"></i>
+                            </button>
 
-                        <button
-                            type='button'
-                            onClick={() => setCmpType('NoteVideo')}>
-                            <i className="fa-solid fa-video"></i>
-                        </button>
+                            <button
+                                type='button'
+                                onClick={() => setCmpType('NoteVideo')}>
+                                <i className="fa-solid fa-video"></i>
+                            </button>
 
-                        <button
-                            type='button'
-                            onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
-                            <i className="fa-regular fa-square-check"></i>
-                        </button>
+                            <button
+                                type='button'
+                                onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
+                                <i className="fa-regular fa-square-check"></i>
+                            </button>
+                        </div>
+                        {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
+                        <button className="save-new-note-btn" onClick={() => onSubmit(noteToEdit)}>Save</button>
                     </div>
-                    {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
-                    <button className="save-new-note-btn" onClick={() => onSubmit(noteToEdit)}>Save</button>
                 </div>
             </div>
 

@@ -28,7 +28,6 @@
 
      width: 50vw;
      max-width: 36em;
-     padding: 0 1em;
 
      border: 1px solid lightgray;
      border-radius: 0.6em;
@@ -36,28 +35,55 @@
      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
  }
 
- .add-note-form input[name="noteTitle"] {
+ .add-video-or-img img,
+ .add-video-or-img iframe {
+     border-top-left-radius: 0.6em;
+     border-top-right-radius: 0.6em;
+ }
+
+ .info-area {
+     padding: 0 0.6em;
+ }
+
+ .add-note-form input[name="noteTitle"],
+ textarea[name="noteTitle"] {
      font-size: 1rem;
      font-weight: 500;
  }
 
  .new-note input {
+     padding: 0.7em;
+ }
+
+ .new-note input,
+ .textarea-input {
      border: none;
-     padding: 1em;
      font-family: inherit;
      font-weight: 500;
  }
 
- .new-note input:focus {
+ .textarea-input {
+     width: 100%;
+     padding: 1em 1em 0;
+
+     overflow: hidden;
+     resize: none;
+
+     line-height: 1.2rem;
+ }
+
+ .new-note input:focus,
+ .textarea-input:focus {
      outline: none;
      background-color: white;
  }
 
  .new-note label {
      padding: 0.7em;
+     cursor: pointer;
  }
 
- .new-note button:not(.save-new-note-btn, .pin-btn) {
+ .new-note button:not(.save-new-note-btn, .pin-btn, .delete-btn, .pin-btn-adding-form, .pin-btn-edit-modal) {
      align-self: flex-end;
      background-color: transparent;
      border: none;
@@ -66,8 +92,8 @@
      cursor: pointer;
  }
 
- .new-note button:not(.save-new-note-btn, .pin-btn):hover,
- .new-note label:hover,
+ .new-note button:not(.save-new-note-btn, .pin-btn, .delete-btn):hover,
+ .new-note label:not(.checkbox-label-preview):hover,
  .note-bars-btn:hover {
      border-radius: 50%;
      background-color: whitesmoke;
@@ -186,6 +212,8 @@
 
  .todo-list {
      border-bottom: 1px solid lightgray;
+     display: flex;
+     width: 100%;
  }
 
  .todo-list input {
@@ -194,4 +222,22 @@
 
  .url-input input {
      width: 100%;
+ }
+
+ .pin-btn-adding-form {
+     align-self: flex-end;
+     background-color: transparent;
+     border: none;
+     position: absolute;
+     right: 1em;
+
+     padding: 0.7em;
+     margin-block-start: 0.5em;
+     cursor: pointer;
+     z-index: 11;
+ }
+
+ .pin-btn-adding-form img {
+     width: 22px;
+     margin: 0;
  }

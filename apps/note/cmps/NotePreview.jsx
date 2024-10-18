@@ -5,12 +5,15 @@ import { NoteList } from '../cmps/NoteList.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { Fragment, useState, useEffect } = React
+const { Link, useNavigate } = ReactRouterDOM
 
 export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDuplicateNote, setNoteType, setNotes }) {
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(null)
     const [pinnedDisplay, setPinnedDisplay] = useState('')
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         findPinnedNote()
@@ -63,6 +66,12 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
             })
     }
 
+    function transferNoteToMailApp(note) {
+        const encodedTitle = encodeURIComponent(note.noteTitle)
+        const encodedText = encodeURIComponent(note.info.txt)
+        navigate(`/mail?title=${encodedTitle}&text=${encodedText}`)
+    }
+
     return (
 
         <Fragment>
@@ -72,16 +81,21 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                     handleEditClick={handleEditClick}
                     onPinNote={onPinNote}
                     onRemoveNote={onRemoveNote}
-                    onDuplicateNote={onDuplicateNote} />
+                    onDuplicateNote={onDuplicateNote}
+                    changeIsCheckedTodo={changeIsCheckedTodo}
+                    transferNoteToMailApp={transferNoteToMailApp} />
             </section>
 
             <section className="unPinned-notes">
+                {(pinnedDisplay === 'show') && <h1>Other notes</h1>}
+
                 <NoteList notes={notes.filter(note => !note.isPinned)}
                     handleEditClick={handleEditClick}
                     onPinNote={onPinNote}
                     onRemoveNote={onRemoveNote}
                     onDuplicateNote={onDuplicateNote}
-                    changeIsCheckedTodo={changeIsCheckedTodo} />
+                    changeIsCheckedTodo={changeIsCheckedTodo}
+                    transferNoteToMailApp={transferNoteToMailApp} />
             </section>
 
             {isEditModalOpen && (
@@ -91,9 +105,11 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                         onCloseModal={onCloseModal}
                         loadNotes={loadNotes}
                         setNoteType={setNoteType}
-                        setNotes={setNotes} />
+                        setNotes={setNotes}
+                        isOpen={isEditModalOpen}
+                    />
                 </Modal>
             )}
-        </Fragment>
+        </Fragment >
     )
 }

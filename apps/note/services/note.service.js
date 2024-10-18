@@ -50,7 +50,6 @@ function remove(noteId) {
 
 function save(note, isPinned = false) {
     if (note.id) {
-        console.log(isPinned)
         return storageService.put(NOTE_KEY, note, isPinned)
     } else {
         return storageService.post(NOTE_KEY, note)
@@ -88,6 +87,7 @@ function _createNotes() {
                     imgUrl: 'https://media.4-paws.org/5/4/4/c/544c2b2fd37541596134734c42bf77186f0df0ae/VIER%20PFOTEN_2017-10-20_164-3854x2667-1920x1329.jpg',
                     txt: 'Here is my tiger'
                 }),
+
             _createNote(1112224,
                 'NoteVideo',
                 'Cool Motivating Background Music',
@@ -96,6 +96,90 @@ function _createNotes() {
                 {
                     videoUrl: 'https://www.youtube.com/embed/wt8nzHv9Gn8?si=xYcgEo-Cbw0mNReD',
                     txt: '🎵 Remember to explore MorningLightMusic for background music. '
+                }),
+
+            _createNote(1112225,
+                'NoteImg',
+                'Success is a journey, not a destination; keep moving forward',
+                true,
+                { backgroundColor: '#FFDFD3' },
+                {
+                    imgUrl: 'https://www.worldanimalprotection.ca/cdn-cgi/image/width=1280,format=auto/siteassets/shutterstock_2461984615.jpg',
+                    txt: ''
+                }),
+
+            _createNote(1112226,
+                'NoteTodos',
+                'Daily Work Tasks',
+                true,
+                { backgroundColor: '#E9E3D4' },
+                {
+                    todos: [{ txt: 'Respond to client emails', isChecked: false }, { txt: 'Review the code for the new feature', isChecked: false }],
+                    txt: ''
+                }),
+
+            _createNote(1112227,
+                'NoteTodos',
+                '🛒 Buy groceries',
+                true,
+                { backgroundColor: '#EFEFF1' },
+                {
+                    todos: [{ txt: 'milk', isChecked: false }, { txt: 'eggs', isChecked: true }, { txt: 'vegetables', isChecked: false }, { txt: 'bread', isChecked: false }],
+                    txt: ''
+                }),
+
+            _createNote(1112228,
+                'NoteImg',
+                '',
+                true,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'https://cdn-fkmoj.nitrocdn.com/xvpOGZRTxJUhXKufpOYIruQcRqtvAAQX/assets/images/optimized/rev-4e1f421/media.briantracy.com/blog/wp-content/uploads/2024/01/23111850/Quote-22-800x800.png',
+                    txt: ''
+                }),
+
+            _createNote(1112229,
+                'NoteImg',
+                '',
+                true,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/076A6C50-040B-4B6F-8EAD-7308AEAC277A.jpeg',
+                    txt: ''
+                }),
+
+            _createNote(1112230,
+                'NoteTxt',
+                'Reminder',
+                true,
+                { backgroundColor: '#FCF4DD' },
+                {
+                    txt: 'Meeting with the project team at 3 PM on Tuesday'
+                }),
+
+            _createNote(1112230,
+                'NoteTxt',
+                '',
+                true,
+                { backgroundColor: '#ffffff' },
+                {
+                    txt: 'Explore ways to improve team communication'
+                }),
+
+            _createNote(1112231,
+                'NoteTxt',
+                'Birthday message 🎉',
+                true,
+                { backgroundColor: '#E2F6D3' },
+                {
+                    txt: `Today is all about you, and I just want to take a moment to celebrate the incredible person you are!
+                        On this special day, I wish you a year filled with joy, laughter, and unforgettable memories
+                        May every moment be a reminder of how loved and cherished you are.
+                        May this year bring you closer to your goals and dreams. I hope you find success in everything you
+                        do and the courage to pursue your passions. Remember that I’m always here cheering you on,
+                        supporting you every step of the way.
+                        Enjoy your day to the fullest—surrounded by the people you love, with all the things that make you happy.
+                        Happy Birthday! 🎂✨`
                 }),
         ]
         console.log(notes)
@@ -112,10 +196,10 @@ function _createNote(createdAt, type, noteTitle, isPinned, style, info) {
 
 function getFilterFromSearchParams(searchParams) {
     const txt = searchParams.get('txt') || ''
-    const minSpeed = searchParams.get('minSpeed') || ''
+    const type = searchParams.get('type') || ''
     return {
         txt,
-        minSpeed
+        type
     }
 }
 

@@ -11,13 +11,8 @@
 }
 
 .unPinned-notes h1 {
-    display: none;
+    font-size: 1rem;
 }
-
-.unPinned-notes h1.show {
-    display: block;
-}
-
 
 ul.notes {
     column-gap: 20px;
@@ -77,10 +72,20 @@ ul.notes {
 .pin-btn {
     background-color: transparent;
     border: none;
+    display: grid;
+    justify-content: center;
 
-    padding: 1em;
+    padding: 0.6em;
+    margin-block-start: 2px;
+    margin-inline-end: 2px;
+
     cursor: pointer;
     opacity: 0;
+}
+
+.pin-btn:hover {
+    background-color: whitesmoke;
+    border-radius: 50%;
 }
 
 .pin-btn img {
@@ -89,15 +94,18 @@ ul.notes {
 }
 
 .title-and-info-content .pin-btn.absolute {
-    width: 25px;
     position: absolute;
-    top: 0;
-    right: 20px;
+    top: 2px;
+    right: 2px;
+    padding: 0.6em;
 }
 
 .title-and-info-content.absolute {
     display: grid;
+}
 
+.title-and-info-content.absolute h3 {
+    grid-column: 1/-1;
 }
 
 .title-and-info-content {
@@ -109,13 +117,22 @@ ul.notes {
     align-items: center;
 }
 
+.title-and-info-content p {
+    margin: 0 0 0.5em;
+    line-height: 1.2rem;
+}
+
 .pin-btn {
     grid-area: pin-btn;
     justify-self: end;
+    align-self: start;
 }
 
 .title-and-info-content h3 {
     grid-area: title;
+    padding: 0 !important;
+    margin-block-start: 0.5em;
+    line-height: 1.2rem;
 }
 
 p {

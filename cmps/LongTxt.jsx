@@ -1,6 +1,6 @@
 const { useState } = React
 
-export function LongTxt({ children, length = 100 }) {
+export function LongTxt({ children, length = 100, showButton = true }) {
     const [isShowLong, setIsShowLong] = useState(false)
 
     function onToggleIsShowLong() {
@@ -14,9 +14,9 @@ export function LongTxt({ children, length = 100 }) {
             <p className="txt">{textToShow}</p>
             {isLongText &&
                 <div>
-                    <button className="show-txt-btn" onClick={onToggleIsShowLong}>
+                    {showButton && <button className="show-txt-btn" onClick={(ev) => { ev.stopPropagation(); onToggleIsShowLong() }}>
                         {isShowLong ? 'Show Less' : 'Read More'}
-                    </button>
+                    </button>}
                 </div>
             }
         </section>

@@ -4,7 +4,6 @@ export function CreateNoteByTodos({ handleInfoChangeForTodos, todosCounter, note
 
             {[...Array(todosCounter)].map((_, i) => {
                 return (<div className="todo-list" key={i}>
-                    {console.log(note.info.todos)}
                     <button type='button' onClick={() => setTodosCounter(prevCount => prevCount + 1)}>+</button>
                     <input
                         type="text"

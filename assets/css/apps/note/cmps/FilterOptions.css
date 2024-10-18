@@ -12,6 +12,27 @@
     font-family: inherit;
 }
 
+.filter-options-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.clear-filter-btn {
+    border: none;
+    border-radius: 0.5em;
+    margin-inline-end: 1em;
+    padding: 0.5em;
+
+    font-family: inherit;
+    color: var(--crl-font-2);
+    background-color: rgb(239, 239, 239);
+    cursor: pointer;
+}
+
+.clear-filter-btn:hover {
+    background-color: rgb(216, 216, 216);
+}
+
 .filter-options span {
     padding-left: 1em;
     padding-bottom: 0.5em;
