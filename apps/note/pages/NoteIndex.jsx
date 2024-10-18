@@ -10,6 +10,7 @@ import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.servic
 import { getTruthyValues } from "../../../services/util.service.js"
 import { mailService } from "../../mail/services/mail.service.js"
 import { CreateNoteByDrawing } from "../../note/cmps/CreateNoteByDrawing.jsx"
+import { Menu } from "../../note/cmps/Menu.jsx"
 
 const { useState, useEffect, Fragment, useRef } = React
 const { Link, useSearchParams, useNavigate } = ReactRouterDOM
@@ -27,6 +28,7 @@ export function NoteIndex() {
     const [isNoteStyle, setIsNoteStyle] = useState(false)
     const [isExpandedForm, setIsExpandedForm] = useState(false)
     const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false)
+    const [isExpandedMenu, setIsExpandedMenu] = useState(false)
 
     const [imgUrl, setImgUrl] = useState(noteToAdd.info.imgUrl || '')
     const [videoUrl, setVideoUrl] = useState(noteToAdd.info.videoUrl || '')
@@ -285,14 +287,22 @@ export function NoteIndex() {
         setIsDrawingModalOpen(false)
     }
 
+    function handleTypeChange(value) {
+        console.log(filterBy)
+        setFilterBy(prevFilter => ({ ...prevFilter, type: value }))
+    }
+
     const bgColor = noteToAdd.style.backgroundColor
 
-    if (!notes) return <div>Loading....</div>
+    if (!notes) return <div className="loader"></div>
 
     return (
         <section className="main-note">
+            {/* <img src="assets/img/keeps.svg" /> */}
             <section className="keep-header">
-                <button className="note-bars-btn"><img src="assets\img\menu.png" /></button>
+                <button className="note-bars-btn" onClick={() => { setIsExpandedMenu(prevValue => !prevValue); handleTypeChange(); setShowFilterOption(false) }}>
+                    <img src="assets\img\menu.png" />
+                </button>
                 <div className="keep-logo">
                     <img src="assets\img\keeps.png" />
                     <span>Keep</span>
@@ -301,164 +311,169 @@ export function NoteIndex() {
                 <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} handleFromClick={handleFromClick} />
             </section>
 
-            <section className="search">
-                {showFilterOption && (
-                    <FilterOptions setFilterBy={setFilterBy} filterBy={filterBy} />
-                )}
-            </section>
+            <section className="menu-and-notes">
 
-            <section className="new-note">
-                <div className="add-note-form collapsible-element" style={{ backgroundColor: bgColor }}>
+                <Menu handleTypeChange={handleTypeChange} setShowFilterOption={setShowFilterOption} isExpandedMenu={isExpandedMenu} setIsExpandedMenu={setIsExpandedMenu} />
+                <div>
+                    <section className="search">
+                        {showFilterOption && (
+                            <FilterOptions setFilterBy={setFilterBy} filterBy={filterBy} handleTypeChange={handleTypeChange} />
+                        )}
+                    </section>
 
-                    <div className="add-video-or-img">
-                        {isExpandedForm && imgUrl && renderImgOrVideo(<img src={imgUrl} />, 'img')}
-                        {isExpandedForm && videoUrl && renderImgOrVideo(<iframe src={videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                        </iframe>, 'video')}
-                        {isExpandedForm && drawingUrl && renderImgOrVideo(<img src={drawingUrl} />, 'img')}
-                    </div>
+                    <section className="new-note">
+                        <div className="add-note-form collapsible-element" style={{ backgroundColor: bgColor }}>
 
-                    <div className="info-area">
-                        {isExpandedForm && <button
-                            className={`pin-btn-adding-form ${(noteToAdd.isPinned ? 'pinned' : '')}`}
-                            onClick={(ev) => { ev.stopPropagation(); onToggleIsPinned() }}>
-                            {noteToAdd.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
-                        </button>}
-
-                        <textarea
-                            className="textarea-input"
-                            type="text"
-                            name="noteTitle"
-                            id="title"
-                            placeholder={`${isExpandedForm ? 'Title' : 'New note...'}`}
-                            value={noteToAdd.noteTitle}
-                            onChange={handleChange}
-                            onClick={() => setIsExpandedForm(true)}
-                            style={{ backgroundColor: bgColor }} />
-
-                        {!isExpandedForm && <div className="actions-collapsed-form">
-                            <div><img src="assets/img/check-box-icon.png"
-                                onClick={(ev) => {
-                                    ev.stopPropagation()
-                                    setCmpType('NoteTodos')
-                                    setTodosCounter(prevCount => prevCount + 1);
-                                    setIsExpandedForm(true)
-                                }} /></div>
-
-                            <div><img src="assets/img/image-icon.png"
-                                onClick={(ev) => {
-                                    ev.stopPropagation()
-                                    setCmpType('NoteImg')
-                                    setIsExpandedForm(true)
-                                }} /></div>
-
-                            <div><img src="assets/img/brush.png"
-                                onClick={(ev) => {
-                                    ev.stopPropagation()
-                                    setCmpType('NoteDrawing')
-                                    setIsExpandedForm(true)
-                                    setIsDrawingModalOpen(true)
-                                }} /></div>
-
-                            <div><img src="assets/img/videocam-icon.png"
-                                onClick={(ev) => {
-                                    ev.stopPropagation();
-                                    setCmpType('NoteVideo');
-                                    setIsExpandedForm(true)
-                                }} /></div>
-                        </div>}
-
-                        {isExpandedForm && <section className="expanded-form">
-                            <textarea
-                                className="textarea-input"
-                                type="text"
-                                name="txt"
-                                id="txt"
-                                placeholder="New note..."
-                                value={noteToAdd.info.txt || ''}
-                                onChange={(ev) => { handleInfoChange(ev); handleChangeTextAreaDimensions(ev) }}
-                                style={{ backgroundColor: bgColor }} />
-
-
-                            <DynamicCmp
-                                cmpType={cmpType}
-                                handleChange={handleChange}
-                                handleInfoChange={handleInfoChange}
-                                handleInfoChangeForTodos={handleInfoChangeForTodos}
-                                todosCounter={todosCounter}
-                                setTodosCounter={setTodosCounter}
-                                note={noteToAdd}
-                                setNoteToAdd={setNoteToAdd}
-                                bgColor={bgColor}
-                                isDrawingModalOpen={isDrawingModalOpen}
-                                closeDrawingModal={closeDrawingModal}
-                                setIsExpandedForm={setIsExpandedForm}
-                                setDrawingUrl={setDrawingUrl}
-                                isAddingNote={true} />
-
-
-                            <div className="actions">
-                                <div className="actions-toolbar">
-                                    <label
-                                        title="Background color"
-                                        onClick={() => setIsNoteStyle(isNoteStyle => !isNoteStyle)}>
-                                        <i className="fa-solid fa-palette"></i>
-                                    </label>
-
-                                    <button
-                                        type='button'
-                                        title="Add image"
-                                        onClick={() => { setCmpType('NoteImg'); setTodosCounter(0) }}>
-                                        <i className="fa-solid fa-image"></i>
-                                    </button>
-
-                                    <button
-                                        type='button'
-                                        title="Add video"
-                                        onClick={() => { setCmpType('NoteVideo'); setTodosCounter(0) }}>
-                                        <i className="fa-solid fa-video">
-                                        </i></button>
-
-                                    <button
-                                        type='button'
-                                        title="Todo list"
-                                        onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
-                                        <i className="fa-regular fa-square-check"></i>
-                                    </button>
-
-                                    <button
-                                        type='button'
-                                        title="Drawing"
-                                        onClick={() => { setCmpType('NoteDrawing'); setIsDrawingModalOpen(true) }}>
-                                        <i className="fa-solid fa-pencil"></i>
-                                    </button>
-                                </div>
-                                {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
-                                <button className="save-new-note-btn" onClick={onSubmit}>Save</button>
+                            <div className="add-video-or-img">
+                                {isExpandedForm && imgUrl && renderImgOrVideo(<img src={imgUrl} />, 'img')}
+                                {isExpandedForm && videoUrl && renderImgOrVideo(<iframe src={videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                                </iframe>, 'video')}
+                                {isExpandedForm && drawingUrl && renderImgOrVideo(<img src={drawingUrl} />, 'img')}
                             </div>
 
-                        </section>
-                        }
-                    </div>
+                            <div className="info-area">
+                                {isExpandedForm && <button
+                                    className={`pin-btn-adding-form ${(noteToAdd.isPinned ? 'pinned' : '')}`}
+                                    onClick={(ev) => { ev.stopPropagation(); onToggleIsPinned() }}>
+                                    {noteToAdd.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
+                                </button>}
+
+                                <textarea
+                                    className="textarea-input"
+                                    type="text"
+                                    name="noteTitle"
+                                    id="title"
+                                    placeholder={`${isExpandedForm ? 'Title' : 'New note...'}`}
+                                    value={noteToAdd.noteTitle}
+                                    onChange={handleChange}
+                                    onClick={() => setIsExpandedForm(true)}
+                                    style={{ backgroundColor: bgColor }} />
+
+                                {!isExpandedForm && <div className="actions-collapsed-form">
+                                    <div><img src="assets/img/check-box-icon.png"
+                                        onClick={(ev) => {
+                                            ev.stopPropagation()
+                                            setCmpType('NoteTodos')
+                                            setTodosCounter(prevCount => prevCount + 1);
+                                            setIsExpandedForm(true)
+                                        }} /></div>
+
+                                    <div><img src="assets/img/image-icon.png"
+                                        onClick={(ev) => {
+                                            ev.stopPropagation()
+                                            setCmpType('NoteImg')
+                                            setIsExpandedForm(true)
+                                        }} /></div>
+
+                                    <div><img src="assets/img/brush.png"
+                                        onClick={(ev) => {
+                                            ev.stopPropagation()
+                                            setCmpType('NoteDrawing')
+                                            setIsExpandedForm(true)
+                                            setIsDrawingModalOpen(true)
+                                        }} /></div>
+
+                                    <div><img src="assets/img/videocam-icon.png"
+                                        onClick={(ev) => {
+                                            ev.stopPropagation();
+                                            setCmpType('NoteVideo');
+                                            setIsExpandedForm(true)
+                                        }} /></div>
+                                </div>}
+
+                                {isExpandedForm && <section className="expanded-form">
+                                    <textarea
+                                        className="textarea-input"
+                                        type="text"
+                                        name="txt"
+                                        id="txt"
+                                        placeholder="New note..."
+                                        value={noteToAdd.info.txt || ''}
+                                        onChange={(ev) => { handleInfoChange(ev); handleChangeTextAreaDimensions(ev) }}
+                                        style={{ backgroundColor: bgColor }} />
+
+
+                                    <DynamicCmp
+                                        cmpType={cmpType}
+                                        handleChange={handleChange}
+                                        handleInfoChange={handleInfoChange}
+                                        handleInfoChangeForTodos={handleInfoChangeForTodos}
+                                        todosCounter={todosCounter}
+                                        setTodosCounter={setTodosCounter}
+                                        note={noteToAdd}
+                                        setNoteToAdd={setNoteToAdd}
+                                        bgColor={bgColor}
+                                        isDrawingModalOpen={isDrawingModalOpen}
+                                        closeDrawingModal={closeDrawingModal}
+                                        setIsExpandedForm={setIsExpandedForm}
+                                        setDrawingUrl={setDrawingUrl}
+                                        isAddingNote={true} />
+
+
+                                    <div className="actions">
+                                        <div className="actions-toolbar">
+                                            <label
+                                                title="Background color"
+                                                onClick={() => setIsNoteStyle(isNoteStyle => !isNoteStyle)}>
+                                                <i className="fa-solid fa-palette"></i>
+                                            </label>
+
+                                            <button
+                                                type='button'
+                                                title="Add image"
+                                                onClick={() => { setCmpType('NoteImg'); setTodosCounter(0) }}>
+                                                <i className="fa-solid fa-image"></i>
+                                            </button>
+
+                                            <button
+                                                type='button'
+                                                title="Add video"
+                                                onClick={() => { setCmpType('NoteVideo'); setTodosCounter(0) }}>
+                                                <i className="fa-solid fa-video">
+                                                </i></button>
+
+                                            <button
+                                                type='button'
+                                                title="Todo list"
+                                                onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
+                                                <i className="fa-regular fa-square-check"></i>
+                                            </button>
+
+                                            <button
+                                                type='button'
+                                                title="Drawing"
+                                                onClick={() => { setCmpType('NoteDrawing'); setIsDrawingModalOpen(true) }}>
+                                                <i className="fa-solid fa-pencil"></i>
+                                            </button>
+                                        </div>
+                                        {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
+                                        <button className="save-new-note-btn" onClick={onSubmit}>Save</button>
+                                    </div>
+
+                                </section>
+                                }
+                            </div>
+                        </div>
+
+                        <NotePreview
+                            notes={notes}
+                            onRemoveNote={onRemoveNote}
+                            loadNotes={loadNotes}
+                            onPinNote={onPinNote}
+                            onDuplicateNote={onDuplicateNote}
+                            setNoteType={setNoteType}
+                            setNotes={setNotes} />
+
+                    </section>
                 </div>
-
-                <NotePreview
-                    notes={notes}
-                    onRemoveNote={onRemoveNote}
-                    loadNotes={loadNotes}
-                    onPinNote={onPinNote}
-                    onDuplicateNote={onDuplicateNote}
-                    setNoteType={setNoteType}
-                    setNotes={setNotes} />
-
             </section>
+
         </section>
     )
 }
 
 function DynamicCmp(props) {
     switch (props.cmpType) {
-        // case 'NoteTxt':
-        //     return <CreateNoteByTextbox {...props} />
         case 'NoteImg':
             return <CreateNoteByImg {...props} />
         case 'NoteVideo':
@@ -471,14 +486,5 @@ function DynamicCmp(props) {
             return null
     }
 }
-
-function CreateNoteByTextbox({ handleChange, handleInfoChange }) {
-    return (
-        <Fragment>
-
-        </Fragment>
-    )
-}
-
 
 

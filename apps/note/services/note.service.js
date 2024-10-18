@@ -100,7 +100,7 @@ function _createNotes() {
 
             _createNote(1112225,
                 'NoteImg',
-                'Success is a journey, not a destination; keep moving forward',
+                'Success is a journey, not a destination - keep moving forward',
                 true,
                 { backgroundColor: '#FFDFD3' },
                 {

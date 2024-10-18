@@ -32,6 +32,13 @@
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
+.search {
+    display: grid;
+    justify-content: center;
+    margin-block-start: 20px;
+    margin-block-end: 40px;
+}
+
 .search-btn {
     position: absolute;
     top: 50%;

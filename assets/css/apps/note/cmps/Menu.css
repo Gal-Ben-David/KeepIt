@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+}
+
+.menu-and-notes {
+    display: flex;
+    gap: 5em;
+    width: 100%;
+}
+
+.menu {
+    position: relative;
+    padding: 0 1em;
+    margin-inline-start: 1.5em;
+
+    padding-top: 20px;
+
+    transition: 0.5s ease;
+}
+
+.menu i {
+    font-size: 1.5em;
+    padding: 0.5em;
+    border-radius: 50%;
+    background-color: #FEEFC3;
+}
+
+.menu-notes {
+    position: absolute;
+    right: -220px;
+    top: 0px;
+
+    padding: 0;
+    padding-top: 20px;
+    padding-right: 10px;
+    margin: 0;
+    height: 100%;
+    width: 200px;
+    background-color: white;
+    z-index: 11;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.menu-notes li {
+    list-style-type: none;
+    background-color: #FEEFC3;
+    padding: 0.8em 5em;
+    border-radius: 10em;
+}

@@ -1,9 +1,4 @@
-export function FilterOptions({ setFilterBy, filterBy }) {
-
-    function handleTypeChange(value) {
-        console.log(filterBy)
-        setFilterBy(prevFilter => ({ ...prevFilter, type: value }))
-    }
+export function FilterOptions({ handleTypeChange }) {
 
     return (
         <section className="filter-options">
