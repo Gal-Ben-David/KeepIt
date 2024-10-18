@@ -3,6 +3,7 @@ import { Modal } from '../cmps/Modal.jsx'
 import { noteService } from '../services/note.service.js'
 import { NoteList } from '../cmps/NoteList.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+import { mailService } from '../../mail/services/mail.service.js'
 
 const { Fragment, useState, useEffect } = React
 const { Link, useNavigate } = ReactRouterDOM
@@ -67,9 +68,13 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
     }
 
     function transferNoteToMailApp(note) {
-        const encodedTitle = encodeURIComponent(note.noteTitle)
-        const encodedText = encodeURIComponent(note.info.txt)
-        navigate(`/mail?title=${encodedTitle}&text=${encodedText}`)
+        // const encodedTitle = encodeURIComponent(note.noteTitle)
+        // const encodedText = encodeURIComponent(note.info.txt)
+        // navigate(`/mail?title=${encodedTitle}&text=${encodedText}`)
+
+        const newMail = {...mailService.getEmptyMail(), subject: note.noteTitle || '', body: note.info.txt || '', to:'user@appsus.com', sentAt: new Date()}
+        mailService.save(newMail)
+        navigate(`/mail`)
     }
 
     return (

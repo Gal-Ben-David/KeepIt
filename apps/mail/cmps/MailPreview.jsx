@@ -22,8 +22,6 @@ export function MailPreview({ mail }) {
         else if(!date.getYear()) return ''
     }
 
-
-
     const read = mail.isRead ? 'read' : ''
 
     // const date = new Date(mail.sentAt)

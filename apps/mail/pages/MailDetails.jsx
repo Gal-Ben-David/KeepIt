@@ -6,7 +6,7 @@ const { useParams, useNavigate, Link, useSearchParams } = ReactRouterDOM
 import { mailService } from "../services/mail.service.js"
 import { showErrorMsg } from "../../../services/event-bus.service.js"
 import { MailFilter } from "../cmps/MailFilter.jsx"
-
+import { noteService } from '../../note/services/note.service.js';
 
 export function MailDetails() {
 
@@ -48,6 +48,13 @@ export function MailDetails() {
         setFilterBy(preFilter => ({ ...preFilter, ...filterBy }))
     }
 
+    function transferMailToNoteApp(mail) {
+        // noteService.getEmptyNote()
+        const newNote = {...noteService.getEmptyNote(), noteTitle: mail.subject, info: {txt:mail.body}}
+        noteService.save(newNote)
+        navigate(`/note`)
+    }
+
     if (!mail) return <div className="loader"></div>
 
     return (
@@ -56,6 +63,7 @@ export function MailDetails() {
             <section className="mail-details">
                 <section className="tools-bar">
                     <button><Link to={`/mail`}><img src="assets\img\mail-icons\arrow_back_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="arrow-back" /></Link></button>
+                    <button onClick={() => transferMailToNoteApp(mail)}>note</button>
                     <section className="paging-btn-container">
                         <button ><Link to={`/mail/${mail.prevMailId}`}><img src="assets\img\mail-icons\chevron_right_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="arrow-right" /></Link></button>
                         <button ><Link to={`/mail/${mail.nextMailId}`}><img src="assets\img\mail-icons\chevron_left_24dp_666666_FILL1_wght400_GRAD0_opsz24.png" alt="arrow-left" /></Link></button>

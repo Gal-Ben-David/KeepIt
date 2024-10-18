@@ -193,7 +193,6 @@ function _createNote(createdAt, type, noteTitle, isPinned, style, info) {
     return note
 }
 
-
 function getFilterFromSearchParams(searchParams) {
     const txt = searchParams.get('txt') || ''
     const type = searchParams.get('type') || ''
