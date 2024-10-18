@@ -1,19 +1,30 @@
 
 const { useEffect, useRef } = React
 
-export function Canvas({ setNoteToAdd, closeDrawingModal, setIsExpandedForm, setDrawingUrl }) {
+export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedForm, setDrawingUrl, isAddingNote, setNoteToEdit }) {
 
     const canvasRef = useRef(null)
     let context = null
     let gLastPos = { x: 0, y: 0 }
 
     useEffect(() => {
+        const canvas = canvasRef.current
 
-        const canvas = canvasRef.current;
         if (canvas) {
             context = canvas.getContext('2d')
             canvas.width = 600
             canvas.height = 600
+
+            if (note.info.drawingUrl) {
+                const img = new Image()
+                img.onload = function () {
+                    context.clearRect(0, 0, canvas.width, canvas.height)
+                    context.drawImage(img, 0, 0)
+                }
+                img.src = note.info.drawingUrl
+            } else {
+                console.log('No saved drawing found.')
+            }
         }
 
         document.addEventListener('mousedown', onDown)
@@ -80,10 +91,15 @@ export function Canvas({ setNoteToAdd, closeDrawingModal, setIsExpandedForm, set
 
     function onSaveDrawing() {
         const dataURL = canvasRef.current.toDataURL('image/png')
-        setNoteToAdd(prevNote => ({ ...prevNote, info: { drawingUrl: dataURL } }))
+        if (isAddingNote) {
+            setNoteToAdd(prevNote => ({ ...prevNote, info: { drawingUrl: dataURL } }))
+            setIsExpandedForm(true)
+        }
+        else setNoteToEdit(prevNote => ({ ...prevNote, info: { drawingUrl: dataURL } }))
+
         setDrawingUrl(dataURL)
-        setIsExpandedForm(true)
         closeDrawingModal()
+
         console.log('Drawing saved!')
     }
 

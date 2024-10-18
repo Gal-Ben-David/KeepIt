@@ -260,9 +260,15 @@ export function NoteIndex() {
     function onRemoveUrl(urlType) {
         const updatedInfo = { ...noteToAdd.info }
         if (urlType === 'img') {
-            updatedInfo.imgUrl = ''
-            setImgUrl('')
-            delete updatedInfo.imgUrls
+            if (updatedInfo.imgUrl) {
+                updatedInfo.imgUrl = ''
+                delete updatedInfo.imgUrl
+                setImgUrl('')
+            } else if (updatedInfo.drawingUrl) {
+                updatedInfo.drawingUrl = ''
+                delete updatedInfo.drawingUrl
+                setDrawingUrl('')
+            }
         } else if (urlType === 'video') {
             updatedInfo.videoUrl = ''
             delete updatedInfo.videoUrl
@@ -332,17 +338,25 @@ export function NoteIndex() {
                         {!isExpandedForm && <div className="actions-collapsed-form">
                             <div><img src="assets/img/check-box-icon.png"
                                 onClick={(ev) => {
-                                    ev.stopPropagation();
-                                    setCmpType('NoteTodos');
+                                    ev.stopPropagation()
+                                    setCmpType('NoteTodos')
                                     setTodosCounter(prevCount => prevCount + 1);
                                     setIsExpandedForm(true)
                                 }} /></div>
 
                             <div><img src="assets/img/image-icon.png"
                                 onClick={(ev) => {
-                                    ev.stopPropagation();
-                                    setCmpType('NoteImg');
+                                    ev.stopPropagation()
+                                    setCmpType('NoteImg')
                                     setIsExpandedForm(true)
+                                }} /></div>
+
+                            <div><img src="assets/img/brush.png"
+                                onClick={(ev) => {
+                                    ev.stopPropagation()
+                                    setCmpType('NoteDrawing')
+                                    setIsExpandedForm(true)
+                                    setIsDrawingModalOpen(true)
                                 }} /></div>
 
                             <div><img src="assets/img/videocam-icon.png"
@@ -378,7 +392,8 @@ export function NoteIndex() {
                                 isDrawingModalOpen={isDrawingModalOpen}
                                 closeDrawingModal={closeDrawingModal}
                                 setIsExpandedForm={setIsExpandedForm}
-                                setDrawingUrl={setDrawingUrl} />
+                                setDrawingUrl={setDrawingUrl}
+                                isAddingNote={true} />
 
 
                             <div className="actions">

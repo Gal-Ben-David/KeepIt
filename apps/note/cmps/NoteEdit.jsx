@@ -5,6 +5,7 @@ import { CreateNoteByVideo } from '../cmps/CreateNoteByVideo.jsx'
 import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+import { CreateNoteByDrawing } from "../../note/cmps/CreateNoteByDrawing.jsx"
 
 const { useState, useEffect, useRef } = React
 
@@ -14,8 +15,11 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
     const [cmpType, setCmpType] = useState('')
     const [todosCounter, setTodosCounter] = useState((noteToEdit.info.todos) ? noteToEdit.info.todos.length : 0)
     const [isNoteStyle, setIsNoteStyle] = useState(false)
+    const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false)
+
     const [imgUrl, setImgUrl] = useState(note.info.imgUrl || '')
     const [videoUrl, setVideoUrl] = useState(note.info.videoUrl || '')
+    const [drawingUrl, setDrawingUrl] = useState(note.info.drawingUrl || '')
 
     const titleAreaRef = useRef(null)
     const textareaRef = useRef(null)
@@ -129,9 +133,15 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
     function onRemoveUrl(urlType) {
         const updatedInfo = { ...noteToEdit.info }
         if (urlType === 'img') {
-            updatedInfo.imgUrl = ''
-            delete updatedInfo.imgUrl
-            setImgUrl('')
+            if (updatedInfo.imgUrl) {
+                updatedInfo.imgUrl = ''
+                delete updatedInfo.imgUrl
+                setImgUrl('')
+            } else if (updatedInfo.drawingUrl) {
+                updatedInfo.drawingUrl = ''
+                delete updatedInfo.drawingUrl
+                setDrawingUrl('')
+            }
         } else if (urlType === 'video') {
             updatedInfo.videoUrl = ''
             delete updatedInfo.videoUrl
@@ -168,6 +178,10 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
         setNoteToEdit(prevNote => ({ ...prevNote, style: { backgroundColor: color } }))
     }
 
+    function closeDrawingModal() {
+        setIsDrawingModalOpen(false)
+    }
+
     const bgColor = noteToEdit.style.backgroundColor
 
     return (
@@ -178,6 +192,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
                 {imgUrl && renderImgOrVideo(<img src={imgUrl} />, 'img')}
                 {videoUrl && renderImgOrVideo(<iframe src={videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                 </iframe>, 'video')}
+                {drawingUrl && renderImgOrVideo(<img src={drawingUrl} />, 'img')}
 
                 <div className="info-area">
                     <button
@@ -218,7 +233,12 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
                         bgColor={bgColor}
                         todosCounter={todosCounter}
                         handleInfoChangeForTodos={handleInfoChangeForTodos}
-                        setTodosCounter={setTodosCounter} />
+                        setTodosCounter={setTodosCounter}
+                        isAddingNote={false}
+                        isDrawingModalOpen={isDrawingModalOpen}
+                        closeDrawingModal={closeDrawingModal}
+                        setNoteToEdit={setNoteToEdit}
+                        setDrawingUrl={setDrawingUrl} />
 
 
                     <div className="actions">
@@ -247,6 +267,13 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
                                 onClick={() => { setCmpType('NoteTodos'); setTodosCounter(prevCount => prevCount + 1) }}>
                                 <i className="fa-regular fa-square-check"></i>
                             </button>
+
+                            <button
+                                type='button'
+                                title="Drawing"
+                                onClick={() => { setCmpType('NoteDrawing'); setIsDrawingModalOpen(true) }}>
+                                <i className="fa-solid fa-pencil"></i>
+                            </button>
                         </div>
                         {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
                         <button className="save-new-note-btn" onClick={() => onSubmit(noteToEdit)}>Save</button>
@@ -269,6 +296,8 @@ function DynamicCmp(props) {
             return <CreateNoteByVideo {...props} />
         case 'NoteTodos':
             return <CreateNoteByTodos {...props} />
+        case 'NoteDrawing':
+            return <CreateNoteByDrawing {...props} />
         default:
             return null
     }
