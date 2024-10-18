@@ -67,7 +67,6 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         setFilterByToEdit(prevFilter => ({ ...prevFilter, isRead: bool }))
         if (bool === false) setSelectedTopFilter('unread')
         else if (bool === true) setSelectedTopFilter('read')
-
     }
 
     function onInbox() {
@@ -92,6 +91,12 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'trash' }))
         setSelectedSideFilter('trash')
+    }
+
+    function onDraftsMails() {
+        setSortBy('')
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'drafts' }))
+        setSelectedSideFilter('drafts')
     }
 
     function onSelectedTopFilter(status) {
@@ -123,8 +128,13 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
     }
 
     function trashIcon() {
-        if (selectedSideFilter === 'trash') return <img src="assets\img\mail-icons\delete_24dp_202124_FILL1_wght400_GRAD0_opsz24 (1).png" alt="trash-empty" />
-        else return <img src="assets\img\mail-icons\delete_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="trash-full" />
+        if (selectedSideFilter === 'trash') return <img src="assets\img\mail-icons\delete_24dp_202124_FILL1_wght400_GRAD0_opsz24 (1).png" alt="trash" />
+        else return <img src="assets\img\mail-icons\delete_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="trash-empty" />
+    }
+
+    function draftsIcon() {
+        if (selectedSideFilter === 'drafts') return <img src="assets\img\mail-icons\draft_24dp_202124_FILL1_wght400_GRAD0_opsz24.png" alt="draft" />
+        else return <img src="assets\img\mail-icons\draft_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="drafts-empty" />
     }
 
     const {
@@ -205,9 +215,9 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                         <span>Sent</span>
                     </section>
                 </button>
-                <button>
+                <button className={onSelectedSideFilter('drafts')} onClick={backToIndex ? () => backToIndex() : () => onDraftsMails()}>
                     <section>
-                        <img src="assets\img\mail-icons\draft_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="drafts" />
+                        {draftsIcon()}                        
                         <span>Drafts</span>
                     </section>
                 </button>

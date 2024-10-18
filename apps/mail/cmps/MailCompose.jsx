@@ -2,19 +2,29 @@ const { useNavigate, useParams } = ReactRouterDOM
 
 import { mailService } from "../services/mail.service.js"
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
 
-export function MailCompose({ setSortBy, dateCompose, setIsMailCompose, isMailCompose, mails }) {
+export function MailCompose({ intervalRef, mailToEdit, setMailToEdit, setSortBy, dateCompose, setIsMailCompose, isMailCompose, mails }) {
 
-    const [mailToEdit, setMailToEdit] = useState(mailService.getEmptyMail())
     const navigate = useNavigate()
+
 
     useEffect(() => {
         setMailToEdit(mailService.getEmptyMail())
-        mailToEdit.createdAt = Date.now()
         console.log(mailToEdit);
+        mailToEdit.createdAt = Date.now()
+
+        console.log(mailToEdit);
+
     }, [isMailCompose])
+
+    // useEffect(() => {
+    //     // clearInterval(intervalRef.current)
+    //     // intervalRef.current = setInterval(() => {
+    //     //     onSaveDraftsMail()
+    //     // }, 3000)
+    // }, [handleChange])
 
     function handleChange({ target }) {
         const field = target.name
@@ -31,6 +41,9 @@ export function MailCompose({ setSortBy, dateCompose, setIsMailCompose, isMailCo
                 break
         }
         setMailToEdit(prevMail => ({ ...prevMail, [field]: value }))
+        onSaveDraftsMail()
+        // onSaveDraftsMail()
+
     }
 
     function onSaveMail(ev) {
@@ -47,6 +60,20 @@ export function MailCompose({ setSortBy, dateCompose, setIsMailCompose, isMailCo
                 setSortBy('')
                 navigate('/mail')
             })
+    }
+
+
+    function onSaveDraftsMail() {
+        mailService.debounce(mailService.save(mailToEdit)
+            .then(mail => setMailToEdit(prevMail=> {
+                prevMail.id = mail.id
+                prevMail.createdAt = Date.now()
+                return prevMail
+            }))
+            .catch(err => {
+                console.log('err:', err)
+            }), 2000)
+
     }
 
 

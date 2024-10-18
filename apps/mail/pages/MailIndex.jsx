@@ -1,4 +1,4 @@
-const { useEffect, useState } = React
+const { useEffect, useState, useRef } = React
 
 const { Link, useSearchParams, useLocation } = ReactRouterDOM
 
@@ -8,6 +8,8 @@ import { MailFilter } from "../cmps/MailFilter.jsx";
 import { MailList } from "../cmps/MailList.jsx";
 import { MailCompose } from '../cmps/MailCompose.jsx';
 import { getTruthyValues } from '../../../services/util.service.js'
+import { utilService } from '../../../services/util.service.js'
+
 
 
 export function MailIndex() {
@@ -19,6 +21,9 @@ export function MailIndex() {
     const [changeStarredStatus, setChangeStarredStatus] = useState(false)
     const [sortBy, setSortBy] = useState('')
 
+    const [mailToEdit, setMailToEdit] = useState(mailService.getEmptyMail())
+
+    const intervalRef = useRef()
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
@@ -49,7 +54,25 @@ export function MailIndex() {
     function openMailCompose() {
         setIsMailCompose(true)
         setDateCompose(new Date())
+        // setMailToEdit(mail => {
+        //     mail.id = utilService.makeId()
+        //     return mail
+        // })
+        // setMailToEdit(mailToEdit)
+        // mailService.save(mailToEdit)
+        // intervalRef.current = setInterval(() => {
+        //     console.log(mailToEdit);
+            // mailService.save(mailToEdit)
+        // }, 3000)
     }
+
+    // function saveMailToDrafts() {
+    //     mailService.save(mailToEdit)
+    //     // console.log(mailToEdit)
+
+    //     // .finally(() => {
+    //     //     setIsMailCompose(false)})
+    // }
 
     function onReadMail(mail) {
         mail.isRead = !mail.isRead
@@ -107,7 +130,7 @@ export function MailIndex() {
                 <MailList onStar={onStar} onRemoveMail={onRemoveMail} onReadMail={onReadMail} mails={mails} />
             </section>
             <section className={`mail-compose-container ${toggleMailCompose}`}>
-                <MailCompose setSortBy={setSortBy} dateCompose={dateCompose} isMailCompose={isMailCompose} setIsMailCompose={setIsMailCompose} mails={mails} />
+                <MailCompose intervalRef={intervalRef} mailToEdit={mailToEdit} setMailToEdit={setMailToEdit} setSortBy={setSortBy} dateCompose={dateCompose} isMailCompose={isMailCompose} setIsMailCompose={setIsMailCompose} mails={mails} />
             </section>
         </section>
     )
