@@ -133,6 +133,13 @@
     /* menu logo */
     .side-menu {
         cursor: pointer;
+        border-radius: 50%;
+        transition: 100ms;
+        padding: 0.1em;
+    }
+
+    .side-menu:hover{
+        background-color: var(--crl-mail-search-icon);
     }
 
     .side-menu-backdrop {
@@ -182,5 +189,4 @@
     .mail-details{
         margin-inline-start: 1em;
     }
-
 }
