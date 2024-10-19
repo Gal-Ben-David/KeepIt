@@ -22,7 +22,12 @@ nav {
 nav a {
     font-size: 1.1em;
     margin: .5em;
-    transition: 0.2s ease-in-out;
+
+
+
+    border-radius: 0.5em;
+    transition: 0.2s ease;
+    cursor: pointer;
 }
 
 nav a:active {
@@ -32,12 +37,12 @@ nav a:active {
 nav a.active {
     font-weight: 600;
     background-color: rgb(202, 244, 255);
+
     padding-left: 0.5em;
     padding-right: 0.5em;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
 
-    border-radius: 0.5em;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
