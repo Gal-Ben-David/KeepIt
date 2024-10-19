@@ -14,6 +14,7 @@
      list-style-type: none;
      padding-inline-start: var( --width-side-filter-mail);
      background-color: white;
+     margin-top: 2em;
  }
 
  /* .mail-preview.read:hover ul.mail-list{
