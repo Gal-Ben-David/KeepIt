@@ -144,7 +144,7 @@ function _createNotes() {
                 true,
                 { backgroundColor: '#ffffff' },
                 {
-                    imgUrl: 'assets/img/076A6C50-040B-4B6F-8EAD-7308AEAC277A.jpeg',
+                    imgUrl: 'assets/img/sunset.png',
                     txt: ''
                 }),
 

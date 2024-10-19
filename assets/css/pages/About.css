@@ -2,14 +2,93 @@
     box-sizing: border-box;
 }
 
+.about {
+    display: grid;
+    justify-content: center;
+    gap: 20px;
+
+    margin-block-start: 20px;
+
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: var(--crl-font-2);
+}
+
+.animation-container {
+    display: flex;
+    justify-content: center;
+}
+
 .team-data {
     display: flex;
-    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+
+    margin-block-end: 60px;
 }
 
 .team-member {
-    width: 30em;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+    width: 26em;
     height: 40em;
     border-radius: 2em;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+
+    transition: 0.3s ease-in-out;
+}
+
+.team-member:hover {
+    transform: scale(1.02);
+}
+
+.team-member hr {
+    width: 18em;
+}
+
+.team-member h1 {
+    font-size: 2rem;
+    text-align: center;
+    padding-top: 0.5em;
+}
+
+.profile-img {
+    height: 20em;
+    width: 20em;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.team-member img {
+    align-self: stretch;
+}
+
+.team-member ul {
+    display: grid;
+    gap: 1em;
+    padding: 0;
+
+    justify-self: start;
+    align-self: flex-start;
+
+    margin: 0;
+    margin-inline-start: 1.5em;
+    margin-block-start: 1em;
+
+}
+
+.team-member li {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+
+    gap: 1.5em;
+    font-size: 1.2rem;
+}
+
+.team-member li .fa-envelope {
+    padding-top: 0.27em;
 }
