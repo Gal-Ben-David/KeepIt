@@ -58,7 +58,7 @@
     padding: 0.7em;
     margin-block-start: 0.5em;
     cursor: pointer;
-    z-index: 11;
+    z-index: 1;
 }
 
 .pin-btn-edit-modal img {

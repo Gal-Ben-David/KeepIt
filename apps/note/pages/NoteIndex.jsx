@@ -11,6 +11,7 @@ import { getTruthyValues } from "../../../services/util.service.js"
 import { mailService } from "../../mail/services/mail.service.js"
 import { CreateNoteByDrawing } from "../../note/cmps/CreateNoteByDrawing.jsx"
 import { Menu } from "../../note/cmps/Menu.jsx"
+import { NoteTag } from "../../note/cmps/NoteTag.jsx"
 
 const { useState, useEffect, Fragment, useRef } = React
 const { Link, useSearchParams, useNavigate } = ReactRouterDOM
@@ -21,7 +22,6 @@ export function NoteIndex() {
     const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
-    // const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
     const [showFilterOption, setShowFilterOption] = useState(false)
     const [cmpType, setCmpType] = useState('NoteTxt')
     const [todosCounter, setTodosCounter] = useState(0)
@@ -43,8 +43,6 @@ export function NoteIndex() {
 
     useEffect(() => {
         document.body.style.backgroundColor = '#FFFFFF'
-        // const emailId = getEmailIdFromUrl()
-        // if (emailId) handleEmailToNoteConversion(emailId)
     }, [])
 
     useEffect(() => {
@@ -58,28 +56,6 @@ export function NoteIndex() {
     useEffect(() => {
         noteToAddRef.current = noteToAdd
     }, [noteToAdd])
-
-    // function getEmailIdFromUrl() {
-    //     const params = new URLSearchParams(window.location.search)
-    //     return params.get('emailId')
-    // }
-
-    // function fetchEmailById(emailId) {
-    //     return mailService.get(emailId)
-    // }
-
-    // function handleEmailToNoteConversion(emailId) {
-    //     fetchEmailById(emailId)
-    //         .then(email => {
-    //             if (email) {
-    //                 var newNote = { ...noteService.getEmptyNote(), noteTitle: email.subject, info: { txt: email.body } }
-    //             }
-    //             onSubmit(newNote, true)
-    //         })
-    //         .catch(err => {
-    //             console.log('Failed to fetch email:', err)
-    //         })
-    // }
 
     function handleBodyClick(ev) {
         if (!ev.target.closest('.collapsible-element')) {
@@ -141,6 +117,10 @@ export function NoteIndex() {
             if (field === 'noteTitle') {
                 return { ...prevNote, noteTitle: value }
             }
+            if (field === 'tag') {
+                const tags = value.split(',')
+                return { ...prevNote, labels: tags }
+            }
             return { ...prevNote, info: { ...noteToEdit.info, [field]: value } }
 
         })
@@ -181,8 +161,8 @@ export function NoteIndex() {
 
     function onSubmit(newNote, autoSubmit = false) {
         const noteToSave = (autoSubmit) ? newNote : noteToAdd
-        // ev.preventDefault()
-        // if (noteToAdd.noteTitle === '' && noteToAdd.info.txt === '') return console.log('empty note')
+        console.log(noteToSave)
+
         setNoteType(noteToSave)
         noteService.save(noteToSave)
             .then(note => {
@@ -290,7 +270,6 @@ export function NoteIndex() {
     function handleTypeChange(value) {
         setFilterBy(prevFilter => ({ ...prevFilter, type: value }))
     }
-
 
     const bgColor = noteToAdd.style.backgroundColor
 
@@ -409,7 +388,8 @@ export function NoteIndex() {
                                         closeDrawingModal={closeDrawingModal}
                                         setIsExpandedForm={setIsExpandedForm}
                                         setDrawingUrl={setDrawingUrl}
-                                        isAddingNote={true} />
+                                        isAddingNote={true}
+                                    />
 
 
                                     <div className="actions">
@@ -446,6 +426,13 @@ export function NoteIndex() {
                                                 title="Drawing"
                                                 onClick={() => { setCmpType('NoteDrawing'); setIsDrawingModalOpen(true) }}>
                                                 <i className="fa-solid fa-pencil"></i>
+                                            </button>
+
+                                            <button
+                                                type='button'
+                                                title="Tag"
+                                                onClick={() => { setCmpType('NoteTag') }}>
+                                                <i className="fa-solid fa-tag"></i>
                                             </button>
                                         </div>
                                         {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
@@ -484,6 +471,8 @@ function DynamicCmp(props) {
             return <CreateNoteByTodos {...props} />
         case 'NoteDrawing':
             return <CreateNoteByDrawing {...props} />
+        case 'NoteTag':
+            return <NoteTag {...props} />
         default:
             return null
     }

@@ -40,6 +40,12 @@ export function NoteList({ notes, handleEditClick, onPinNote, onRemoveNote, onDu
                                             </label>)}
                                     </div>}
                             </div>
+                            {note.labels && note.labels.length !== 0 &&
+                                <div className="tag-list">
+                                    {note.labels.map((tag, i) =>
+                                        tag &&
+                                        <span className="tag" key={i}>{tag}</span>)}
+                                </div>}
 
                             <div className="toolbar">
                                 <button title="Delete Note" onClick={(ev) => { ev.stopPropagation(); onRemoveNote(note.id) }}><i className="fa-solid fa-trash"></i></button>

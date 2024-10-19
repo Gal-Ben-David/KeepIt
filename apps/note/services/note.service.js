@@ -56,8 +56,8 @@ function save(note, isPinned = false) {
     }
 }
 
-function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', isPinned = false, style = { backgroundColor: '#ffffff' }, info = { txt: '' }) {
-    return { createdAt, type, noteTitle, isPinned, style, info }
+function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', isPinned = false, style = { backgroundColor: '#ffffff' }, info = { txt: '' }, labels = []) {
+    return { createdAt, type, noteTitle, isPinned, style, info, labels }
 }
 
 function getDefaultFilter() {
@@ -76,7 +76,8 @@ function _createNotes() {
                 'New Note',
                 false,
                 { backgroundColor: '#eaece5' },
-                { txt: 'Fullstack Me Baby!' }),
+                { txt: 'Fullstack Me Baby!' },
+                []),
 
             _createNote(1112223,
                 'NoteImg',
@@ -86,7 +87,8 @@ function _createNotes() {
                 {
                     imgUrl: 'https://media.4-paws.org/5/4/4/c/544c2b2fd37541596134734c42bf77186f0df0ae/VIER%20PFOTEN_2017-10-20_164-3854x2667-1920x1329.jpg',
                     txt: 'Here is my tiger'
-                }),
+                },
+                []),
 
             _createNote(1112224,
                 'NoteVideo',
@@ -96,7 +98,8 @@ function _createNotes() {
                 {
                     videoUrl: 'https://www.youtube.com/embed/wt8nzHv9Gn8?si=xYcgEo-Cbw0mNReD',
                     txt: '🎵 Remember to explore MorningLightMusic for background music. '
-                }),
+                },
+                ['music', 'motivation']),
 
             _createNote(1112225,
                 'NoteImg',
@@ -106,7 +109,8 @@ function _createNotes() {
                 {
                     imgUrl: 'https://www.worldanimalprotection.ca/cdn-cgi/image/width=1280,format=auto/siteassets/shutterstock_2461984615.jpg',
                     txt: ''
-                }),
+                },
+                []),
 
             _createNote(1112226,
                 'NoteTodos',
@@ -116,7 +120,8 @@ function _createNotes() {
                 {
                     todos: [{ txt: 'Respond to client emails', isChecked: false }, { txt: 'Review the code for the new feature', isChecked: false }],
                     txt: ''
-                }),
+                },
+                []),
 
             _createNote(1112227,
                 'NoteTodos',
@@ -126,7 +131,8 @@ function _createNotes() {
                 {
                     todos: [{ txt: 'milk', isChecked: false }, { txt: 'eggs', isChecked: true }, { txt: 'vegetables', isChecked: false }, { txt: 'bread', isChecked: false }],
                     txt: ''
-                }),
+                },
+                []),
 
             _createNote(1112228,
                 'NoteImg',
@@ -136,7 +142,8 @@ function _createNotes() {
                 {
                     imgUrl: 'https://cdn-fkmoj.nitrocdn.com/xvpOGZRTxJUhXKufpOYIruQcRqtvAAQX/assets/images/optimized/rev-4e1f421/media.briantracy.com/blog/wp-content/uploads/2024/01/23111850/Quote-22-800x800.png',
                     txt: ''
-                }),
+                },
+                ['motivation']),
 
             _createNote(1112229,
                 'NoteImg',
@@ -146,7 +153,8 @@ function _createNotes() {
                 {
                     imgUrl: 'assets/img/sunset.png',
                     txt: ''
-                }),
+                },
+                []),
 
             _createNote(1112230,
                 'NoteTxt',
@@ -155,7 +163,8 @@ function _createNotes() {
                 { backgroundColor: '#FCF4DD' },
                 {
                     txt: 'Meeting with the project team at 3 PM on Tuesday'
-                }),
+                },
+                ['work']),
 
             _createNote(1112230,
                 'NoteTxt',
@@ -164,7 +173,8 @@ function _createNotes() {
                 { backgroundColor: '#ffffff' },
                 {
                     txt: 'Explore ways to improve team communication'
-                }),
+                },
+                ['work']),
 
             _createNote(1112231,
                 'NoteTxt',
@@ -180,15 +190,16 @@ function _createNotes() {
                         " supporting you every step of the way. " +
                         "  Enjoy your day to the fullest—surrounded by the people you love, with all the things that make you happy. " +
                         " Happy Birthday! 🎂✨"
-                }),
+                },
+                []),
         ]
         console.log(notes)
         saveToStorage(NOTE_KEY, notes)
     }
 }
 
-function _createNote(createdAt, type, noteTitle, isPinned, style, info) {
-    const note = getEmptyNote(createdAt, type, noteTitle, isPinned, style, info)
+function _createNote(createdAt, type, noteTitle, isPinned, style, info, labels) {
+    const note = getEmptyNote(createdAt, type, noteTitle, isPinned, style, info, labels)
     note.id = utilService.makeId()
     return note
 }
