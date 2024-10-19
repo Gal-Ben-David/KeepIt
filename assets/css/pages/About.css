@@ -23,7 +23,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 50px;
+    gap: 30px;
 
     margin-block-end: 60px;
 }
@@ -36,12 +36,13 @@
     width: 26em;
     height: 40em;
     border-radius: 2em;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 
     transition: 0.3s ease-in-out;
 }
 
-.team-member:hover {
+.team-member:hover,
+.team-lead:hover {
     transform: scale(1.02);
 }
 
@@ -49,15 +50,30 @@
     width: 18em;
 }
 
-.team-member h1 {
+.team-member-description {
+    display: grid;
+    gap: 0.5em;
+}
+
+.team-member h2 {
     font-size: 2rem;
     text-align: center;
-    padding-top: 0.5em;
+    padding-top: 0.6em;
+}
+
+.team-member h3 {
+    font-weight: 600;
+    text-align: center;
 }
 
 .profile-img {
-    height: 20em;
-    width: 20em;
+    display: grid;
+    justify-content: center;
+    justify-self: center;
+
+
+    height: 15em;
+    width: 15em;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -77,7 +93,6 @@
     margin: 0;
     margin-inline-start: 1.5em;
     margin-block-start: 1em;
-
 }
 
 .team-member li {
@@ -89,6 +104,43 @@
     font-size: 1.2rem;
 }
 
-.team-member li .fa-envelope {
+.team-member li .fa-envelope,
+.team-lead li .fa-envelope {
     padding-top: 0.27em;
+}
+
+.team-lead {
+    display: flex;
+    gap: 3em;
+    padding: 1em;
+    border-radius: 2em;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+
+    transition: 0.3s ease-in-out;
+}
+
+.team-lead ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0;
+}
+
+.team-lead .profile-img {
+    width: 8em;
+    height: 8em;
+    margin-inline-start: 2em;
+}
+
+.team-lead h3 {
+    font-weight: 600;
+}
+
+.team-lead li {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+
+    gap: 1em;
+    font-size: 1.2rem;
 }
