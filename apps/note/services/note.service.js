@@ -70,32 +70,7 @@ function _createNotes() {
     let notes = loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = [
-            _createNote(1112222,
-                ['NoteTxt'],
-                'Meeting summery',
-                false,
-                { backgroundColor: '#eaece5' },
-                {
-                    txt:
-                        "Marketing campaign is on track, \n" +
-                        "Need to reduce expenses by 10%, \n" +
-                        "Final presentation is due next week"
-                },
-                ['work']),
 
-            _createNote(1112222,
-                ['NoteTxt'],
-                'Action items from weekly meeting',
-                false,
-                { backgroundColor: '#E2F6D3' },
-                {
-                    todos: [
-                        { txt: 'Finalize the budget by Friday', isChecked: false },
-                        { txt: 'Prepare the presentation slides', isChecked: true },
-                        { txt: 'contact the client for feedback', isChecked: true },],
-                    txt: ''
-                },
-                ['work']),
 
             _createNote(1112223,
                 ['NoteImg'],
@@ -129,6 +104,16 @@ function _createNotes() {
                     txt: '🎵 Remember to explore MorningLightMusic for background music. '
                 },
                 ['music', 'motivation']),
+
+            _createNote(1112230,
+                ['NoteTxt'],
+                '',
+                true,
+                { backgroundColor: '#ffffff' },
+                {
+                    txt: 'Investigate methods to enhance project efficiency'
+                },
+                ['work']),
 
             _createNote(1112226,
                 ['NoteTodos'],
@@ -276,6 +261,35 @@ function _createNotes() {
                 },
                 ['myGallery', 'Batumi']),
 
+            _createNote(1112222,
+                ['NoteTxt'],
+                'Meeting summery',
+                false,
+                { backgroundColor: '#eaece5' },
+                {
+                    txt:
+                        "Marketing campaign is on track, \n" +
+                        "Need to reduce expenses by 10%, \n" +
+                        "Final presentation is due next week"
+                },
+                ['work']),
+
+
+            _createNote(1112222,
+                ['NoteTxt'],
+                'Action items from weekly meeting',
+                false,
+                { backgroundColor: '#E2F6D3' },
+                {
+                    todos: [
+                        { txt: 'Finalize the budget by Friday', isChecked: false },
+                        { txt: 'Prepare the presentation slides', isChecked: true },
+                        { txt: 'contact the client for feedback', isChecked: true },],
+                    txt: ''
+                },
+                ['work']),
+
+
             _createNote(1112245,
                 ['NoteImg'],
                 '',
@@ -286,6 +300,7 @@ function _createNotes() {
                     txt: ''
                 },
                 ['myGallery']),
+
 
             _createNote(1112233,
                 ['NoteTxt'],
@@ -397,6 +412,17 @@ function _createNotes() {
 
                 },
                 ['myGallery', 'food']),
+
+            _createNote(1112260,
+                ['NoteImg'],
+                'Golden horse',
+                false,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/golden-horse.png',
+                    txt: 'Udim, Israel'
+                },
+                ['myGallery']),
 
             _createNote(1112260,
                 ['NoteImg'],
