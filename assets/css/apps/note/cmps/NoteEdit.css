@@ -74,3 +74,7 @@ label.edit {
 .todo-list-preview.edit {
     margin-block-end: 2em;
 }
+
+.edit-note-area {
+    position: relative;
+}

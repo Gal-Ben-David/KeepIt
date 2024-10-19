@@ -178,7 +178,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
     console.log(noteToEdit)
 
     return (
-        <section>
+        <section className="edit-note-area">
 
             <div className="edit-note-form" style={{ backgroundColor: bgColor }}>
 
@@ -287,11 +287,12 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
                                 <i className="fa-solid fa-tag"></i>
                             </button>
                         </div>
-                        {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
                         <button className="save-new-note-btn" onClick={() => onSubmit(noteToEdit)}>Save</button>
                     </div>
                 </div>
             </div>
+            {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
+
         </section>
     )
 }
