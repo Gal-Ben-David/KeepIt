@@ -6,6 +6,7 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
     const canvasRef = useRef(null)
     let context = null
     let gLastPos = { x: 0, y: 0 }
+    const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -27,14 +28,22 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
             }
         }
 
-        document.addEventListener('mousedown', onDown)
-        document.addEventListener('mousemove', onMove)
-        document.addEventListener('mouseup', onUp)
+        canvas.addEventListener('mousedown', onDown)
+        canvas.addEventListener('mousemove', onMove)
+        canvas.addEventListener('mouseup', onUp)
+
+        canvas.addEventListener('touchstart', onDown, { passive: false })
+        canvas.addEventListener('touchmove', onMove, { passive: false })
+        canvas.addEventListener('touchend', onUp, { passive: false })
 
         return () => {
-            document.removeEventListener('mousedown', onDown)
-            document.removeEventListener('mousemove', onMove)
-            document.removeEventListener('mouseup', onUp)
+            canvas.removeEventListener('mousedown', onDown)
+            canvas.removeEventListener('mousemove', onMove)
+            canvas.removeEventListener('mouseup', onUp)
+
+            canvas.removeEventListener('touchstart', onDown)
+            canvas.removeEventListener('touchmove', onMove)
+            canvas.removeEventListener('touchend', onUp)
         }
     }, [])
 
@@ -56,7 +65,7 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
     }
 
     function onMove(ev) {
-        if (ev.buttons !== 1) return
+        if (ev.type === 'mousemove' && ev.buttons !== 1) return
         const pos = getEvPos(ev)
 
         drawLine(gLastPos.x, gLastPos.y, pos.x, pos.y)
@@ -74,17 +83,17 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
             y: ev.offsetY
         }
 
-        // if (TOUCH_EVS.includes(ev.type)) {
-        //     //* Prevent triggering the mouse screen dragging event
-        //     ev.preventDefault()
-        //     //* Gets the first touch point
-        //     ev = ev.changedTouches[0]
-        //     //* Calc the right pos according to the touch screen
-        //     pos = {
-        //         x: ev.clientX - ev.target.offsetLeft - ev.target.clientLeft,
-        //         y: ev.clientY - ev.target.offsetTop - ev.target.clientTop,
-        //     }
-        // }
+        if (TOUCH_EVS.includes(ev.type)) {
+            //* Prevent triggering the mouse screen dragging event
+            ev.preventDefault()
+            //* Gets the first touch point
+            ev = ev.changedTouches[0]
+            //* Calc the right pos according to the touch screen
+            pos = {
+                x: ev.clientX - ev.target.offsetLeft - ev.target.clientLeft,
+                y: ev.clientY - ev.target.offsetTop - ev.target.clientTop,
+            }
+        }
 
         return pos
     }
