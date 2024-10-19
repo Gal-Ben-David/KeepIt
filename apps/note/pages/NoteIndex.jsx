@@ -268,12 +268,14 @@ export function NoteIndex() {
     return (
         <section className="main-note">
             <section className="keep-header">
-                <button className="note-bars-btn" onClick={() => { setIsExpandedMenu(prevValue => !prevValue) }}>
-                    <img src="assets\img\menu.png" />
-                </button>
-                <div className="keep-logo">
-                    <img src="assets\img\keeps.png" />
-                    <span>Keep</span>
+                <div className="menu-and-logo">
+                    <button className="note-bars-btn" onClick={() => { setIsExpandedMenu(prevValue => !prevValue) }}>
+                        <img src="assets\img\menu.png" />
+                    </button>
+                    <div className="keep-logo">
+                        <img src="assets\img\keeps.png" />
+                        <span>Keep</span>
+                    </div>
                 </div>
 
                 <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} handleFromClick={handleFromClick} />

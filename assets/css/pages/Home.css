@@ -34,10 +34,6 @@
      gap: 4em;
  }
 
- .app-logo {
-     width: 12em;
- }
-
  .app-logo img {
      transition: 0.5s ease-in-out;
      cursor: pointer;
@@ -82,6 +78,5 @@
 
  .welcome-area p {
      margin: 0;
-     font-size: 1.6em;
      letter-spacing: 0.07em;
  }
