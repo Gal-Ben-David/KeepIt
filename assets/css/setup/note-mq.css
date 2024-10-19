@@ -4,6 +4,10 @@
         column-gap: 20px;
     }
 
+    .home {
+        width: 80vw;
+    }
+
     .welcome-area h1 {
         font-size: 2em;
     }
@@ -17,7 +21,7 @@
 
     .menu-and-notes {
         display: flex;
-        gap: 1em;
+        gap: 0.5em;
     }
 
     .actions-collapsed-form {
@@ -36,7 +40,34 @@
     }
 
     .welcome-area p {
-        font-size: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .menu-notes {
+        right: -200px;
+    }
+
+    .form-filter {
+        width: 100%;
+    }
+
+    .add-note-form {
+        width: 60vw;
+        margin-inline-end: 1em;
+    }
+
+    .team-lead {
+        flex-direction: column;
+        margin: auto;
+        padding: 2.7em;
+    }
+
+    .team-member {
+        width: 20em;
+    }
+
+    .team-member hr {
+        width: 15em;
     }
 
 }
@@ -44,6 +75,10 @@
 @media (min-width: 601px) {
     ul.notes {
         columns: 2;
+    }
+
+    .home {
+        width: 60vw;
     }
 
     .welcome-area h1 {
@@ -73,6 +108,43 @@
         font-size: 1.6rem;
     }
 
+    .menu-notes {
+        right: -220px;
+    }
+
+    .form-filter {
+        width: 70vw;
+        max-width: 50em;
+    }
+
+    .add-note-form {
+        width: 50vw;
+        max-width: 36em;
+    }
+
+    .note-bars-btn {
+        margin-inline-start: 1em;
+    }
+
+    .team-lead {
+        flex-direction: row;
+        padding: 1em;
+    }
+
+    .team-member {
+        width: 26em;
+    }
+
+    .team-member hr {
+        width: 18em;
+    }
+
+    .team-member ul {
+        margin: 0;
+        margin-inline-start: 1.5em;
+        margin-block-start: 1em;
+    }
+
 }
 
 @media (min-width: 900px) {
@@ -85,6 +157,11 @@
         flex-direction: row;
         align-items: flex-start;
         gap: 15em;
+    }
+
+    .canvas-container {
+        width: 600px;
+        height: 600px;
     }
 }
 
@@ -99,8 +176,5 @@
         columns: 5;
     }
 
-    .canvas-container {
-        width: 600px;
-        height: 600px;
-    }
+
 }

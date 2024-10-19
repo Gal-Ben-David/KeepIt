@@ -33,7 +33,6 @@
     align-items: center;
     justify-content: center;
 
-    width: 26em;
     height: 40em;
     border-radius: 2em;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
@@ -44,10 +43,6 @@
 .team-member:hover,
 .team-lead:hover {
     transform: scale(1.02);
-}
-
-.team-member hr {
-    width: 18em;
 }
 
 .team-member-description {
@@ -89,10 +84,6 @@
 
     justify-self: start;
     align-self: flex-start;
-
-    margin: 0;
-    margin-inline-start: 1.5em;
-    margin-block-start: 1em;
 }
 
 .team-member li {
@@ -112,7 +103,7 @@
 .team-lead {
     display: flex;
     gap: 3em;
-    padding: 1em;
+
     border-radius: 2em;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 

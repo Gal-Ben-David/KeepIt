@@ -26,9 +26,6 @@
      flex-direction: column;
      position: relative;
 
-     width: 50vw;
-     max-width: 36em;
-
      border: 1px solid lightgray;
      border-radius: 0.6em;
 
@@ -151,6 +148,7 @@
 
  .menu-and-logo {
      display: flex;
+     gap: 1em;
  }
 
  .keep-logo {
@@ -168,8 +166,7 @@
      background-color: transparent;
      border: none;
 
-     margin-inline-start: 1em;
-     padding: 10px 20px;
+     padding: 10px 15px;
 
      font-size: 1.5rem;
      cursor: pointer;
