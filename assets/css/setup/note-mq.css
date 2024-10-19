@@ -70,6 +70,25 @@
         width: 15em;
     }
 
+    .option-types {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .option-types>* {
+        width: 6em;
+        height: 6em;
+    }
+
+    .option-types i {
+        margin-block-start: 1em;
+        font-size: 1.4em;
+    }
+
+    .clear-filter-btn {
+        margin-inline-end: 2em;
+    }
+
 }
 
 @media (min-width: 601px) {
@@ -143,6 +162,24 @@
         margin: 0;
         margin-inline-start: 1.5em;
         margin-block-start: 1em;
+    }
+
+    .option-types>* {
+        width: 10em;
+        height: 10em;
+    }
+
+    .option-types i {
+        margin-block-start: 1.5em;
+        font-size: 2em;
+    }
+
+    .clear-filter-btn {
+        margin-inline-end: 1em;
+    }
+
+    .option-types {
+        flex-wrap: nowrap;
     }
 
 }

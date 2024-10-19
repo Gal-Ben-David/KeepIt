@@ -276,7 +276,7 @@ function _createNotes() {
 
 
             _createNote(1112222,
-                ['NoteTxt'],
+                ['NoteTodos'],
                 'Action items from weekly meeting',
                 false,
                 { backgroundColor: '#E2F6D3' },
@@ -366,7 +366,7 @@ function _createNotes() {
                 []),
 
             _createNote(1112270,
-                ['NoteTxt'],
+                ['NoteImg'],
                 'Reminder',
                 false,
                 { backgroundColor: '#FFF8B8' },

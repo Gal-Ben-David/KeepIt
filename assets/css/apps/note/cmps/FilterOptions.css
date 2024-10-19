@@ -6,7 +6,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 40em;
+    width: 70vw;
+    max-width: 40em;
     padding: 1em 0 0.2em;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     font-family: inherit;
@@ -20,7 +21,7 @@
 .clear-filter-btn {
     border: none;
     border-radius: 0.5em;
-    margin-inline-end: 1em;
+
     padding: 0.5em;
 
     font-family: inherit;
@@ -51,9 +52,6 @@
     justify-content: center;
     align-items: center;
 
-    width: 10em;
-    height: 10em;
-
     background-color: #1A73E8;
     color: white;
     cursor: pointer;
@@ -67,6 +65,4 @@
 .option-types i {
     padding: 0;
     justify-self: center;
-    margin-block-start: 1.5em;
-    font-size: 2em;
 }
