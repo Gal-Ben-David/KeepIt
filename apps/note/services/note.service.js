@@ -44,7 +44,6 @@ function get(noteId) {
 }
 
 function remove(noteId) {
-    // return Promise.reject('Oh No!')
     return storageService.remove(NOTE_KEY, noteId)
 }
 
@@ -71,32 +70,7 @@ function _createNotes() {
     let notes = loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = [
-            _createNote(1112222,
-                ['NoteTxt'],
-                'Meeting summery',
-                false,
-                { backgroundColor: '#eaece5' },
-                {
-                    txt:
-                        "Marketing campaign is on track, \n" +
-                        "Need to reduce expenses by 10%, \n" +
-                        "Final presentation is due next week"
-                },
-                ['work']),
 
-            _createNote(1112222,
-                ['NoteTxt'],
-                'Action items from weekly meeting',
-                false,
-                { backgroundColor: '#E2F6D3' },
-                {
-                    todos: [
-                        { txt: 'Finalize the budget by Friday', isChecked: false },
-                        { txt: 'Prepare the presentation slides', isChecked: true },
-                        { txt: 'contact the client for feedback', isChecked: true },],
-                    txt: ''
-                },
-                ['work']),
 
             _createNote(1112223,
                 ['NoteImg'],
@@ -131,6 +105,16 @@ function _createNotes() {
                 },
                 ['music', 'motivation']),
 
+            _createNote(1112230,
+                ['NoteTxt'],
+                '',
+                true,
+                { backgroundColor: '#ffffff' },
+                {
+                    txt: 'Investigate methods to enhance project efficiency'
+                },
+                ['work']),
+
             _createNote(1112226,
                 ['NoteTodos'],
                 'Daily Work Tasks',
@@ -152,6 +136,17 @@ function _createNotes() {
                     txt: ''
                 },
                 []),
+
+            _createNote(1112260,
+                ['NoteImg'],
+                '',
+                true,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/budapest.png',
+                    txt: ''
+                },
+                ['myGallery', 'Budapest']),
 
             _createNote(1112228,
                 ['NoteImg'],
@@ -266,6 +261,35 @@ function _createNotes() {
                 },
                 ['myGallery', 'Batumi']),
 
+            _createNote(1112222,
+                ['NoteTxt'],
+                'Meeting summery',
+                false,
+                { backgroundColor: '#eaece5' },
+                {
+                    txt:
+                        "Marketing campaign is on track, \n" +
+                        "Need to reduce expenses by 10%, \n" +
+                        "Final presentation is due next week"
+                },
+                ['work']),
+
+
+            _createNote(1112222,
+                ['NoteTxt'],
+                'Action items from weekly meeting',
+                false,
+                { backgroundColor: '#E2F6D3' },
+                {
+                    todos: [
+                        { txt: 'Finalize the budget by Friday', isChecked: false },
+                        { txt: 'Prepare the presentation slides', isChecked: true },
+                        { txt: 'contact the client for feedback', isChecked: true },],
+                    txt: ''
+                },
+                ['work']),
+
+
             _createNote(1112245,
                 ['NoteImg'],
                 '',
@@ -276,6 +300,7 @@ function _createNotes() {
                     txt: ''
                 },
                 ['myGallery']),
+
 
             _createNote(1112233,
                 ['NoteTxt'],
@@ -303,6 +328,28 @@ function _createNotes() {
                 },
                 ['food']),
 
+            _createNote(1112260,
+                ['NoteImg'],
+                '',
+                false,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/sunset2.png',
+                    txt: ''
+                },
+                ['myGallery']),
+
+            _createNote(1112260,
+                ['NoteImg'],
+                '',
+                false,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/house.png',
+                    txt: 'Restaurant Senate'
+                },
+                ['myGallery']),
+
             _createNote(1112241,
                 ['NoteTodos'],
                 'Travel Preparation',
@@ -326,7 +373,68 @@ function _createNotes() {
                     imgUrl: 'assets/img/icecream.png',
                     txt: 'Gelarto rosa, Budapest 🍦'
                 },
-                ['myGallery', 'Batumi']),
+                ['myGallery', 'Budapest', 'food']),
+
+            _createNote(1112252,
+                ['NoteImg'],
+                '',
+                false,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/austria.png',
+                    txt: 'Vienna, Austria'
+                },
+                ['myGallery', 'Austria']),
+
+
+            _createNote(1112260,
+                ['NoteImg', 'NoteTxt'],
+                'Homemade bread',
+                false,
+                { backgroundColor: '#fcf4dd' },
+                {
+                    imgUrl: 'assets/img/bread.png',
+                    txt: "Ingredients:\n" +
+                        "• 3 1/2 cups (420g) all-purpose flour \n" +
+                        "• 1 packet (2 1/4 teaspoons) active dry yeast \n" +
+                        "• 1 1/4 cups (300ml) warm water (110°F/45°C) \n" +
+                        "• 1 tablespoon (15g) sugar \n" +
+                        "• 1 teaspoon (5g) salt\n " +
+                        "• 2 tablespoons (30ml) olive oil (optional, for a softer texture)\n" +
+                        '\n' +
+                        "Instructions:\n" +
+                        "• In a small bowl, combine the warm water, sugar, and yeast. Let it sit for 5-10 minutes until it becomes frothy.\n" +
+                        "• Place the dough on a floured surface and knead for about 8-10 minutes until smooth and elastic.\n" +
+                        "• Place the dough in a lightly greased bowl, cover with a damp cloth, and let it rise for about 1-2 hours or until it has doubled in size.\n" +
+                        "• Punch down the dough to release the air, then shape it into a loaf or divide it into smaller rolls.\n" +
+                        "• Place the shaped dough on a greased baking sheet or in a loaf pan. Cover and let it rise for another 30-45 minutes.\n" +
+                        "• Preheat the oven to 375°F (190°C). Bake for 25-30 minutes or until the bread is golden brown and sounds hollow when tapped on the bottom.\n"
+
+                },
+                ['myGallery', 'food']),
+
+            _createNote(1112260,
+                ['NoteImg'],
+                'Golden horse',
+                false,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/golden-horse.png',
+                    txt: 'Udim, Israel'
+                },
+                ['myGallery']),
+
+            _createNote(1112260,
+                ['NoteImg'],
+                '',
+                false,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/jump.png',
+                    txt: ''
+                },
+                ['myGallery']),
+
         ]
         console.log(notes)
         saveToStorage(NOTE_KEY, notes)
