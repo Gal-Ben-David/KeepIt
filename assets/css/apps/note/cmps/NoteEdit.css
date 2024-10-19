@@ -8,6 +8,8 @@
 
     width: 50vw;
     max-width: 36em;
+    max-height: 80vh;
+    overflow-y: auto;
 
     border-radius: 0.6em;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
