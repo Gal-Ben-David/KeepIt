@@ -7,6 +7,7 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
     const containerCanvasRef = useRef(null)
     let context = null
     let gLastPos = { x: 0, y: 0 }
+    let isDraw = false
     const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
     useEffect(() => {
@@ -65,11 +66,14 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
         const pos = getEvPos(ev)
         gLastPos = pos
 
+        isDraw = true
+
         document.body.style.cursor = 'grabbing'
     }
 
     function onMove(ev) {
         if (ev.type === 'mousemove' && ev.buttons !== 1) return
+        if (!isDraw) return
         const pos = getEvPos(ev)
 
         drawLine(gLastPos.x, gLastPos.y, pos.x, pos.y)
@@ -78,6 +82,7 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
     }
 
     function onUp() {
+        isDraw = false
         document.body.style.cursor = 'grab'
     }
 
