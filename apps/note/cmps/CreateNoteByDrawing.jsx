@@ -17,14 +17,3 @@ export function CreateNoteByDrawing({ note, setIsExpandedForm, setNoteToAdd, isD
         </Modal>
     )
 }
-
-{/* <div className="url-input">
-<input
-    type="text"
-    name="drawingUrl"
-    id="imgUrl"
-    placeholder="Enter an image url"
-    value={note.info.drawingUrl || ''}
-    onChange={handleInfoChange}
-    style={{ backgroundColor: bgColor || '#ffffff' }} />
-</div> */}

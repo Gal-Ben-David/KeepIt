@@ -37,25 +37,6 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
         }
     }, [isOpen, noteToEdit])
 
-    // function handleChange({ target }) {
-    //     let { value, name: field, type } = target
-    //     switch (type) {
-    //         case 'number':
-    //         case 'range':
-    //             value = +value
-    //             break;
-
-    //         case 'checkbox':
-    //             value = target.checked
-    //             break
-
-    //         case 'color':
-    //             value = { backgroundColor: value }
-    //             break
-    //     }
-    //     setNoteToEdit((prevNote) => ({ ...prevNote, [field]: value }))
-    // }
-
     function handleInfoChange({ target }) {
         let { value, name: field, type } = target
         switch (type) {
@@ -107,7 +88,6 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
     }
 
     function onSubmit(updatedNote) {
-        // ev.preventDefault()
         const updatedNoteToSubmit = { ...setNoteType(updatedNote) }
 
         noteService.save(updatedNoteToSubmit)
@@ -319,8 +299,6 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
 
 function DynamicCmp(props) {
     switch (props.noteType) {
-        // case 'NoteTxt':
-        //     return <CreateNoteByTextbox {...props} />
         case 'NoteImg':
             return <CreateNoteByImg {...props} />
         case 'NoteVideo':

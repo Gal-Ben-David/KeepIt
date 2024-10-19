@@ -10,17 +10,6 @@ export function Home() {
 
     return (
         <section className="home">
-
-            {/* <div className="animation-container">
-                <video
-                    src="assets/animation/horse.mp4"
-                    width="100"
-                    autoPlay
-                    // controls
-                    loop
-                />
-            </div> */}
-
             <div className="welcome-area">
                 <h1>Appsus</h1>
 

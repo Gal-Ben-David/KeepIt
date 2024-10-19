@@ -104,27 +104,6 @@ export function NoteIndex() {
         return noteToCheck
     }
 
-    // function handleChange({ target }) {
-    //     let { value, name: field, type } = target
-    //     switch (type) {
-    //         case 'number':
-    //         case 'range':
-    //             value = +value
-    //             break;
-
-    //         case 'checkbox':
-    //             value = target.checked
-    //             break
-    //     }
-    //     setNoteToAdd((prevNote) => {
-    //         if (field === 'noteTitle') {
-    //             return { ...prevNote, noteTitle: value }
-    //         }
-    //         return { ...prevNote, info: { ...noteToEdit.info, [field]: value } }
-
-    //     })
-    // }
-
     function handleInfoChange({ target }) {
         let { value, name: field, type } = target
         switch (type) {
@@ -137,8 +116,6 @@ export function NoteIndex() {
                 value = target.checked
                 break
         }
-        console.log(noteToAdd)
-        // setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
 
         setNoteToAdd((prevNote) => {
             if (field === 'imgUrl') {
@@ -389,7 +366,6 @@ export function NoteIndex() {
 
                                     <DynamicCmp
                                         cmpType={cmpType}
-                                        // handleChange={handleChange}
                                         handleInfoChange={handleInfoChange}
                                         handleInfoChangeForTodos={handleInfoChangeForTodos}
                                         todosCounter={todosCounter}
