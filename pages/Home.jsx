@@ -1,5 +1,7 @@
 const { useEffect } = React
 
+const { NavLink } = ReactRouterDOM
+
 export function Home() {
 
     useEffect(() => {
@@ -33,8 +35,8 @@ export function Home() {
             <div className="apps-container">
                 <h2>Our Apps</h2>
                 <div className="logos">
-                    <div className="app-logo"> <img src="assets/img/mail-icons/gmail-logo.png" /></div>
-                    <div className="app-logo">  <img src="assets/img/keeps.png" /></div>
+                    <NavLink to="/mail"> <div className="app-logo"> <img src="assets/img/mail-icons/gmail-logo.png" /></div></NavLink>
+                    <NavLink to="/note"> <div className="app-logo">  <img src="assets/img/keeps.png" /></div></NavLink>
                 </div>
             </div>
         </section>

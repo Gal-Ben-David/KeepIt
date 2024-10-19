@@ -4,11 +4,12 @@ export function AppHeader() {
 
     return <header className="app-header">
         <Link to="/">
-            <div className="logo">
-                {/* <img src="/assets/img/horse.png" /> */}
-                <img src="assets\img\horse.png" />
-                <h2>Appsus</h2>
-            </div>
+            <NavLink to="/">
+                <div className="logo">
+                    <img src="assets\img\horse.png" />
+                    <h2>Appsus</h2>
+                </div>
+            </NavLink>
         </Link>
         <nav>
             <NavLink to="/">Home</NavLink>

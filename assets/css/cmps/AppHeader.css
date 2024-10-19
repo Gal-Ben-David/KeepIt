@@ -23,8 +23,6 @@ nav a {
     font-size: 1.1em;
     margin: .5em;
 
-
-
     border-radius: 0.5em;
     transition: 0.2s ease;
     cursor: pointer;
@@ -52,6 +50,7 @@ nav a.active {
     align-items: center;
 
     margin-inline-start: 2em;
+    cursor: pointer;
 }
 
 .logo img {
