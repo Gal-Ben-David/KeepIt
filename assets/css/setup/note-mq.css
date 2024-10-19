@@ -89,6 +89,17 @@
         margin-inline-end: 2em;
     }
 
+    .color-input {
+        bottom: -5px;
+        left: 140%;
+        transform: translateX(-140%);
+    }
+
+    .color-input .items-container {
+        flex-wrap: wrap;
+    }
+
+
 }
 
 @media (min-width: 601px) {
@@ -180,6 +191,16 @@
 
     .option-types {
         flex-wrap: nowrap;
+    }
+
+    .color-input .items-container {
+        flex-wrap: nowrap;
+    }
+
+    .color-input {
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
 }
