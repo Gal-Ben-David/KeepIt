@@ -13,6 +13,8 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
     const [selectedSideFilter, setSelectedSideFilter] = useState('inbox')
 
     const navigate = useNavigate()
+    const sideMenu = useRef()
+    const sideBackdropMenu = useRef()
 
     useEffect(() => {
         getAllMails()
@@ -73,30 +75,35 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'inbox' }))
         setSelectedSideFilter('inbox')
+        openSideMenuBackdrop()
     }
 
     function onSentMails() {
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'sent' }))
         setSelectedSideFilter('sent')
+        openSideMenuBackdrop()
     }
 
     function onStarredMails() {
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'starred' }))
         setSelectedSideFilter('starred')
+        openSideMenuBackdrop()
     }
 
     function onTrashMails() {
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'trash' }))
         setSelectedSideFilter('trash')
+        openSideMenuBackdrop()
     }
 
     function onDraftsMails() {
         setSortBy('')
         setFilterByToEdit(prevFilter => ({ ...prevFilter, status: 'drafts' }))
         setSelectedSideFilter('drafts')
+        openSideMenuBackdrop()
     }
 
     function onSelectedTopFilter(status) {
@@ -137,6 +144,17 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         else return <img src="assets\img\mail-icons\draft_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="drafts-empty" />
     }
 
+    function openMailMenu(){
+        sideMenu.current.classList.add('show-side-menu')
+        sideBackdropMenu.current.classList.remove('hide')
+    }
+
+    function openSideMenuBackdrop(){
+        sideMenu.current.classList.remove('show-side-menu')
+        sideBackdropMenu.current.classList.add('hide')
+
+    }
+
     const {
         status,
         isRead,
@@ -164,7 +182,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
         <React.Fragment>
             <section className="top-filter">
                 <form onSubmit={onSubmit} className="search-bar-container">
-                    <div className="gmail-logo"><img src="assets\img\mail-icons\gmail-logo.png" alt="gmail-logo" /></div>
+                    <div className="gmail-logo menu-gmail"><img onClick={openMailMenu} className="side-menu hide" src="assets\img\mail-icons\menu_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="menu" /><img src="assets\img\mail-icons\gmail-logo.png" alt="gmail-logo" /></div>
 
                     <div className="search-bar">
                         <button disabled={!isValid} className="search-btn"><img src="assets\img\mail-icons\search_24dp_202124_FILL1_wght400_GRAD0_opsz24.png" alt="search" /></button>
@@ -188,9 +206,9 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                     </button>
                 </div>
             </section>
-            <section className="side-filter">
+            <section ref={sideMenu} className="side-filter">
                 <button onClick={backToIndex ? () => backToIndex() : openMailCompose} className="mail-compose-btn">
-                    <section className="mail-compose-btn-container">
+                    <section onClick={openSideMenuBackdrop} className="mail-compose-btn-container">
                         <img src="assets\img\mail-icons\edit_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="pencil" />
                         <span>Compose</span>
                     </section>
@@ -230,6 +248,7 @@ export function MailFilter({ setSortBy, setMails, isIndex, backToIndex, mails, o
                     </section>
                 </button>
             </section>
+            <div ref={sideBackdropMenu} onClick={openSideMenuBackdrop} className="side-menu-backdrop hide"></div>
         </React.Fragment>
     )
 }

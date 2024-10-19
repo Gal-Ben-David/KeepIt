@@ -54,25 +54,7 @@ export function MailIndex() {
     function openMailCompose() {
         setIsMailCompose(true)
         setDateCompose(new Date())
-        // setMailToEdit(mail => {
-        //     mail.id = utilService.makeId()
-        //     return mail
-        // })
-        // setMailToEdit(mailToEdit)
-        // mailService.save(mailToEdit)
-        // intervalRef.current = setInterval(() => {
-        //     console.log(mailToEdit);
-            // mailService.save(mailToEdit)
-        // }, 3000)
     }
-
-    // function saveMailToDrafts() {
-    //     mailService.save(mailToEdit)
-    //     // console.log(mailToEdit)
-
-    //     // .finally(() => {
-    //     //     setIsMailCompose(false)})
-    // }
 
     function onReadMail(mail) {
         mail.isRead = !mail.isRead

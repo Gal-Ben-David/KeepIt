@@ -67,3 +67,11 @@
     border-radius: 50%;
     width: 3em;
 }
+
+.mail-details{
+    overflow-y: scroll;
+}
+
+.mail-main p{
+    padding-bottom: 1em;
+}
