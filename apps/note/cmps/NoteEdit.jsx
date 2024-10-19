@@ -63,7 +63,6 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
             }
             if (field === 'tag') {
                 const tags = value.split(',')
-                console.log(tags)
                 return { ...prevNote, labels: tags }
             }
             return { ...prevNote, info: { ...prevNote.info, [field]: value } }

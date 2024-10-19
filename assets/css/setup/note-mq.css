@@ -3,11 +3,19 @@
         columns: 1;
         column-gap: 20px;
     }
+
+    .welcome-area h1 {
+        font-size: 3em;
+    }
 }
 
 @media (min-width: 601px) {
     ul.notes {
         columns: 2;
+    }
+
+    .welcome-area h1 {
+        font-size: 5em;
     }
 }
 
