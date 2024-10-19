@@ -100,12 +100,23 @@ function _createNotes() {
 
             _createNote(1112223,
                 ['NoteImg'],
-                'Tiger',
+                'Talent is nothing without persistence',
                 false,
                 { backgroundColor: '#FFDFD3' },
                 {
                     imgUrl: 'https://media.4-paws.org/5/4/4/c/544c2b2fd37541596134734c42bf77186f0df0ae/VIER%20PFOTEN_2017-10-20_164-3854x2667-1920x1329.jpg',
-                    txt: 'Here is my tiger'
+                    txt: ''
+                },
+                []),
+
+            _createNote(1112225,
+                ['NoteImg'],
+                'Success is a journey, not a destination - keep moving forward',
+                true,
+                { backgroundColor: '#FFDFD3' },
+                {
+                    imgUrl: 'https://www.worldanimalprotection.ca/cdn-cgi/image/width=1280,format=auto/siteassets/shutterstock_2461984615.jpg',
+                    txt: ''
                 },
                 []),
 
@@ -119,17 +130,6 @@ function _createNotes() {
                     txt: '🎵 Remember to explore MorningLightMusic for background music. '
                 },
                 ['music', 'motivation']),
-
-            _createNote(1112225,
-                ['NoteImg'],
-                'Success is a journey, not a destination - keep moving forward',
-                true,
-                { backgroundColor: '#FFDFD3' },
-                {
-                    imgUrl: 'https://www.worldanimalprotection.ca/cdn-cgi/image/width=1280,format=auto/siteassets/shutterstock_2461984615.jpg',
-                    txt: ''
-                },
-                []),
 
             _createNote(1112226,
                 ['NoteTodos'],
@@ -148,7 +148,7 @@ function _createNotes() {
                 true,
                 { backgroundColor: '#EFEFF1' },
                 {
-                    todos: [{ txt: 'milk', isChecked: false }, { txt: 'eggs', isChecked: true }, { txt: 'vegetables', isChecked: false }, { txt: 'bread', isChecked: false }],
+                    todos: [{ txt: 'milk', isChecked: false }, { txt: 'eggs', isChecked: true }, { txt: 'vegetables', isChecked: true }, { txt: 'bread', isChecked: false }],
                     txt: ''
                 },
                 []),
@@ -173,7 +173,7 @@ function _createNotes() {
                     imgUrl: 'assets/img/sunset.png',
                     txt: ''
                 },
-                []),
+                ['myGallery']),
 
             _createNote(1112230,
                 ['NoteTxt'],
@@ -254,6 +254,29 @@ function _createNotes() {
 
                 },
                 ['food']),
+
+            _createNote(1112229,
+                ['NoteImg'],
+                'Batumi, Georgia',
+                true,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/cow.png',
+                    txt: ''
+                },
+                ['myGallery', 'Batumi']),
+
+            _createNote(1112245,
+                ['NoteImg'],
+                '',
+                false,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/natureview.png',
+                    txt: ''
+                },
+                ['myGallery']),
+
             _createNote(1112233,
                 ['NoteTxt'],
                 'Fresh Mediterranean Salad 🥗',
@@ -294,6 +317,16 @@ function _createNotes() {
                     txt: ''
                 },
                 []),
+            _createNote(1112250,
+                ['NoteImg'],
+                '',
+                false,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/icecream.png',
+                    txt: 'Gelarto rosa, Budapest 🍦'
+                },
+                ['myGallery', 'Batumi']),
         ]
         console.log(notes)
         saveToStorage(NOTE_KEY, notes)
