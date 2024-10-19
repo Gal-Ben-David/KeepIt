@@ -6,8 +6,6 @@
     display: flex;
     flex-direction: column;
     gap: 0.6em;
-    width: 600px;
-    height: 600px;
 }
 
 canvas {

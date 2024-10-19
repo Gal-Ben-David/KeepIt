@@ -105,10 +105,10 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
     function onSaveDrawing() {
         const dataURL = canvasRef.current.toDataURL('image/png')
         if (isAddingNote) {
-            setNoteToAdd(prevNote => ({ ...prevNote, info: { drawingUrl: dataURL } }))
+            setNoteToAdd(prevNote => ({ ...prevNote, info: { ...prevNote.info, drawingUrl: dataURL } }))
             setIsExpandedForm(true)
         }
-        else setNoteToEdit(prevNote => ({ ...prevNote, info: { drawingUrl: dataURL } }))
+        else setNoteToEdit(prevNote => ({ ...prevNote, info: { ...prevNote.info, drawingUrl: dataURL } }))
 
         setDrawingUrl(dataURL)
         closeDrawingModal()

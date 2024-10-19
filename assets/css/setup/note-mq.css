@@ -3,17 +3,88 @@
         columns: 1;
         column-gap: 20px;
     }
+
+    .welcome-area h1 {
+        font-size: 2em;
+    }
+
+    .keep-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1em;
+    }
+
+    .menu-and-notes {
+        display: flex;
+        gap: 1em;
+    }
+
+    .actions-collapsed-form {
+        position: absolute;
+        top: 150%;
+    }
+
+    .canvas-container {
+        width: 300px;
+        height: 300px;
+    }
+
+    .app-logo {
+        width: 6em;
+        margin-block-end: 5em;
+    }
+
+    .welcome-area p {
+        font-size: 1rem;
+    }
+
 }
 
 @media (min-width: 601px) {
     ul.notes {
         columns: 2;
     }
+
+    .welcome-area h1 {
+        font-size: 5em;
+    }
+
+    .keep-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1em;
+    }
+
+    .menu-and-notes {
+        gap: 5em;
+    }
+
+    .actions-collapsed-form {
+        top: 50%;
+    }
+
+    .app-logo {
+        width: 12em;
+    }
+
+    .welcome-area p {
+        font-size: 1.6rem;
+    }
+
 }
 
 @media (min-width: 900px) {
     ul.notes {
         columns: 3;
+    }
+
+    .keep-header {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 15em;
     }
 }
 
@@ -26,5 +97,10 @@
 @media (min-width: 1500px) {
     ul.notes {
         columns: 5;
+    }
+
+    .canvas-container {
+        width: 600px;
+        height: 600px;
     }
 }

@@ -364,16 +364,17 @@ function _createNotes() {
                     txt: ''
                 },
                 []),
-            _createNote(1112250,
-                ['NoteImg'],
-                '',
+
+            _createNote(1112270,
+                ['NoteTxt'],
+                'Reminder',
                 false,
-                { backgroundColor: '#ffffff' },
+                { backgroundColor: '#FFF8B8' },
                 {
-                    imgUrl: 'assets/img/icecream.png',
-                    txt: 'Gelarto rosa, Budapest 🍦'
+                    imgUrl: 'https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/B875/production/_102512274_gettyimages-518360318.jpg',
+                    txt: 'Take 10 minutes to clear your mind and relax.'
                 },
-                ['myGallery', 'Budapest', 'food']),
+                []),
 
             _createNote(1112252,
                 ['NoteImg'],
@@ -423,6 +424,17 @@ function _createNotes() {
                     txt: 'Udim, Israel'
                 },
                 ['myGallery']),
+
+            _createNote(1112250,
+                ['NoteImg'],
+                '',
+                false,
+                { backgroundColor: '#ffffff' },
+                {
+                    imgUrl: 'assets/img/icecream.png',
+                    txt: 'Gelarto rosa, Budapest 🍦'
+                },
+                ['myGallery', 'Budapest', 'food']),
 
             _createNote(1112260,
                 ['NoteImg'],
