@@ -27,6 +27,11 @@
     background-color: var(--crl-mail-search-bar);
 }
 
+.compose-header .top-buttons button{
+    display: flex;
+    align-items: center;
+}
+
 .mail-compose-container img {
     width: 1.2em;
 }
