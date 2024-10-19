@@ -7,11 +7,6 @@ export function AppHeader() {
     const backdropRef = useRef()
 
     function toggleMenu() {
-        // pointer-events: none;
-        // opacity: 1;
-        
-        // navRef.current.style.opacity = 1
-        // navRef.current.style.pointerEvents = 'all'
         navRef.current.classList.toggle('show')
         backdropRef.current.classList.toggle('hide')
     }
