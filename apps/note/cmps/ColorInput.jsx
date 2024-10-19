@@ -6,7 +6,7 @@ export function ColorInput({ onSetNoteStyle, bgColor }) {
         '#FFF8B8',
         '#E2F6D3',
         '#AECCDC',
-        '#D3BFDB',
+        '#e8dff5',
         '#F6E2DD',
         '#FCF4DD',
         '#E9E3D4',
