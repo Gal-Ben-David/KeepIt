@@ -94,11 +94,14 @@ export function NoteIndex() {
     }
 
     function setNoteType(note) {
-        if (note.info.imgUrl) note.type = 'NoteImg'
-        else if (note.info.videoUrl) note.type = 'NoteVideo'
-        else if (note.info.todos) note.type = 'NoteTodos'
-        else if (note.info.drawingUrl) note.type = 'NoteDrawing'
-        else note.type = 'NoteTxt'
+        const noteToCheck = { ...note }
+        noteToCheck.type = []
+        if (noteToCheck.info.imgUrl) noteToCheck.type.push('NoteImg')
+        if (noteToCheck.info.videoUrl) noteToCheck.type.push('NoteVideo')
+        if (noteToCheck.info.todos && note.info.todos.length !== 0) noteToCheck.type.push(note.type = 'NoteTodos')
+        if (noteToCheck.info.drawingUrl) noteToCheck.type.push('NoteDrawing')
+        if (noteToCheck.info.txt || noteToCheck.noteTitle) noteToCheck.type.push('NoteTxt')
+        return noteToCheck
     }
 
     // function handleChange({ target }) {
@@ -165,15 +168,15 @@ export function NoteIndex() {
 
         todosNote.info.todos[idx] = { txt: value, isChecked: false }
 
-        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos].filter(todo => todo) } }))
+        setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos].filter(todo => todo.txt) } }))
     }
 
     function onSubmit(newNote, autoSubmit = false) {
         const noteToSave = (autoSubmit) ? newNote : noteToAdd
         console.log(noteToSave)
 
-        setNoteType(noteToSave)
-        noteService.save(noteToSave)
+        const noteToSubmit = { ...setNoteType(noteToSave) }
+        noteService.save(noteToSubmit)
             .then(note => {
                 console.log(note)
                 console.log('Note added')
@@ -227,7 +230,6 @@ export function NoteIndex() {
                 console.log('err:', err)
                 showErrorMsg(`Problems duplicating note`)
             })
-
     }
 
     function handleChangeTextAreaDimensions(ev) {
@@ -243,7 +245,9 @@ export function NoteIndex() {
         return (
             <div className="edit-video-or-img">
                 {element}
-                <button className="delete-btn" type='button' onClick={() => onRemoveUrl(urlType)}><i className="fa-solid fa-trash"></i></button>
+                <button className="delete-btn" type='button' onClick={() => onRemoveUrl(urlType)}>
+                    <i className="fa-solid fa-trash"></i>
+                </button>
             </div>
         )
     }
@@ -434,7 +438,7 @@ export function NoteIndex() {
                                                 type='button'
                                                 title="Drawing"
                                                 onClick={() => { setCmpType('NoteDrawing'); setIsDrawingModalOpen(true) }}>
-                                                <i className="fa-solid fa-pencil"></i>
+                                                <i className="fa-solid fa-paintbrush"></i>
                                             </button>
 
                                             <button

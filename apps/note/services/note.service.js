@@ -33,7 +33,7 @@ function query(filterBy = {}) {
             }
 
             if (filterBy.type) {
-                notes = notes.filter(note => note.type === filterBy.type)
+                notes = notes.filter(note => note.type.includes(filterBy.type))
             }
             return notes
         })
@@ -56,7 +56,7 @@ function save(note, isPinned = false) {
     }
 }
 
-function getEmptyNote(createdAt = Date.now(), type = 'NoteTxt', noteTitle = '', isPinned = false, style = { backgroundColor: '#ffffff' }, info = { txt: '' }, labels = []) {
+function getEmptyNote(createdAt = Date.now(), type = ['NoteTxt'], noteTitle = '', isPinned = false, style = { backgroundColor: '#ffffff' }, info = { txt: '' }, labels = []) {
     return { createdAt, type, noteTitle, isPinned, style, info, labels }
 }
 
@@ -72,7 +72,7 @@ function _createNotes() {
     if (!notes || !notes.length) {
         notes = [
             _createNote(1112222,
-                'NoteTxt',
+                ['NoteTxt'],
                 'New Note',
                 false,
                 { backgroundColor: '#eaece5' },
@@ -80,7 +80,7 @@ function _createNotes() {
                 []),
 
             _createNote(1112223,
-                'NoteImg',
+                ['NoteImg'],
                 'Tiger',
                 false,
                 { backgroundColor: '#FFDFD3' },
@@ -91,7 +91,7 @@ function _createNotes() {
                 []),
 
             _createNote(1112224,
-                'NoteVideo',
+                ['NoteVideo'],
                 'Cool Motivating Background Music',
                 false,
                 { backgroundColor: '#fcf4dd' },
@@ -102,7 +102,7 @@ function _createNotes() {
                 ['music', 'motivation']),
 
             _createNote(1112225,
-                'NoteImg',
+                ['NoteImg'],
                 'Success is a journey, not a destination - keep moving forward',
                 true,
                 { backgroundColor: '#FFDFD3' },
@@ -113,7 +113,7 @@ function _createNotes() {
                 []),
 
             _createNote(1112226,
-                'NoteTodos',
+                ['NoteTodos'],
                 'Daily Work Tasks',
                 true,
                 { backgroundColor: '#E9E3D4' },
@@ -124,7 +124,7 @@ function _createNotes() {
                 []),
 
             _createNote(1112227,
-                'NoteTodos',
+                ['NoteTodos'],
                 '🛒 Buy groceries',
                 true,
                 { backgroundColor: '#EFEFF1' },
@@ -135,7 +135,7 @@ function _createNotes() {
                 []),
 
             _createNote(1112228,
-                'NoteImg',
+                ['NoteImg'],
                 '',
                 true,
                 { backgroundColor: '#ffffff' },
@@ -146,7 +146,7 @@ function _createNotes() {
                 ['motivation']),
 
             _createNote(1112229,
-                'NoteImg',
+                ['NoteImg'],
                 '',
                 true,
                 { backgroundColor: '#ffffff' },
@@ -157,7 +157,7 @@ function _createNotes() {
                 []),
 
             _createNote(1112230,
-                'NoteTxt',
+                ['NoteTxt'],
                 'Reminder',
                 true,
                 { backgroundColor: '#FCF4DD' },
@@ -167,7 +167,7 @@ function _createNotes() {
                 ['work']),
 
             _createNote(1112230,
-                'NoteTxt',
+                ['NoteTxt'],
                 '',
                 true,
                 { backgroundColor: '#ffffff' },
@@ -177,7 +177,7 @@ function _createNotes() {
                 ['work']),
 
             _createNote(1112231,
-                'NoteTxt',
+                ['NoteTxt'],
                 'Birthday message 🎉',
                 true,
                 { backgroundColor: '#E2F6D3' },

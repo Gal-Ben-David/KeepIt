@@ -69,13 +69,20 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
                 break
         }
         setNoteToEdit((prevNote) => {
-            if (field === 'imgUrl') setImgUrl(value)
-            if (field === 'videoUrl') setVideoUrl(value)
+            if (field === 'imgUrl') {
+                value = value.trim()
+                setImgUrl(value)
+            }
+            if (field === 'videoUrl') {
+                value = value.trim()
+                setVideoUrl(value)
+            }
             if (field === 'noteTitle') {
                 return { ...prevNote, noteTitle: value }
             }
             if (field === 'tag') {
                 const tags = value.split(',')
+                console.log(tags)
                 return { ...prevNote, labels: tags }
             }
             return { ...prevNote, info: { ...prevNote.info, [field]: value } }
@@ -90,7 +97,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
         todosNote.info.todos[idx] = { txt: value, isChecked: false }
 
         console.log(noteToEdit)
-        setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos].filter(todo => todo) } }))
+        setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...prevNote.info, todos: [...todosNote.info.todos].filter(todo => todo.txt) } }))
     }
 
     function changeIsCheckedTodo(todoIdx, note) {
@@ -101,8 +108,9 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
 
     function onSubmit(updatedNote) {
         // ev.preventDefault()
-        setNoteType(updatedNote)
-        noteService.save(updatedNote)
+        const updatedNoteToSubmit = { ...setNoteType(updatedNote) }
+
+        noteService.save(updatedNoteToSubmit)
             .then(note => {
                 console.log(note)
                 console.log('Note updated')
@@ -188,6 +196,8 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
 
     const bgColor = noteToEdit.style.backgroundColor
 
+    console.log(noteToEdit)
+
     return (
         <section>
 
@@ -227,7 +237,8 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
                         onChange={(ev) => { handleInfoChange(ev); handleChangeTextAreaDimensions(ev) }}
                         style={{ backgroundColor: bgColor }} />
 
-                    {noteToEdit.info.todos && renderTodoList(noteToEdit.info.todos, noteToEdit)}
+                    {noteToEdit.info.todos &&
+                        noteToEdit.info.todos.length !== 0 && renderTodoList(noteToEdit.info.todos, noteToEdit)}
 
                     <DynamicCmp
                         noteType={cmpType}
@@ -283,7 +294,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
                                 type='button'
                                 title="Drawing"
                                 onClick={() => { setCmpType('NoteDrawing'); setIsDrawingModalOpen(true) }}>
-                                <i className="fa-solid fa-pencil"></i>
+                                <i className="fa-solid fa-paintbrush"></i>
                             </button>
 
                             <button title="Send by email" onClick={(ev) => { ev.stopPropagation(); transferNoteToMailApp(noteToEdit) }}>
