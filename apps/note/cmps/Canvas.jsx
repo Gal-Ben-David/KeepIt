@@ -4,17 +4,19 @@ const { useEffect, useRef } = React
 export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedForm, setDrawingUrl, isAddingNote, setNoteToEdit }) {
 
     const canvasRef = useRef(null)
+    const containerCanvasRef = useRef(null)
     let context = null
     let gLastPos = { x: 0, y: 0 }
     const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
     useEffect(() => {
         const canvas = canvasRef.current
+        const canvasContainer = containerCanvasRef.current
 
         if (canvas) {
             context = canvas.getContext('2d')
-            canvas.width = 600
-            canvas.height = 600
+            canvas.width = canvasContainer.offsetWidth
+            canvas.height = canvasContainer.offsetHeight
 
             if (note.info.drawingUrl) {
                 const img = new Image()
@@ -44,6 +46,8 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
             canvas.removeEventListener('touchstart', onDown)
             canvas.removeEventListener('touchmove', onMove)
             canvas.removeEventListener('touchend', onUp)
+
+            document.body.style.cursor = 'default'
         }
     }, [])
 
@@ -113,7 +117,7 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
     }
 
     return (
-        <div className="canvas-container">
+        <div className="canvas-container" ref={containerCanvasRef}>
             <canvas ref={canvasRef}></canvas>
             <button className="save-drawing-btn" onClick={(ev) => { ev.stopPropagation(); onSaveDrawing() }}>Save</button>
         </div>

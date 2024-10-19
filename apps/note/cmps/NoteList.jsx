@@ -25,7 +25,7 @@ export function NoteList({ notes, handleEditClick, onPinNote, onRemoveNote, onDu
                                 </button>
 
                                 {note.noteTitle && <h3 className="preview-title"><LongTxt children={note.noteTitle} length={200} showButton={false} /></h3>}
-                                {note.info.txt && <LongTxt children={note.info.txt} length={300} showButton={false} />}
+                                {note.info.txt && <section className={`${!note.noteTitle ? 'padding' : ''}`}><LongTxt children={note.info.txt} length={300} showButton={false} /></section>}
 
                                 {note.info.todos &&
                                     <div className="todo-list-preview">

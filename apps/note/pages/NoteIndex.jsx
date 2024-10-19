@@ -298,7 +298,6 @@ export function NoteIndex() {
 
     return (
         <section className="main-note">
-            {document.body.style.cursor = 'default'}
             <section className="keep-header">
                 <button className="note-bars-btn" onClick={() => { setIsExpandedMenu(prevValue => !prevValue) }}>
                     <img src="assets\img\menu.png" />

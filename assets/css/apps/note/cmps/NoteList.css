@@ -24,3 +24,7 @@
      width: max-content;
      max-width: 14em;
  }
+
+ .padding {
+     padding-top: 1em;
+ }
