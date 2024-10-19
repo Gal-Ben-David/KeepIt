@@ -9,7 +9,7 @@ import { CreateNoteByDrawing } from "../../note/cmps/CreateNoteByDrawing.jsx"
 
 const { useState, useEffect, useRef } = React
 
-export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) {
+export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, transferNoteToMailApp }) {
 
     const [noteToEdit, setNoteToEdit] = useState(note)
     const [cmpType, setCmpType] = useState('')
@@ -273,6 +273,10 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen }) 
                                 title="Drawing"
                                 onClick={() => { setCmpType('NoteDrawing'); setIsDrawingModalOpen(true) }}>
                                 <i className="fa-solid fa-pencil"></i>
+                            </button>
+
+                            <button title="Send by email" onClick={(ev) => { ev.stopPropagation(); transferNoteToMailApp(noteToEdit) }}>
+                                <i className="fa-regular fa-envelope"></i>
                             </button>
                         </div>
                         {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}

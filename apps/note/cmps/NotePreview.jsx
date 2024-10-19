@@ -68,11 +68,7 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
     }
 
     function transferNoteToMailApp(note) {
-        // const encodedTitle = encodeURIComponent(note.noteTitle)
-        // const encodedText = encodeURIComponent(note.info.txt)
-        // navigate(`/mail?title=${encodedTitle}&text=${encodedText}`)
-
-        const newMail = {...mailService.getEmptyMail(), subject: note.noteTitle || '', body: note.info.txt || '', to:'user@appsus.com', sentAt: new Date()}
+        const newMail = { ...mailService.getEmptyMail(), subject: note.noteTitle || '', body: note.info.txt || '', to: 'user@appsus.com', sentAt: new Date() }
         mailService.save(newMail)
         navigate(`/mail`)
     }
@@ -112,6 +108,7 @@ export function NotePreview({ notes, onRemoveNote, loadNotes, onPinNote, onDupli
                         setNoteType={setNoteType}
                         setNotes={setNotes}
                         isOpen={isEditModalOpen}
+                        transferNoteToMailApp={transferNoteToMailApp}
                     />
                 </Modal>
             )}

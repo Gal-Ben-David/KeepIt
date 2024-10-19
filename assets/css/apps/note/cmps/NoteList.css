@@ -21,6 +21,6 @@
  .checkbox-label-preview {
      display: flex;
      align-items: start;
-     min-width: 5em;
+     width: max-content;
      max-width: 14em;
  }
