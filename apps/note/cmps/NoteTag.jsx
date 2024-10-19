@@ -1,4 +1,4 @@
-export function NoteTag({ bgColor, handleChange }) {
+export function NoteTag({ bgColor, handleInfoChange, note }) {
     return (
         <div className="tag-input">
             <input
@@ -6,7 +6,8 @@ export function NoteTag({ bgColor, handleChange }) {
                 name="tag"
                 id="tag"
                 placeholder="Enter tags separated by commas"
-                onChange={handleChange}
+                value={note.labels.length !== 0 ? note.labels.join(',') : ''}
+                onChange={handleInfoChange}
                 style={{ backgroundColor: bgColor || '#ffffff' }} />
         </div>
     )

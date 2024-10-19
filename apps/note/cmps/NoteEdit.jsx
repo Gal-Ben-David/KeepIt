@@ -6,6 +6,7 @@ import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { CreateNoteByDrawing } from "../../note/cmps/CreateNoteByDrawing.jsx"
+import { NoteTag } from "../../note/cmps/NoteTag.jsx"
 
 const { useState, useEffect, useRef } = React
 
@@ -36,24 +37,24 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
         }
     }, [isOpen, noteToEdit])
 
-    function handleChange({ target }) {
-        let { value, name: field, type } = target
-        switch (type) {
-            case 'number':
-            case 'range':
-                value = +value
-                break;
+    // function handleChange({ target }) {
+    //     let { value, name: field, type } = target
+    //     switch (type) {
+    //         case 'number':
+    //         case 'range':
+    //             value = +value
+    //             break;
 
-            case 'checkbox':
-                value = target.checked
-                break
+    //         case 'checkbox':
+    //             value = target.checked
+    //             break
 
-            case 'color':
-                value = { backgroundColor: value }
-                break
-        }
-        setNoteToEdit((prevNote) => ({ ...prevNote, [field]: value }))
-    }
+    //         case 'color':
+    //             value = { backgroundColor: value }
+    //             break
+    //     }
+    //     setNoteToEdit((prevNote) => ({ ...prevNote, [field]: value }))
+    // }
 
     function handleInfoChange({ target }) {
         let { value, name: field, type } = target
@@ -73,8 +74,11 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
             if (field === 'noteTitle') {
                 return { ...prevNote, noteTitle: value }
             }
+            if (field === 'tag') {
+                const tags = value.split(',')
+                return { ...prevNote, labels: tags }
+            }
             return { ...prevNote, info: { ...prevNote.info, [field]: value } }
-
         })
     }
 
@@ -227,7 +231,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
 
                     <DynamicCmp
                         noteType={cmpType}
-                        handleChange={handleChange}
+                        // handleChange={handleChange}
                         handleInfoChange={handleInfoChange}
                         note={noteToEdit}
                         bgColor={bgColor}
@@ -239,6 +243,13 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
                         closeDrawingModal={closeDrawingModal}
                         setNoteToEdit={setNoteToEdit}
                         setDrawingUrl={setDrawingUrl} />
+
+                    {note.labels && note.labels.length !== 0 &&
+                        <div className="tag-list">
+                            {note.labels.map((tag, i) =>
+                                tag &&
+                                <span className="tag" key={i}>{tag}</span>)}
+                        </div>}
 
 
                     <div className="actions">
@@ -278,14 +289,19 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
                             <button title="Send by email" onClick={(ev) => { ev.stopPropagation(); transferNoteToMailApp(noteToEdit) }}>
                                 <i className="fa-regular fa-envelope"></i>
                             </button>
+
+                            <button
+                                type='button'
+                                title="Tag"
+                                onClick={() => { setCmpType('NoteTag') }}>
+                                <i className="fa-solid fa-tag"></i>
+                            </button>
                         </div>
                         {isNoteStyle && <ColorInput onSetNoteStyle={onSetNoteStyle} bgColor={bgColor} />}
                         <button className="save-new-note-btn" onClick={() => onSubmit(noteToEdit)}>Save</button>
                     </div>
                 </div>
             </div>
-
-
         </section>
     )
 }
@@ -302,6 +318,8 @@ function DynamicCmp(props) {
             return <CreateNoteByTodos {...props} />
         case 'NoteDrawing':
             return <CreateNoteByDrawing {...props} />
+        case 'NoteTag':
+            return <NoteTag {...props} />
         default:
             return null
     }

@@ -101,30 +101,26 @@ export function NoteIndex() {
         else note.type = 'NoteTxt'
     }
 
-    function handleChange({ target }) {
-        let { value, name: field, type } = target
-        switch (type) {
-            case 'number':
-            case 'range':
-                value = +value
-                break;
+    // function handleChange({ target }) {
+    //     let { value, name: field, type } = target
+    //     switch (type) {
+    //         case 'number':
+    //         case 'range':
+    //             value = +value
+    //             break;
 
-            case 'checkbox':
-                value = target.checked
-                break
-        }
-        setNoteToAdd((prevNote) => {
-            if (field === 'noteTitle') {
-                return { ...prevNote, noteTitle: value }
-            }
-            if (field === 'tag') {
-                const tags = value.split(',')
-                return { ...prevNote, labels: tags }
-            }
-            return { ...prevNote, info: { ...noteToEdit.info, [field]: value } }
+    //         case 'checkbox':
+    //             value = target.checked
+    //             break
+    //     }
+    //     setNoteToAdd((prevNote) => {
+    //         if (field === 'noteTitle') {
+    //             return { ...prevNote, noteTitle: value }
+    //         }
+    //         return { ...prevNote, info: { ...noteToEdit.info, [field]: value } }
 
-        })
-    }
+    //     })
+    // }
 
     function handleInfoChange({ target }) {
         let { value, name: field, type } = target
@@ -142,8 +138,21 @@ export function NoteIndex() {
         // setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...noteToAdd.info, [field]: value } }))
 
         setNoteToAdd((prevNote) => {
-            if (field === 'imgUrl') setImgUrl(value)
-            if (field === 'videoUrl') setVideoUrl(value)
+            if (field === 'imgUrl') {
+                value = value.trim()
+                setImgUrl(value)
+            }
+            if (field === 'videoUrl') {
+                value = value.trim()
+                setVideoUrl(value)
+            }
+            if (field === 'noteTitle') {
+                return { ...prevNote, noteTitle: value }
+            }
+            if (field === 'tag') {
+                const tags = value.split(',')
+                return { ...prevNote, labels: tags }
+            }
             return { ...prevNote, info: { ...prevNote.info, [field]: value } }
 
         })
@@ -326,7 +335,7 @@ export function NoteIndex() {
                                     id="title"
                                     placeholder={`${isExpandedForm ? 'Title' : 'New note...'}`}
                                     value={noteToAdd.noteTitle}
-                                    onChange={handleChange}
+                                    onChange={handleInfoChange}
                                     onClick={() => setIsExpandedForm(true)}
                                     style={{ backgroundColor: bgColor }} />
 
@@ -376,7 +385,7 @@ export function NoteIndex() {
 
                                     <DynamicCmp
                                         cmpType={cmpType}
-                                        handleChange={handleChange}
+                                        // handleChange={handleChange}
                                         handleInfoChange={handleInfoChange}
                                         handleInfoChangeForTodos={handleInfoChangeForTodos}
                                         todosCounter={todosCounter}
@@ -451,7 +460,8 @@ export function NoteIndex() {
                             onPinNote={onPinNote}
                             onDuplicateNote={onDuplicateNote}
                             setNoteType={setNoteType}
-                            setNotes={setNotes} />
+                            setNotes={setNotes}
+                        />
 
                     </section>
                 </div>

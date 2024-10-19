@@ -203,7 +203,8 @@
  }
 
  .todo-list:first-of-type,
- .url-input {
+ .url-input,
+ .tag-input {
      display: flex;
      width: 100%;
      border-top: 1px solid lightgray;
@@ -220,7 +221,8 @@
      width: 100%;
  }
 
- .url-input input {
+ .url-input input,
+ .tag-input input {
      width: 100%;
  }
 
