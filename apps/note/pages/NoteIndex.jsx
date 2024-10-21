@@ -30,9 +30,9 @@ export function NoteIndex() {
     const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false)
     const [isExpandedMenu, setIsExpandedMenu] = useState(false)
 
-    const [imgUrl, setImgUrl] = useState(noteToAdd.info.imgUrl || '')
-    const [videoUrl, setVideoUrl] = useState(noteToAdd.info.videoUrl || '')
-    const [drawingUrl, setDrawingUrl] = useState(noteToAdd.info.drawingUrl || '')
+    // const [imgUrl, setImgUrl] = useState(noteToAdd.info.imgUrl || '')
+    // const [videoUrl, setVideoUrl] = useState(noteToAdd.info.videoUrl || '')
+    // const [drawingUrl, setDrawingUrl] = useState(noteToAdd.info.drawingUrl || '')
 
     const noteToAddRef = useRef(noteToAdd)
 
@@ -64,12 +64,8 @@ export function NoteIndex() {
             if (noteToAddRef.current.noteTitle || noteToAddRef.current.info.txt || noteToAddRef.current.info.drawingUrl ||
                 noteToAddRef.current.info.imgUrl || noteToAddRef.current.info.videoUrl || noteToAddRef.current.info.todos) {
                 onSubmit(noteToAddRef.current, true)
-                resetValues()
             }
-            else {
-                setNoteToAdd(noteService.getEmptyNote())
-                resetValues()
-            }
+            resetValues()
         }
     }
 
@@ -120,11 +116,11 @@ export function NoteIndex() {
         setNoteToAdd((prevNote) => {
             if (field === 'imgUrl') {
                 value = value.trim()
-                setImgUrl(value)
+                // setImgUrl(value)
             }
             if (field === 'videoUrl') {
                 value = value.trim()
-                setVideoUrl(value)
+                // setVideoUrl(value)
             }
             if (field === 'noteTitle') {
                 return { ...prevNote, noteTitle: value }
@@ -173,11 +169,12 @@ export function NoteIndex() {
 
     function resetValues() {
         setCmpType('NoteTxt')
-        setVideoUrl('')
-        setImgUrl('')
+        // setVideoUrl('')
+        // setImgUrl('')
         setIsNoteStyle(false)
         setTodosCounter(0)
-        setDrawingUrl('')
+        setNoteToAdd(noteService.getEmptyNote())
+        // setDrawingUrl('')
     }
 
     function onRemoveNote(noteId) {
@@ -233,18 +230,21 @@ export function NoteIndex() {
         const updatedInfo = { ...noteToAdd.info }
         if (urlType === 'img') {
             if (updatedInfo.imgUrl) {
-                updatedInfo.imgUrl = ''
+                // updatedInfo.imgUrl = ''
                 delete updatedInfo.imgUrl
-                setImgUrl('')
+                setNoteToAdd(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
+                // setImgUrl('')
             } else if (updatedInfo.drawingUrl) {
-                updatedInfo.drawingUrl = ''
+                // updatedInfo.drawingUrl = ''
                 delete updatedInfo.drawingUrl
-                setDrawingUrl('')
+                setNoteToAdd(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
+                // setDrawingUrl('')
             }
         } else if (urlType === 'video') {
-            updatedInfo.videoUrl = ''
+            // updatedInfo.videoUrl = ''
             delete updatedInfo.videoUrl
-            setVideoUrl('')
+            setNoteToAdd(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
+            // setVideoUrl('')
         }
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...updatedInfo } }))
     }
@@ -298,10 +298,10 @@ export function NoteIndex() {
                         <div className="add-note-form collapsible-element" style={{ backgroundColor: bgColor }}>
 
                             <div className="add-video-or-img">
-                                {isExpandedForm && imgUrl && renderImgOrVideo(<img src={imgUrl} />, 'img')}
-                                {isExpandedForm && videoUrl && renderImgOrVideo(<iframe src={videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                                {isExpandedForm && noteToAdd.info.imgUrl && renderImgOrVideo(<img src={noteToAdd.info.imgUrl} />, 'img')}
+                                {isExpandedForm && noteToAdd.info.videoUrl && renderImgOrVideo(<iframe src={noteToAdd.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                                 </iframe>, 'video')}
-                                {isExpandedForm && drawingUrl && renderImgOrVideo(<img src={drawingUrl} />, 'img')}
+                                {isExpandedForm && noteToAdd.info.drawingUrl && renderImgOrVideo(<img src={noteToAdd.info.drawingUrl} />, 'img')}
                             </div>
 
                             <div className="info-area">
@@ -378,7 +378,6 @@ export function NoteIndex() {
                                         isDrawingModalOpen={isDrawingModalOpen}
                                         closeDrawingModal={closeDrawingModal}
                                         setIsExpandedForm={setIsExpandedForm}
-                                        setDrawingUrl={setDrawingUrl}
                                         isAddingNote={true}
                                     />
 

@@ -1,7 +1,7 @@
 
 const { useEffect, useRef } = React
 
-export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedForm, setDrawingUrl, isAddingNote, setNoteToEdit }) {
+export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedForm, isAddingNote, setNoteToEdit }) {
 
     const canvasRef = useRef(null)
     const containerCanvasRef = useRef(null)
@@ -115,7 +115,7 @@ export function Canvas({ note, setNoteToAdd, closeDrawingModal, setIsExpandedFor
         }
         else setNoteToEdit(prevNote => ({ ...prevNote, info: { ...prevNote.info, drawingUrl: dataURL } }))
 
-        setDrawingUrl(dataURL)
+        // setDrawingUrl(dataURL)
         closeDrawingModal()
 
         console.log('Drawing saved!')

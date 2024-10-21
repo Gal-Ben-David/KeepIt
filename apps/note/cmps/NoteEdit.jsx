@@ -18,9 +18,9 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
     const [isNoteStyle, setIsNoteStyle] = useState(false)
     const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false)
 
-    const [imgUrl, setImgUrl] = useState(note.info.imgUrl || '')
-    const [videoUrl, setVideoUrl] = useState(note.info.videoUrl || '')
-    const [drawingUrl, setDrawingUrl] = useState(note.info.drawingUrl || '')
+    // const [imgUrl, setImgUrl] = useState(note.info.imgUrl || '')
+    // const [videoUrl, setVideoUrl] = useState(note.info.videoUrl || '')
+    // const [drawingUrl, setDrawingUrl] = useState(note.info.drawingUrl || '')
 
     const titleAreaRef = useRef(null)
     const textareaRef = useRef(null)
@@ -52,11 +52,11 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
         setNoteToEdit((prevNote) => {
             if (field === 'imgUrl') {
                 value = value.trim()
-                setImgUrl(value)
+                // setImgUrl(value)
             }
             if (field === 'videoUrl') {
                 value = value.trim()
-                setVideoUrl(value)
+                // setVideoUrl(value)
             }
             if (field === 'noteTitle') {
                 return { ...prevNote, noteTitle: value }
@@ -125,18 +125,21 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
         const updatedInfo = { ...noteToEdit.info }
         if (urlType === 'img') {
             if (updatedInfo.imgUrl) {
-                updatedInfo.imgUrl = ''
+                // updatedInfo.imgUrl = ''
                 delete updatedInfo.imgUrl
-                setImgUrl('')
+                setNoteToEdit(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
+                // setImgUrl('')
             } else if (updatedInfo.drawingUrl) {
-                updatedInfo.drawingUrl = ''
+                // updatedInfo.drawingUrl = ''
                 delete updatedInfo.drawingUrl
-                setDrawingUrl('')
+                setNoteToEdit(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
+                // setDrawingUrl('')
             }
         } else if (urlType === 'video') {
-            updatedInfo.videoUrl = ''
+            // updatedInfo.videoUrl = ''
             delete updatedInfo.videoUrl
-            setVideoUrl('')
+            setNoteToEdit(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
+            // setVideoUrl('')
         }
         setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...updatedInfo } }))
     }
@@ -182,10 +185,10 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
 
             <div className="edit-note-form" style={{ backgroundColor: bgColor }}>
 
-                {imgUrl && renderImgOrVideo(<img src={imgUrl} />, 'img')}
-                {videoUrl && renderImgOrVideo(<iframe src={videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                {noteToEdit.info.imgUrl && renderImgOrVideo(<img src={noteToEdit.info.imgUrl} />, 'img')}
+                {noteToEdit.info.videoUrl && renderImgOrVideo(<iframe src={noteToEdit.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                 </iframe>, 'video')}
-                {drawingUrl && renderImgOrVideo(<img src={drawingUrl} />, 'img')}
+                {noteToEdit.info.drawingUrl && renderImgOrVideo(<img src={noteToEdit.info.drawingUrl} />, 'img')}
 
                 <div className="info-area">
                     <button
@@ -232,7 +235,7 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
                         isDrawingModalOpen={isDrawingModalOpen}
                         closeDrawingModal={closeDrawingModal}
                         setNoteToEdit={setNoteToEdit}
-                        setDrawingUrl={setDrawingUrl} />
+                    />
 
                     {note.labels && note.labels.length !== 0 &&
                         <div className="tag-list">

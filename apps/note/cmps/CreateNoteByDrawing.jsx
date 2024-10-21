@@ -10,7 +10,6 @@ export function CreateNoteByDrawing({ note, setIsExpandedForm, setNoteToAdd, isD
                 setNoteToAdd={setNoteToAdd}
                 closeDrawingModal={closeDrawingModal}
                 setIsExpandedForm={setIsExpandedForm}
-                setDrawingUrl={setDrawingUrl}
                 isAddingNote={isAddingNote}
                 setNoteToEdit={setNoteToEdit}
                 note={note} />
