@@ -44,7 +44,7 @@
     }
 
     .menu-notes {
-        right: -200px;
+        right: -170px;
     }
 
     .form-filter {
@@ -52,8 +52,7 @@
     }
 
     .add-note-form {
-        width: 60vw;
-        margin-inline-end: 1em;
+        width: 65vw;
     }
 
     .team-lead {
@@ -99,7 +98,23 @@
         flex-wrap: wrap;
     }
 
+    .new-note {
+        width: 15em;
+    }
 
+    .notes {
+        display: grid;
+        justify-content: center;
+    }
+
+    .pinned-notes h4 {
+        margin-inline-start: 2em;
+    }
+
+    .edit-note-form {
+        width: 90vw !important;
+        max-width: 330px;
+    }
 }
 
 @media (min-width: 601px) {
@@ -153,7 +168,7 @@
     }
 
     .note-bars-btn {
-        margin-inline-start: 1em;
+        margin-inline-start: 0.4em;
     }
 
     .team-lead {
@@ -201,6 +216,10 @@
         bottom: -40px;
         left: 50%;
         transform: translateX(-50%);
+    }
+
+    .edit-note-form {
+        width: 50vw;
     }
 
 }

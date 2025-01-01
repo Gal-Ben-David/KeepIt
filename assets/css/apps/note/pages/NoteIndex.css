@@ -166,16 +166,16 @@
  .note-bars-btn {
      background-color: transparent;
      border: none;
-
-     padding: 10px 15px;
+     width: 2em;
+     height: 2em;
 
      font-size: 1.5rem;
      cursor: pointer;
  }
 
  .note-bars-btn img {
-     height: 20px;
-
+     object-fit: contain;
+     width: 1em;
  }
 
  .actions-collapsed-form {
