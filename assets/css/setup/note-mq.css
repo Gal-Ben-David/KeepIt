@@ -89,9 +89,10 @@
     }
 
     .color-input {
-        bottom: -5px;
-        left: 140%;
-        transform: translateX(-140%);
+        bottom: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 10em;
     }
 
     .color-input .items-container {

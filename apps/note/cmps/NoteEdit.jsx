@@ -247,11 +247,11 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
 
                     <div className="actions">
                         <div className="actions-toolbar">
-                            <label
+                            <button
                                 title="Background color"
                                 onClick={() => setIsNoteStyle(isNoteStyle => !isNoteStyle)}>
                                 <i className="fa-solid fa-palette"></i>
-                            </label>
+                            </button>
 
                             <button
                                 type='button'
