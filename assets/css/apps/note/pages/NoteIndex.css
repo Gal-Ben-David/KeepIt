@@ -1,9 +1,4 @@
  /* note index */
-
- * {
-     box-sizing: border-box;
- }
-
  .main-note {
      display: flex;
      flex-direction: column;

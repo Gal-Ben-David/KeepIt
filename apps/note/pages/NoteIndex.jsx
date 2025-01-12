@@ -1,5 +1,5 @@
 import { noteService } from '../services/note.service.js'
-import { NotePreview } from '../cmps/NotePreview.jsx'
+import { NoteList } from '../cmps/NoteList.jsx'
 import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { FilterOptions } from '../cmps/FilterOptions.jsx'
 import { CreateNoteByImg } from '../cmps/CreateNoteByImg.jsx'
@@ -8,13 +8,12 @@ import { CreateNoteByTodos } from '../cmps/CreateNoteByTodos.jsx'
 import { ColorInput } from '../cmps/ColorInput.jsx'
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { getTruthyValues } from "../../../services/util.service.js"
-import { mailService } from "../../mail/services/mail.service.js"
 import { CreateNoteByDrawing } from "../../note/cmps/CreateNoteByDrawing.jsx"
 import { Menu } from "../../note/cmps/Menu.jsx"
 import { NoteTag } from "../../note/cmps/NoteTag.jsx"
 
-const { useState, useEffect, Fragment, useRef } = React
-const { Link, useSearchParams, useNavigate } = ReactRouterDOM
+const { useState, useEffect, useRef } = React
+const { useSearchParams } = ReactRouterDOM
 
 export function NoteIndex() {
 
@@ -30,20 +29,12 @@ export function NoteIndex() {
     const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false)
     const [isExpandedMenu, setIsExpandedMenu] = useState(false)
 
-    // const [imgUrl, setImgUrl] = useState(noteToAdd.info.imgUrl || '')
-    // const [videoUrl, setVideoUrl] = useState(noteToAdd.info.videoUrl || '')
-    // const [drawingUrl, setDrawingUrl] = useState(noteToAdd.info.drawingUrl || '')
-
     const noteToAddRef = useRef(noteToAdd)
 
     useEffect(() => {
         setSearchParams(getTruthyValues(filterBy))
         loadNotes()
     }, [filterBy])
-
-    useEffect(() => {
-        document.body.style.backgroundColor = '#FFFFFF'
-    }, [])
 
     useEffect(() => {
         document.addEventListener('click', handleBodyClick)
@@ -116,11 +107,9 @@ export function NoteIndex() {
         setNoteToAdd((prevNote) => {
             if (field === 'imgUrl') {
                 value = value.trim()
-                // setImgUrl(value)
             }
             if (field === 'videoUrl') {
                 value = value.trim()
-                // setVideoUrl(value)
             }
             if (field === 'noteTitle') {
                 return { ...prevNote, noteTitle: value }
@@ -169,12 +158,9 @@ export function NoteIndex() {
 
     function resetValues() {
         setCmpType('NoteTxt')
-        // setVideoUrl('')
-        // setImgUrl('')
         setIsNoteStyle(false)
         setTodosCounter(0)
         setNoteToAdd(noteService.getEmptyNote())
-        // setDrawingUrl('')
     }
 
     function onRemoveNote(noteId) {
@@ -230,21 +216,15 @@ export function NoteIndex() {
         const updatedInfo = { ...noteToAdd.info }
         if (urlType === 'img') {
             if (updatedInfo.imgUrl) {
-                // updatedInfo.imgUrl = ''
                 delete updatedInfo.imgUrl
                 setNoteToAdd(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
-                // setImgUrl('')
             } else if (updatedInfo.drawingUrl) {
-                // updatedInfo.drawingUrl = ''
                 delete updatedInfo.drawingUrl
                 setNoteToAdd(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
-                // setDrawingUrl('')
             }
         } else if (urlType === 'video') {
-            // updatedInfo.videoUrl = ''
             delete updatedInfo.videoUrl
             setNoteToAdd(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
-            // setVideoUrl('')
         }
         setNoteToAdd((prevNote) => ({ ...prevNote, info: { ...updatedInfo } }))
     }
@@ -268,16 +248,6 @@ export function NoteIndex() {
     return (
         <section className="main-note">
             <section className="keep-header">
-                <div className="menu-and-logo">
-                    <button className="note-bars-btn" onClick={() => { setIsExpandedMenu(prevValue => !prevValue) }}>
-                        <img src="assets\img\menu.png" />
-                    </button>
-                    <div className="keep-logo">
-                        <img src="assets\img\keeps.png" />
-                        <span>Keep</span>
-                    </div>
-                </div>
-
                 <NoteFilter onSetFilter={onSetFilter} filterBy={filterBy} handleFromClick={handleFromClick} />
             </section>
 
@@ -434,7 +404,7 @@ export function NoteIndex() {
                             </div>
                         </div>
 
-                        <NotePreview
+                        <NoteList
                             notes={notes}
                             onRemoveNote={onRemoveNote}
                             loadNotes={loadNotes}

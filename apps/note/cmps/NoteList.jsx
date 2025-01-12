@@ -1,63 +1,106 @@
-import { LongTxt } from '../../../cmps/LongTxt.jsx'
+import { NoteEdit } from '../cmps/NoteEdit.jsx'
+import { Modal } from '../cmps/Modal.jsx'
+import { noteService } from '../services/note.service.js'
+import { NotePreview } from '../cmps/NotePreview.jsx'
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { Fragment, useState, useEffect } = React
+const { Link, useNavigate } = ReactRouterDOM
 
-export function NoteList({ notes, handleEditClick, onPinNote, onRemoveNote, onDuplicateNote, changeIsCheckedTodo, transferNoteToMailApp }) {
+export function NoteList({ notes, onRemoveNote, loadNotes, onPinNote, onDuplicateNote, setNoteType, setNotes }) {
+
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+    const [noteToEdit, setNoteToEdit] = useState(null)
+    const [pinnedDisplay, setPinnedDisplay] = useState('')
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        findPinnedNote()
+    }, [notes])
+
+    function onCloseModal() {
+        setIsEditModalOpen(false)
+        setNoteToEdit(null)
+    }
+
+    function handleEditClick(note) {
+        setNoteToEdit(note)
+        setIsEditModalOpen(true)
+    }
+
+    function findPinnedNote() {
+        const isPinnedNote = notes.find(note => note.isPinned)
+        setPinnedDisplay((isPinnedNote) ? 'show' : '')
+    }
+
+    function changeIsCheckedTodo(todoIdx, note) {
+        const updatedTodos = note.info.todos.map((todo, idx) => idx === todoIdx ? { ...todo, isChecked: !todo.isChecked } : todo)
+        const updatedNote = { ...note, info: { ...note.info, todos: updatedTodos } }
+        setNoteToEdit(updatedNote)
+
+        setNotes(prevNotes => {
+            const noteIndex = prevNotes.findIndex(n => n.id === updatedNote.id)
+            if (noteIndex !== -1) {
+                const updatedNotes = [...prevNotes]
+                updatedNotes[noteIndex] = updatedNote
+                return updatedNotes
+            }
+            return prevNotes
+        })
+        onSubmit(updatedNote)
+    }
+
+    function onSubmit(updatedNote) {
+        console.log(updatedNote)
+        noteService.save(updatedNote)
+            .then(savedNote => {
+                console.log(savedNote)
+                console.log('Note updated')
+                showSuccessMsg('Note has been saved successfully')
+                setNoteToEdit(noteService.getEmptyNote())
+            })
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg(`Problems saving note`)
+            })
+    }
+
     return (
+
         <Fragment>
-            <ul className="notes">
-                {notes.map(note => {
+            <section className={`pinned-notes ${pinnedDisplay}`}>
+                <h4>Pinned</h4>
+                <NotePreview notes={notes.filter(note => note.isPinned)}
+                    handleEditClick={handleEditClick}
+                    onPinNote={onPinNote}
+                    onRemoveNote={onRemoveNote}
+                    onDuplicateNote={onDuplicateNote}
+                    changeIsCheckedTodo={changeIsCheckedTodo} />
+            </section>
 
-                    return (
-                        <li key={note.id} style={{ backgroundColor: note.style.backgroundColor }} onClick={() => handleEditClick(note)}>
+            <section className="unPinned-notes">
+                {(pinnedDisplay === 'show') && <h1>Other notes</h1>}
 
-                            {note.info.imgUrl && <img src={note.info.imgUrl} />}
-                            {note.info.videoUrl &&
-                                <iframe src={note.info.videoUrl} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                                </iframe>}
-                            {note.info.drawingUrl && <img src={note.info.drawingUrl} />}
+                <NotePreview notes={notes.filter(note => !note.isPinned)}
+                    handleEditClick={handleEditClick}
+                    onPinNote={onPinNote}
+                    onRemoveNote={onRemoveNote}
+                    onDuplicateNote={onDuplicateNote}
+                    changeIsCheckedTodo={changeIsCheckedTodo} />
+            </section>
 
-                            <div className={`title-and-info-content ${(note.info.imgUrl || note.info.videoUrl || note.info.drawingUrl) ? 'absolute' : ''}`}>
-                                <button
-                                    className={`pin-btn ${(note.info.imgUrl || note.info.videoUrl || note.info.drawingUrl) ? 'absolute' : ''} ${(note.isPinned ? 'pinned' : '')}`}
-                                    onClick={(ev) => { ev.stopPropagation(); onPinNote(note) }}>
-                                    {note.isPinned ? <img src="assets/img/pin-full.png" /> : <img src="assets/img/pin-empty.png" />}
-                                </button>
-
-                                {note.noteTitle && <h3 className="preview-title"><LongTxt children={note.noteTitle} length={200} showButton={false} /></h3>}
-                                {note.info.txt && <section className={`${!note.noteTitle ? 'padding' : ''}`}><LongTxt children={note.info.txt} length={300} showButton={false} /></section>}
-
-                                {note.info.todos &&
-                                    <div className="todo-list-preview">
-                                        {note.info.todos.map((item, i) =>
-                                            item &&
-                                            <label className="checkbox-label-preview" key={i} onClick={(ev) => { ev.stopPropagation() }} >
-                                                <input
-                                                    type="checkbox"
-                                                    checked={item.isChecked || false}
-                                                    onChange={() => changeIsCheckedTodo(i, note)} />
-                                                <span className="todo-text">{item.txt}</span>
-                                            </label>)}
-                                    </div>}
-                            </div>
-                            {note.labels && note.labels.length !== 0 &&
-                                <div className="tag-list">
-                                    {note.labels.map((tag, i) =>
-                                        tag &&
-                                        <span className="tag" key={i}>{tag}</span>)}
-                                </div>}
-
-                            <div className="toolbar">
-                                <button title="Delete Note" onClick={(ev) => { ev.stopPropagation(); onRemoveNote(note.id) }}><i className="fa-solid fa-trash"></i></button>
-                                <button title="Edit Note" onClick={(ev) => { ev.stopPropagation(); handleEditClick(note) }}><i className="fa-regular fa-pen-to-square"></i></button>
-                                <button title="Duplicate Note" onClick={(ev) => { ev.stopPropagation(); onDuplicateNote(note) }}><i className="fa-regular fa-clone"></i></button>
-                                <button title="Send by email" onClick={(ev) => { ev.stopPropagation(); transferNoteToMailApp(note) }}><i className="fa-regular fa-envelope"></i></button>
-                            </div>
-                        </li>
-                    )
-                })}
-            </ul>
-
-        </Fragment>
+            {isEditModalOpen && (
+                <Modal isOpen={isEditModalOpen} onCloseModal={onCloseModal} bgColor={noteToEdit.style.backgroundColor}>
+                    <NoteEdit
+                        note={noteToEdit}
+                        onCloseModal={onCloseModal}
+                        loadNotes={loadNotes}
+                        setNoteType={setNoteType}
+                        setNotes={setNotes}
+                        isOpen={isEditModalOpen} />
+                </Modal>
+            )}
+        </Fragment >
     )
 }

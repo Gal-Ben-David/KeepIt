@@ -1,4 +1,3 @@
-import { Modal } from "../cmps/Modal.jsx"
 import { noteService } from '../services/note.service.js'
 import { CreateNoteByImg } from '../cmps/CreateNoteByImg.jsx'
 import { CreateNoteByVideo } from '../cmps/CreateNoteByVideo.jsx'
@@ -17,10 +16,6 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
     const [todosCounter, setTodosCounter] = useState((noteToEdit.info.todos) ? noteToEdit.info.todos.length : 0)
     const [isNoteStyle, setIsNoteStyle] = useState(false)
     const [isDrawingModalOpen, setIsDrawingModalOpen] = useState(false)
-
-    // const [imgUrl, setImgUrl] = useState(note.info.imgUrl || '')
-    // const [videoUrl, setVideoUrl] = useState(note.info.videoUrl || '')
-    // const [drawingUrl, setDrawingUrl] = useState(note.info.drawingUrl || '')
 
     const titleAreaRef = useRef(null)
     const textareaRef = useRef(null)
@@ -52,11 +47,9 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
         setNoteToEdit((prevNote) => {
             if (field === 'imgUrl') {
                 value = value.trim()
-                // setImgUrl(value)
             }
             if (field === 'videoUrl') {
                 value = value.trim()
-                // setVideoUrl(value)
             }
             if (field === 'noteTitle') {
                 return { ...prevNote, noteTitle: value }
@@ -125,21 +118,15 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
         const updatedInfo = { ...noteToEdit.info }
         if (urlType === 'img') {
             if (updatedInfo.imgUrl) {
-                // updatedInfo.imgUrl = ''
                 delete updatedInfo.imgUrl
                 setNoteToEdit(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
-                // setImgUrl('')
             } else if (updatedInfo.drawingUrl) {
-                // updatedInfo.drawingUrl = ''
                 delete updatedInfo.drawingUrl
                 setNoteToEdit(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
-                // setDrawingUrl('')
             }
         } else if (urlType === 'video') {
-            // updatedInfo.videoUrl = ''
             delete updatedInfo.videoUrl
             setNoteToEdit(prevNote => ({ ...prevNote, info: { ...updatedInfo } }))
-            // setVideoUrl('')
         }
         setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...updatedInfo } }))
     }
@@ -177,8 +164,6 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
     }
 
     const bgColor = noteToEdit.style.backgroundColor
-
-    console.log(noteToEdit)
 
     return (
         <section className="edit-note-area">
@@ -224,7 +209,6 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
 
                     <DynamicCmp
                         noteType={cmpType}
-                        // handleChange={handleChange}
                         handleInfoChange={handleInfoChange}
                         note={noteToEdit}
                         bgColor={bgColor}
@@ -277,10 +261,6 @@ export function NoteEdit({ note, onCloseModal, setNotes, setNoteType, isOpen, tr
                                 title="Drawing"
                                 onClick={() => { setCmpType('NoteDrawing'); setIsDrawingModalOpen(true) }}>
                                 <i className="fa-solid fa-paintbrush"></i>
-                            </button>
-
-                            <button title="Send by email" onClick={(ev) => { ev.stopPropagation(); transferNoteToMailApp(noteToEdit) }}>
-                                <i className="fa-regular fa-envelope"></i>
                             </button>
 
                             <button
