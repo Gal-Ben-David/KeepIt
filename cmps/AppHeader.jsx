@@ -26,11 +26,11 @@ export function AppHeader() {
 
         <div onClick={toggleMenu} className="apps-icon hide"><img src="assets\img\apps_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="apps" /></div>
         <nav ref={navRef}>
-            <NavLink to="/" onClick={onBackdrop}>
+            <NavLink to="/" className="btn" onClick={onBackdrop}>
                 <div className="nav-word">Home</div>
                 <div className="nav-logo hide"><img src="assets\img\home_24dp_202124_FILL0_wght400_GRAD0_opsz24.png" alt="home" /></div>
             </NavLink>
-            <NavLink to="/note" onClick={onBackdrop}>
+            <NavLink to="/note" className="btn" onClick={onBackdrop}>
                 <div className="nav-word">Notes</div>
                 <div className="nav-logo hide"><img src="assets\img\keeps.png" alt="notes" /></div>
             </NavLink>

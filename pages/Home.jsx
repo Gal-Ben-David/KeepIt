@@ -1,31 +1,18 @@
-const { useEffect } = React
 
 const { NavLink } = ReactRouterDOM
 
 export function Home() {
 
-    useEffect(() => {
-        document.body.style.backgroundColor = '#FFFFFF'
-    }, [])
-
     return (
         <section className="home">
             <div className="welcome-area">
-                <h1>Appsus</h1>
-
                 <div className="welcome-message">
-                    <p>Welcome to Appsus 👋 </p>
-                    <p>  Your all-in-one solution for staying organized and productive. </p>
-                    <p>  From managing emails to capturing notes, </p>
-                    <p>  Appsus makes it easy to keep everything in one place!</p>
+                    <p>  Capture your thoughts easily </p>
+                    <p>  Organize, edit, and find your notes - all in one place. </p>
+                    <button className="btn btn-try-now"> Try now</button>
                 </div>
-            </div>
-
-            <div className="apps-container">
-                <h2>Our Apps</h2>
-                <div className="logos">
-                    <NavLink to="/mail"> <div className="app-logo"> <img src="assets/img/mail-icons/gmail-logo.png" /></div></NavLink>
-                    <NavLink to="/note"> <div className="app-logo">  <img src="assets/img/keeps.png" /></div></NavLink>
+                <div>
+                    <img className="main-img" src="assets\img\task-people2.png" />
                 </div>
             </div>
         </section>

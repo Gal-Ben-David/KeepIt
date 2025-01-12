@@ -1,19 +1,39 @@
 @font-face {
-    font-family: "roboto-regular";
+    font-family: 'roboto-regular';
     src: url("../../fonts/Roboto-Regular.ttf");
 }
 
 @font-face {
-    font-family: "roboto-medium";
+    font-family: 'roboto-medium';
     src: url("../../fonts/Roboto-Medium.ttf");
 }
 
 @font-face {
-    font-family: "roboto-light";
+    font-family: 'roboto-light';
     src: url("../../fonts/Roboto-Light.ttf");
 }
 
 @font-face {
-    font-family: "roboto-bold";
+    font-family: 'roboto-bold';
     src: url("../../fonts/Roboto-Bold.ttf");
+}
+
+@font-face {
+    font-family: 'Mukta-Light';
+    src: url(/fonts/Mukta/Mukta-Light.ttf);
+}
+
+@font-face {
+    font-family: 'Mukta-Regular';
+    src: url(../../fonts/Mukta/Mukta-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Mukta-Medium';
+    src: url(../../fonts/Mukta/Mukta-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'Mukta-ExtraBold';
+    src: url(../../fonts/Mukta/Mukta-ExtraBold.ttf);
 }

@@ -23,3 +23,13 @@ iframe {
     width: 100%;
     object-fit: cover;
 }
+
+.btn {
+    padding: 0.4em 1em;
+    border-radius: 0.5em;
+    border: none;
+
+    font-size: 1.1em;
+    font-family: inherit;
+    cursor: pointer;
+}

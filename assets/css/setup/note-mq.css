@@ -1,4 +1,8 @@
 @media (max-width: 600px) {
+    .app-header .logo img {
+        width: 2.2em;
+    }
+
     ul.notes {
         columns: 1;
         column-gap: 20px;
@@ -27,13 +31,17 @@
         height: 300px;
     }
 
-    .app-logo {
-        width: 6em;
-        margin-block-end: 5em;
+    .welcome-area {
+        flex-direction: column;
     }
 
     .welcome-area p {
         font-size: 1.2rem;
+    }
+
+    .welcome-message {
+        justify-items: center;
+        text-align: center;
     }
 
     .menu-notes {
@@ -139,12 +147,12 @@
         top: 50%;
     }
 
-    .app-logo {
-        width: 12em;
-    }
-
     .welcome-area p {
         font-size: 1.6rem;
+    }
+
+    .welcome-message {
+        justify-items: start;
     }
 
     .menu-notes {
