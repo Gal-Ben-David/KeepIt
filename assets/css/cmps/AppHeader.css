@@ -32,10 +32,6 @@ nav a {
     cursor: pointer;
 }
 
-nav a:active {
-    color: purple;
-}
-
 nav a.active {
     font-weight: 600;
     background-color: var(--clr-bg-2);
