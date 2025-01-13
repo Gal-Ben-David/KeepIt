@@ -261,7 +261,7 @@ export function NoteIndex() {
                 <div>
                     {showFilterOption &&
                         <section className="search">
-                            <FilterOptions setFilterBy={setFilterBy} filterBy={filterBy} handleTypeChange={handleTypeChange} />
+                            <FilterOptions handleTypeChange={handleTypeChange} setShowFilterOption={setShowFilterOption} />
                         </section>}
 
                     <section className="new-note">

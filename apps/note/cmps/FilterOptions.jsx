@@ -1,10 +1,13 @@
-export function FilterOptions({ handleTypeChange }) {
+export function FilterOptions({ handleTypeChange, setShowFilterOption }) {
 
     return (
         <section className="filter-options">
             <div className="filter-options-header">
                 <span>Types</span>
-                <button className="clear-filter-btn" onClick={() => handleTypeChange('')}>Clear</button>
+                <div className="filter-actions-buttons">
+                    <button className="clear-filter-btn" onClick={() => handleTypeChange('')}>Clear</button>
+                    <button className="clear-filter-btn" onClick={() => { setShowFilterOption(false); handleTypeChange('') }}>Cancel</button>
+                </div>
             </div>
 
             <div className="option-types">

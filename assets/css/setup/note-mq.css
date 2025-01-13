@@ -85,10 +85,6 @@
         font-size: 1.4em;
     }
 
-    .clear-filter-btn {
-        margin-inline-end: 2em;
-    }
-
     .color-input {
         bottom: -100px;
         left: 50%;
@@ -200,10 +196,6 @@
     .option-types i {
         margin-block-start: 1.5em;
         font-size: 2em;
-    }
-
-    .clear-filter-btn {
-        margin-inline-end: 1em;
     }
 
     .option-types {
