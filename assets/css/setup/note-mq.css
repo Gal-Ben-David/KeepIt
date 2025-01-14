@@ -19,6 +19,7 @@
     .menu-and-notes {
         display: flex;
         gap: 0.5em;
+        justify-content: center;
     }
 
     .actions-collapsed-form {
@@ -44,8 +45,8 @@
         text-align: center;
     }
 
-    .menu-notes {
-        right: -170px;
+    .menu {
+        display: none;
     }
 
     .form-filter {

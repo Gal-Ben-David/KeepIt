@@ -9,7 +9,9 @@ export function Home() {
                 <div className="welcome-message">
                     <p>  Capture your thoughts easily </p>
                     <p>  Organize, edit, and find your notes - all in one place. </p>
-                    <button className="btn btn-try-now"> Try now</button>
+                    <NavLink to="/note">
+                        <button className="btn btn-try-now"> Try now</button>
+                    </NavLink>
                 </div>
                 <div>
                     <img className="main-img" src="assets\img\task-people2.png" />
