@@ -81,6 +81,7 @@
      margin-block-start: 1.5em;
      background-color: var(--clr-btn-call-to-action);
      padding: 0.5em 1em;
+     color: inherit;
  }
 
  .btn-try-now:hover {
