@@ -87,11 +87,6 @@
      background-color: var(--clr-btn-call-to-action-hover);
  }
 
- .main-img-container {
-     width: 500px;
- }
-
-
  .main-img {
      width: 100%;
  }
@@ -125,8 +120,7 @@
      transition: background 0.3s ease-in-out;
  }
 
- /* Shine effect */
- .btn-try-now::before {
+ /* .btn-try-now::before {
      content: '';
      position: absolute;
      top: 0;
@@ -141,7 +135,7 @@
  }
 
  /* Animation */
- .btn-try-now:before {
+ /* .btn-try-now:before {
      animation: shine 1.2s ease-in-out forwards;
  }
 
@@ -153,4 +147,4 @@
      100% {
          left: 125%;
      }
- }
+ }  */
