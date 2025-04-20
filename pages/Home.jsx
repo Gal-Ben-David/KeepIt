@@ -14,7 +14,7 @@ export function Home() {
                     </NavLink>
                 </div>
                 <div>
-                    <img className="main-img" src="assets\img\task-people2.png" />
+                    <img className="main-img" src="https://res.cloudinary.com/dvykycdey/image/upload//f_auto,q_auto/v1745168066/task-people2_tishnt.png" />
                 </div>
             </div>
         </section>

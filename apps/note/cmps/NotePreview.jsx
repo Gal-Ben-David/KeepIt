@@ -11,7 +11,7 @@ export function NotePreview({ notes, handleEditClick, onPinNote, onRemoveNote, o
                     return (
                         <li key={note.id} style={{ backgroundColor: note.style.backgroundColor }} onClick={() => handleEditClick(note)}>
 
-                            {note.info.imgUrl && <img src={note.info.imgUrl} />}
+                            {note.info.imgUrl && <img src={note.info.imgUrl} loading="lazy" />}
                             {note.info.videoUrl &&
                                 <iframe src={note.info.videoUrl} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                                 </iframe>}
