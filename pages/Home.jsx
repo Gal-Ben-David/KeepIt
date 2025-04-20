@@ -20,7 +20,7 @@ export function Home() {
                         <button className="btn btn-try-now"> Try now</button>
                     </NavLink>
                 </div>
-                <div>
+                <div className="main-img-container">
                     <img className={`main-img ${animation ? 'animation' : ''}`}
                         src="https://res.cloudinary.com/dvykycdey/image/upload/f_auto,q_auto,w_600/v1745168066/task-people2_tishnt.png"
                         onLoad={handleImageLoad} />

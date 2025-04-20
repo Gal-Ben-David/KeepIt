@@ -88,9 +88,13 @@
      background-color: var(--clr-btn-call-to-action-hover);
  }
 
+ .main-img-container {
+     width: 500px;
+ }
+
+
  .main-img {
      width: 100%;
-     max-width: 500px;
  }
 
  .main-img.animation {
