@@ -17,7 +17,7 @@
     }
 
     .main-img-container {
-        max-width: 290px;
+        width: 290px;
     }
 
     .menu-and-notes {
@@ -155,6 +155,10 @@
     .welcome-message {
         justify-items: start;
         padding-inline-start: 2em;
+    }
+
+    .main-img-container {
+        width: 500px;
     }
 
     .menu-notes {
