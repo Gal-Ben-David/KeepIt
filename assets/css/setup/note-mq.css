@@ -16,6 +16,10 @@
         font-size: 2em;
     }
 
+    .main-img-container {
+        max-width: 290px;
+    }
+
     .menu-and-notes {
         display: flex;
         gap: 0.5em;
@@ -150,6 +154,7 @@
 
     .welcome-message {
         justify-items: start;
+        padding-inline-start: 2em;
     }
 
     .menu-notes {
@@ -234,6 +239,10 @@
     .canvas-container {
         width: 600px;
         height: 600px;
+    }
+
+    .welcome-message {
+        padding-inline-start: 0;
     }
 }
 
