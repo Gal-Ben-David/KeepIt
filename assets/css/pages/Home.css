@@ -47,7 +47,7 @@
      display: flex;
      align-items: center;
      align-self: stretch;
-     gap: .65em;
+     justify-content: center;
 
      margin-block-start: 4em;
 
@@ -85,6 +85,14 @@
 
  .btn-try-now:hover {
      background-color: var(--clr-btn-call-to-action-hover);
+ }
+
+ .main-img-container {
+     background-image: url('https://res.cloudinary.com/dvykycdey/image/upload/f_auto,q_auto,w_600/v1745168066/task-people2_tishnt.png');
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+
  }
 
  .main-img {

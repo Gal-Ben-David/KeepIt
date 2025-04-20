@@ -1,4 +1,3 @@
-const { useState, useEffect } = React
 
 const { NavLink } = ReactRouterDOM
 
@@ -15,8 +14,8 @@ export function Home() {
                     </NavLink>
                 </div>
                 <div className="main-img-container">
-                    <img className="main-img"
-                        src="https://res.cloudinary.com/dvykycdey/image/upload/f_auto,q_auto,w_600/v1745168066/task-people2_tishnt.png" />
+                    {/* <img className="main-img"
+                        src="https://res.cloudinary.com/dvykycdey/image/upload/f_auto,q_auto,w_600/v1745168066/task-people2_tishnt.png" /> */}
                 </div>
             </div>
         </section>
