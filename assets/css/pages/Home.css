@@ -89,6 +89,11 @@
  }
 
  .main-img {
+     width: 100%;
+     max-width: 500px;
+ }
+
+ .main-img.animation {
      animation: scaleUp 5s linear infinite;
  }
 

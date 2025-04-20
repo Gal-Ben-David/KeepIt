@@ -1,7 +1,9 @@
+const { useState } = React
 
 const { NavLink } = ReactRouterDOM
 
 export function Home() {
+    const [imgLoaded, setImgLoaded] = useState(false)
 
     return (
         <section className="home">
@@ -14,7 +16,9 @@ export function Home() {
                     </NavLink>
                 </div>
                 <div>
-                    <img className="main-img" src="https://res.cloudinary.com/dvykycdey/image/upload//f_auto,q_auto/v1745168066/task-people2_tishnt.png" />
+                    <img className="main-img"
+                        src="https://res.cloudinary.com/dvykycdey/image/upload/f_auto,q_auto,w_600/v1745168066/task-people2_tishnt.png"
+                        onLoad={() => setImgLoaded(true)} />
                 </div>
             </div>
         </section>
