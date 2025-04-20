@@ -88,16 +88,13 @@
  }
 
  .main-img-container {
-     background-image: url('https://res.cloudinary.com/dvykycdey/image/upload/f_auto,q_auto,w_600/v1745168066/task-people2_tishnt.png');
+     background-image: url('../../img/task-people2_compressed.png');
      background-size: contain;
      background-repeat: no-repeat;
      background-position: center;
 
  }
 
- .main-img {
-     width: 100%;
- }
 
  .main-img.animation {
      animation: scaleUp 5s linear infinite;
