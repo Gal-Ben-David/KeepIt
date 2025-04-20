@@ -80,7 +80,6 @@
  .btn-try-now {
      margin-block-start: 1.5em;
      background-color: var(--clr-btn-call-to-action);
-     padding: 0.5em 1em;
      color: inherit;
  }
 
@@ -112,5 +111,46 @@
 
      100% {
          transform: scale(1);
+     }
+ }
+
+ .btn-try-now {
+     position: relative;
+     overflow: hidden;
+     border: none;
+     padding: .8em 1.5em;
+     font-size: 1rem;
+     border-radius: .8em;
+     cursor: pointer;
+     transition: background 0.3s ease-in-out;
+ }
+
+ /* Shine effect */
+ .btn-try-now::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: -75%;
+     width: 50%;
+     height: 100%;
+     background: linear-gradient(120deg,
+             rgba(255, 255, 255, 0.3) 0%,
+             rgba(255, 255, 255, 0.6) 50%,
+             rgba(255, 255, 255, 0.3) 100%);
+     transform: skewX(-25deg);
+ }
+
+ /* Animation */
+ .btn-try-now:before {
+     animation: shine 1.2s ease-in-out forwards;
+ }
+
+ @keyframes shine {
+     0% {
+         left: -75%;
+     }
+
+     100% {
+         left: 125%;
      }
  }
